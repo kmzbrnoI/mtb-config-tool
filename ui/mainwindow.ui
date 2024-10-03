@@ -2,20 +2,191 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>845</width>
+    <height>681</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>MainWindow</string>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
-  <widget class="QStatusBar" name="statusbar"/>
+  <property name="windowTitle">
+   <string>MTB konfigurační nástroj</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTreeWidget" name="tw_modules">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>10000</width>
+        <height>10000</height>
+       </size>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <attribute name="headerVisible">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="headerCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="headerMinimumSectionSize">
+       <number>50</number>
+      </attribute>
+      <attribute name="headerHighlightSections">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="headerStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Adresa DEC</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignLeading|AlignVCenter</set>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Adresa HEX</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Adresa BIN</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Název</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Typ</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Stav</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Firmware</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Bootloader</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Porucha</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Varování</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Maják</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="mb_main">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>845</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="m_mtb_daemon">
+    <property name="title">
+     <string>MTB Daemon</string>
+    </property>
+    <addaction name="a_connect"/>
+    <addaction name="a_disconnect"/>
+    <addaction name="separator"/>
+    <addaction name="a_daemon_connection_settings"/>
+   </widget>
+   <widget class="QMenu" name="m_mtb_usb">
+    <property name="title">
+     <string>MTB-USB</string>
+    </property>
+    <addaction name="a_mtbbus_settings"/>
+   </widget>
+   <widget class="QMenu" name="m_help">
+    <property name="title">
+     <string>Nápověda</string>
+    </property>
+    <addaction name="a_about"/>
+   </widget>
+   <addaction name="m_mtb_daemon"/>
+   <addaction name="m_mtb_usb"/>
+   <addaction name="m_help"/>
+  </widget>
+  <widget class="QStatusBar" name="sb_main"/>
+  <action name="a_connect">
+   <property name="text">
+    <string>Připojit</string>
+   </property>
+  </action>
+  <action name="a_disconnect">
+   <property name="text">
+    <string>Odpojit</string>
+   </property>
+  </action>
+  <action name="a_daemon_connection_settings">
+   <property name="text">
+    <string>Nastavení připojení</string>
+   </property>
+  </action>
+  <action name="a_mtbbus_settings">
+   <property name="text">
+    <string>Nastavení MTBbus</string>
+   </property>
+  </action>
+  <action name="a_about">
+   <property name="text">
+    <string>O programu</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
