@@ -5,9 +5,10 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     QTranslator translator;
-    translator.load(":/qm/mtb-config_cz");
+    bool success = translator.load(":/qm/mtb-config_cz");
+    if (!success)
+        return 1;
     a.installTranslator(&translator);
-    QObject::tr("Hello John!");
     MainWindow w;
     w.show();
     return a.exec();

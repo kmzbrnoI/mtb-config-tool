@@ -6,8 +6,11 @@
     <message>
         <location filename="ui/mainwindow.ui" line="23"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="126"/>
+        <location filename="src/mainwindow.cpp" line="9"/>
+        <location filename="src/mainwindow.cpp" line="24"/>
+        <location filename="src/mainwindow.cpp" line="25"/>
         <source>MTB Configuration Tool</source>
-        <translation></translation>
+        <translation>MTB konfigurační nástroj</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="73"/>
@@ -129,13 +132,17 @@
         <source>F1</source>
         <translation></translation>
     </message>
+    <message>
+        <location filename="src/mainwindow.cpp" line="27"/>
+        <source>Created by Jan Horáček 2024</source>
+        <translation>Vytvořil Jan Horáček 2024</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="src/main.cpp" line="10"/>
         <source>Hello John!</source>
-        <translation>Ahoj Honzo!</translation>
+        <translation type="vanished">Ahoj Honzo!</translation>
     </message>
 </context>
 </TS>
