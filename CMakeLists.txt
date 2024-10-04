@@ -9,14 +9,18 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Network)
 
 set(PROJECT_SOURCES
     src/main.cpp
     src/mainwindow.cpp
     src/mainwindow.h
+    src/client.h
+    src/client.cpp
     ui/mainwindow.ui
 )
 
@@ -32,6 +36,7 @@ else()
 endif()
 
 target_link_libraries(mtb-config PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(mtb-config PRIVATE Qt${QT_VERSION_MAJOR}::Network)
 
 set_target_properties(mtb-config PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
