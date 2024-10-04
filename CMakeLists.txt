@@ -12,9 +12,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Network)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network LinguistTools)
+
+qt_standard_project_setup(I18N_TRANSLATED_LANGUAGES cz)
+
+qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} mtb-config_cz.ts)
 
 set(PROJECT_SOURCES
     src/main.cpp
@@ -29,12 +32,23 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(mtb-config
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${QM_FILES}
     )
 else()
     add_executable(mtb-config
         ${PROJECT_SOURCES}
+        ${QM_FILES}
     )
 endif()
+
+qt_add_translations(mtb-config)
+
+# Add generated qm files to the resources
+qt_add_resources(mtb-config "qm"
+    PREFIX "/qm"
+    BASE ${CMAKE_CURRENT_BINARY_DIR}
+    FILES ${QM_FILES}
+)
 
 target_link_libraries(mtb-config PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(mtb-config PRIVATE Qt${QT_VERSION_MAJOR}::Network)
@@ -47,9 +61,15 @@ set_target_properties(mtb-config PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+# Because of version.h
+target_include_directories(mtb-config PUBLIC
+    "${PROJECT_BINARY_DIR}"
+)
+
 install(TARGETS mtb-config
     BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(mtb-config)

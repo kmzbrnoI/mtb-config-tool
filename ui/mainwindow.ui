@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MTB konfigurační nástroj</string>
+   <string>MTB Configuration Tool</string>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
@@ -35,6 +35,9 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QTreeWidget" name="tw_modules">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
         <horstretch>0</horstretch>
@@ -67,7 +70,7 @@
       </attribute>
       <column>
        <property name="text">
-        <string>Adresa DEC</string>
+        <string>Address DEC</string>
        </property>
        <property name="textAlignment">
         <set>AlignLeading|AlignVCenter</set>
@@ -75,27 +78,27 @@
       </column>
       <column>
        <property name="text">
-        <string>Adresa HEX</string>
+        <string>Address HEX</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Adresa BIN</string>
+        <string>Address BIN</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Název</string>
+        <string>Name</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Typ</string>
+        <string>Type</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Stav</string>
+        <string>State</string>
        </property>
       </column>
       <column>
@@ -110,17 +113,17 @@
       </column>
       <column>
        <property name="text">
-        <string>Porucha</string>
+        <string>Error</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Varování</string>
+        <string>Warning</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Maják</string>
+        <string>Beacon</string>
        </property>
       </column>
      </widget>
@@ -153,7 +156,7 @@
    </widget>
    <widget class="QMenu" name="m_help">
     <property name="title">
-     <string>Nápověda</string>
+     <string>Help</string>
     </property>
     <addaction name="a_about"/>
    </widget>
@@ -164,27 +167,36 @@
   <widget class="QStatusBar" name="sb_main"/>
   <action name="a_connect">
    <property name="text">
-    <string>Připojit</string>
+    <string>Connect</string>
    </property>
   </action>
   <action name="a_disconnect">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Odpojit</string>
+    <string>Disconnect</string>
    </property>
   </action>
   <action name="a_daemon_connection_settings">
    <property name="text">
-    <string>Nastavení připojení</string>
+    <string>Connection Settings</string>
    </property>
   </action>
   <action name="a_mtbbus_settings">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Nastavení MTBbus</string>
+    <string>MTBbus Settings</string>
    </property>
   </action>
   <action name="a_about">
    <property name="text">
-    <string>O programu</string>
+    <string>About</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
  </widget>
