@@ -3,16 +3,16 @@
 #include "version.h"
 
 MainWindow::MainWindow(Settings& s, QWidget *parent)
-    : QMainWindow(parent), s(s), settings_window(s) {
+    : QMainWindow(parent), s(s), m_settingsWindow(s) {
     ui.setupUi(this);
     this->setWindowTitle(QString(tr("MTB Configuration Tool")+" v%1.%2").\
                          arg(MTB_CONFIG_VERSION_MAJOR).arg(MTB_CONFIG_VERSION_MINOR));
 
-    QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_m_about_triggered(bool)));
-    QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_a_options_triggered(bool)));
+    QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_MAboutTriggered(bool)));
+    QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_AOptionsTriggered(bool)));
 }
 
-void MainWindow::ui_m_about_triggered(bool) {
+void MainWindow::ui_MAboutTriggered(bool) {
     QMessageBox::information(
         this,
         tr("MTB Configuration Tool"),
@@ -23,11 +23,11 @@ void MainWindow::ui_m_about_triggered(bool) {
     );
 }
 
-void MainWindow::ui_a_options_triggered(bool) {
-    this->settings_window.open();
+void MainWindow::ui_AOptionsTriggered(bool) {
+    this->m_settingsWindow.open();
 }
 
 void MainWindow::retranslate() {
     this->ui.retranslateUi(this);
-    this->settings_window.retranslate();
+    this->m_settingsWindow.retranslate();
 }

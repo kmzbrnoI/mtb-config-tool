@@ -18,11 +18,11 @@ public:
 private:
     Ui::MainWindow ui;
     Settings& s;
-    SettingsWindow settings_window;
+    SettingsWindow m_settingsWindow;
 
 private slots:
-    void ui_m_about_triggered(bool);
-    void ui_a_options_triggered(bool);
+    void ui_MAboutTriggered(bool);
+    void ui_AOptionsTriggered(bool);
 
 }; // class MainWindow
 
