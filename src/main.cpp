@@ -34,7 +34,12 @@ int main(int argc, char *argv[]) {
     else
         translate_app_en();
 
-    return a.exec();
+    int result = a.exec();
+
+    main_window.release();
+    cz_translator.release();
+
+    return result;
 }
 
 void translate_app_cz() {
