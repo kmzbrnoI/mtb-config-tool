@@ -21,11 +21,14 @@ qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} mtb-config_cz.ts)
 
 set(PROJECT_SOURCES
     src/main.cpp
-    src/mainwindow.cpp
-    src/mainwindow.h
     src/client.h
     src/client.cpp
+    src/win/win_main.cpp
+    src/win/win_main.h
+    src/win/win_settings.h
+    src/win/win_settings.cpp
     ui/mainwindow.ui
+    ui/settingsdialog.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -64,6 +67,8 @@ set_target_properties(mtb-config PROPERTIES
 # Because of version.h
 target_include_directories(mtb-config PUBLIC
     "${PROJECT_BINARY_DIR}"
+    src
+    src/win
 )
 
 install(TARGETS mtb-config

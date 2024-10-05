@@ -160,8 +160,14 @@
     </property>
     <addaction name="a_about"/>
    </widget>
+   <widget class="QMenu" name="m_settings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+   </widget>
    <addaction name="m_mtb_daemon"/>
    <addaction name="m_mtb_usb"/>
+   <addaction name="m_settings"/>
    <addaction name="m_help"/>
   </widget>
   <widget class="QStatusBar" name="sb_main"/>

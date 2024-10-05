@@ -1,12 +1,12 @@
 #include <QMessageBox>
-#include "mainwindow.h"
+#include "win_main.h"
 #include "version.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    this->setWindowTitle(QString(tr("MTB Configuration Tool")+"v%1.%2").\
+    this->setWindowTitle(QString(tr("MTB Configuration Tool")+" v%1.%2").\
                          arg(MTB_CONFIG_VERSION_MAJOR).arg(MTB_CONFIG_VERSION_MINOR));
 
     QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_m_about_triggered(bool)));

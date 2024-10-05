@@ -5,10 +5,6 @@
 #include <QObject>
 #include "ui_mainwindow.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -23,5 +19,6 @@ private:
 private slots:
     void ui_m_about_triggered(bool);
 
-};
+}; // class MainWindow
+
 #endif // MAINWINDOW_H
