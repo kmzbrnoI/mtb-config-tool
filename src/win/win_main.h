@@ -29,6 +29,8 @@ private:
     void connectedUpdateGui();
     QString daemonHostPort() const;
 
+    void clientReceivedMtbUsb(const QJsonObject&);
+
 private slots:
     void ui_MAboutTriggered(bool);
     void ui_AOptionsTriggered(bool);

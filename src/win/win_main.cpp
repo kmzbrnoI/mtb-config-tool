@@ -45,24 +45,40 @@ void MainWindow::retranslate() {
 }
 
 void MainWindow::clientJsonReceived(const QJsonObject& json) {
-
+    if (json["command"] == "mtbusb")
+        this->clientReceivedMtbUsb(json["mtbusb"].toObject());
 }
 
 void MainWindow::clientConnected() {
     this->connectedUpdateGui();
 
+    this->m_client.sendNoExc(
+        {{"command", "mtbusb"}},
+        [](const QJsonObject& content) {
+            (void)content;
+            QApplication::restoreOverrideCursor();
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            (void)errorCode;
+            (void)errorMessage;
+            this->ui_ADisconnectTriggered(false);
+            QMessageBox::warning(this, tr("No response for 'mtbusb' command from MTB Daemon server. Closing connection..."), tr("Error"));
+        }
+    );
 }
 
 void MainWindow::clientConnectError(const QString& msg) {
+    QApplication::restoreOverrideCursor();
     QMessageBox::warning(this, tr("Error!"), tr("Unable to connect to ")+this->daemonHostPort()+".\n"+msg);
 }
 
 void MainWindow::clientDisconnected() {
     this->connectedUpdateGui();
-
+    QApplication::restoreOverrideCursor();
 }
 
 void MainWindow::ui_AConnectTriggered(bool) {
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     this->ui.a_connect->setEnabled(false);
     this->ui.a_disconnect->setEnabled(false);
     this->m_sb_connection.setText(tr("Connecting to MTB Daemon ")+this->daemonHostPort()+" ...");
@@ -79,6 +95,7 @@ void MainWindow::ui_AConnectTriggered(bool) {
 }
 
 void MainWindow::ui_ADisconnectTriggered(bool) {
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     this->ui.a_connect->setEnabled(false);
     this->ui.a_disconnect->setEnabled(false);
     this->m_sb_connection.setText(tr("Disconnecting from MTB Daemon..."));
@@ -107,4 +124,20 @@ void MainWindow::connectedUpdateGui() {
 
 QString MainWindow::daemonHostPort() const {
     return s["mtb-daemon"]["host"].toString() + ":" + s["mtb-daemon"]["port"].toString();
+}
+
+void MainWindow::clientReceivedMtbUsb(const QJsonObject& json) {
+    const bool connected = json["connected"].toBool();
+
+    if (connected) {
+        qDebug() << json;
+        this->m_sb_mtbusb.setText(
+            tr("MTB-USB connected: type: ")+QString::number(json["type"].toInt())+", "+
+            tr("MtbBus speed: ")+QString::number(json["speed"].toInt())+" bdps, "+
+            tr("FW: v")+json["firmware_version"].toString()+", "+
+            tr("protocol: v")+json["protocol_version"].toString()
+        );
+    } else {
+        this->m_sb_mtbusb.setText(tr("No MTB-USB connected"));
+    }
 }
