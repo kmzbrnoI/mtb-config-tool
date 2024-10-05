@@ -9,9 +9,20 @@
 #include <functional>
 #include "q-str-exception.h"
 
-enum DaemonClientSpecialError {
-    MTB_TIMEOUT = 110,
-    MTB_CLIENT_DISCONNECTED = 111,
+enum DaemonClientError { // there are more error codes (received from MTB Daemon)
+    Timeout = 110,
+    Disconnected = 111,
+    General = 112,
+    InvalidJson = 1000,
+};
+
+const QString STR_CLIENT_NOT_CONNECTED = QObject::tr("Client is not connected to the server!");
+
+const QMap<DaemonClientError, QString> _ERROR_TEXT = {
+    {DaemonClientError::Timeout, QObject::tr("Timeout waiting for response!")},
+    {DaemonClientError::Disconnected, STR_CLIENT_NOT_CONNECTED},
+    {DaemonClientError::General, QObject::tr("General error!")},
+    {DaemonClientError::InvalidJson, QObject::tr("Invalid json!")},
 };
 
 using ResponseOkEvent = std::function<void(const QJsonObject& content)>;
@@ -24,7 +35,7 @@ struct EInvalidRequest : public EDaemonClientError {
     EInvalidRequest(const QString& str) : EDaemonClientError(str) {}
 };
 struct EDisconnected : public EDaemonClientError {
-    EDisconnected(const QString& str) : EDaemonClientError(str) {}
+    EDisconnected(const QString& str = STR_CLIENT_NOT_CONNECTED) : EDaemonClientError(str) {}
 };
 
 struct SentCommand {
@@ -48,6 +59,7 @@ public:
     void connect(const QHostAddress&, quint16 port, bool keepAlive=true);
     void disconnect();
     void send(QJsonObject, ResponseOkEvent&&, ResponseErrorEvent&&);
+    void sendNoExc(const QJsonObject&, ResponseOkEvent&&, ResponseErrorEvent&&);
     bool connected() const;
 
 private slots:
@@ -68,6 +80,8 @@ private:
     void send(const QJsonObject&);
     unsigned timeoutSec(const QJsonObject&) const;
     void msgReceived(const QJsonObject&);
+
+    static void callError(const ResponseErrorEvent&, DaemonClientError);
 
 signals:
     void jsonReceived(const QJsonObject&);

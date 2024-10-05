@@ -45,7 +45,7 @@ void DaemonClient::clientDisconnected() {
     this->m_tSent.stop();
 
     for (const auto& sent : this->m_sent)
-        sent.onError(MTB_CLIENT_DISCONNECTED, tr("Client disconnected!"));
+        this->callError(sent.onError, DaemonClientError::Disconnected);
     this->m_sent.clear();
 
     // client->deleteLater();
@@ -95,7 +95,7 @@ void DaemonClient::tSentTick() {
 
     for (const auto& [id, sent] : this->m_sent.asKeyValueRange()) {
         if (QDateTime::currentDateTime() >= sent.timeout) {
-            sent.onError(MTB_TIMEOUT, tr("Timeout waiting for response!"));
+            this->callError(sent.onError, DaemonClientError::Timeout);
             idsToRemove.append(id);
         }
     }
@@ -106,7 +106,7 @@ void DaemonClient::tSentTick() {
 
 void DaemonClient::send(const QJsonObject &jsonObj) {
     if (!this->connected())
-        throw EDisconnected(tr("Client is not connected to the server!"));
+        throw EDisconnected();
     QByteArray data = QJsonDocument(jsonObj).toJson(QJsonDocument::Compact);
     data.push_back("\n\n");
     this->m_socket.write(data);
@@ -129,12 +129,29 @@ void DaemonClient::send(QJsonObject jsonObj, ResponseOkEvent&& onOk, ResponseErr
     jsonObj["id"] = id;
     jsonObj["type"] = "request";
     const QDateTime timeout = QDateTime::currentDateTime().addSecs(this->timeoutSec(jsonObj));
+
+    this->send(jsonObj); // in case of exception, do not add to m_sent
     this->m_sent.insert(id, SentCommand(std::move(onOk), std::move(onErr), timeout));
-    this->send(jsonObj);
+}
+
+void DaemonClient::sendNoExc(const QJsonObject& jsonObj, ResponseOkEvent&& onOk, ResponseErrorEvent&& onErr) {
+    try {
+        this->send(jsonObj, std::move(onOk), std::move(onErr));
+    } catch (const EInvalidRequest&) {
+        DaemonClient::callError(onErr, DaemonClientError::InvalidJson);
+    } catch (const EDisconnected&) {
+        DaemonClient::callError(onErr, DaemonClientError::Disconnected);
+    } catch (...) {
+        onErr(DaemonClientError::General, tr("Unknown exception when calling DaemonClient::send!"));
+    }
 }
 
 unsigned DaemonClient::timeoutSec(const QJsonObject& jsonObj) const {
     if (!jsonObj.contains("command"))
         throw EInvalidRequest(tr("No 'command' present in the outgoing json!"));
     return (jsonObj["command"] == "module_upgrade_fw") ? 60 : 1; // long timeout for FW upgrade
+}
+
+void DaemonClient::callError(const ResponseErrorEvent& f, DaemonClientError err) {
+    f(err, _ERROR_TEXT[err]);
 }
