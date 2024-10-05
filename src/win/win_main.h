@@ -8,6 +8,9 @@
 #include "settings.h"
 #include "win_settings.h"
 #include "client.h"
+#include <array>
+
+constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 
 class MainWindow : public QMainWindow
 {
@@ -22,6 +25,7 @@ private:
     Settings& s;
     SettingsWindow m_settingsWindow;
     DaemonClient m_client;
+    std::array<QTreeWidgetItem*, MTBBUS_ADDR_COUNT> m_tw_lines; // [0] is not valid
 
     QLabel m_sb_connection;
     QLabel m_sb_mtbusb;
@@ -29,7 +33,13 @@ private:
     void connectedUpdateGui();
     QString daemonHostPort() const;
 
+    void connectingMtbUsbReceived(const QJsonObject&);
     void clientReceivedMtbUsb(const QJsonObject&);
+    void clientReceivedModule(const QJsonObject&);
+    void clientReceivedModules(const QJsonObject&);
+
+    void ui_updateModule(const QJsonObject&);
+    unsigned ui_twModulesInsertIndex(unsigned addr);
 
 private slots:
     void ui_MAboutTriggered(bool);

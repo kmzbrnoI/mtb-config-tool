@@ -47,6 +47,10 @@ void MainWindow::retranslate() {
 void MainWindow::clientJsonReceived(const QJsonObject& json) {
     if (json["command"] == "mtbusb")
         this->clientReceivedMtbUsb(json["mtbusb"].toObject());
+    else if (json["command"] == "module")
+        this->clientReceivedModule(json["module"].toObject());
+    else if (json["command"] == "modules")
+        this->clientReceivedModules(json["modules"].toObject());
 }
 
 void MainWindow::clientConnected() {
@@ -54,15 +58,31 @@ void MainWindow::clientConnected() {
 
     this->m_client.sendNoExc(
         {{"command", "mtbusb"}},
-        [](const QJsonObject& content) {
-            (void)content;
-            QApplication::restoreOverrideCursor();
+        [this](const QJsonObject& content) {
+            this->connectingMtbUsbReceived(content);
         },
         [this](unsigned errorCode, QString errorMessage) {
             (void)errorCode;
             (void)errorMessage;
             this->ui_ADisconnectTriggered(false);
             QMessageBox::warning(this, tr("No response for 'mtbusb' command from MTB Daemon server. Closing connection..."), tr("Error"));
+        }
+    );
+}
+
+void MainWindow::connectingMtbUsbReceived(const QJsonObject&) {
+    this->m_client.sendNoExc(
+        {{"command", "modules"}},
+        [this](const QJsonObject& content) {
+            (void)content;
+            this->ui.tw_modules->setEnabled(true);
+            QApplication::restoreOverrideCursor();
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            (void)errorCode;
+            (void)errorMessage;
+            this->ui_ADisconnectTriggered(false);
+            QMessageBox::warning(this, tr("No response for 'modules' command from MTB Daemon server. Closing connection..."), tr("Error"));
         }
     );
 }
@@ -119,11 +139,49 @@ void MainWindow::connectedUpdateGui() {
 
     if (!this->m_client.connected()) {
         this->m_sb_mtbusb.setText("---");
+        this->ui.tw_modules->clear();
+        this->ui.tw_modules->setEnabled(false);
     }
 }
 
 QString MainWindow::daemonHostPort() const {
     return s["mtb-daemon"]["host"].toString() + ":" + s["mtb-daemon"]["port"].toString();
+}
+
+void MainWindow::ui_updateModule(const QJsonObject& module) {
+    if (!module.contains("address")) {
+        qDebug() << "MainWindow::ui_updateModule json does not contains 'address'";
+        return;
+    }
+
+    const uint8_t address = module["address"].toInt();
+    if (address == 0)
+        return;
+
+    if (m_tw_lines[address] == nullptr) {
+        auto newItem = new QTreeWidgetItem(this->ui.tw_modules);
+        this->ui.tw_modules->insertTopLevelItem(this->ui_twModulesInsertIndex(address), newItem);
+        m_tw_lines[address] = newItem;
+    }
+    QTreeWidgetItem* item = m_tw_lines[address];
+
+    item->setText(0, QString::number(address));
+    item->setText(1, "0x"+QString::number(address, 16));
+    item->setText(2, "0b"+QString::number(address, 2));
+    item->setText(3, module["name"].toString());
+    item->setText(4, module["type"].toString());
+    item->setText(5, module["state"].toString());
+    item->setText(6, module["firmware_version"].toString());
+    item->setText(7, module["bootloader_version"].toString());
+    item->setText(8, module["error"].toBool() ? "1" : "0");
+    item->setText(9, module["warning"].toBool() ? "1" : "0");
+    item->setText(10, module["beacon"].toBool() ? "1" : "0");
+}
+
+unsigned MainWindow::ui_twModulesInsertIndex(unsigned addr) {
+    while ((addr < MTBBUS_ADDR_COUNT) && (this->m_tw_lines[addr] == nullptr))
+        addr++;
+    return (addr == MTBBUS_ADDR_COUNT) ? this->ui.tw_modules->topLevelItemCount() : this->ui.tw_modules->indexOfTopLevelItem(this->m_tw_lines[addr]);
 }
 
 void MainWindow::clientReceivedMtbUsb(const QJsonObject& json) {
@@ -140,4 +198,16 @@ void MainWindow::clientReceivedMtbUsb(const QJsonObject& json) {
     } else {
         this->m_sb_mtbusb.setText(tr("No MTB-USB connected"));
     }
+}
+
+void MainWindow::clientReceivedModule(const QJsonObject& json) {
+    this->ui_updateModule(json);
+}
+
+void MainWindow::clientReceivedModules(const QJsonObject& modules) {
+    this->ui.tw_modules->clear();
+    for (auto& ref : this->m_tw_lines)
+        ref = nullptr;
+    for (const QString& addr : modules.keys())
+         this->ui_updateModule(modules[addr].toObject());
 }
