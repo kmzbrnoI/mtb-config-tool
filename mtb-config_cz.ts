@@ -100,7 +100,7 @@
         <location filename="ui/mainwindow.ui" line="165"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="162"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="177"/>
@@ -142,13 +142,13 @@
         <location filename="ui/mainwindow.ui" line="211"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="143"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Možnosti</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="214"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="145"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="src/win/win_main.cpp" line="21"/>
@@ -169,49 +169,49 @@
         <location filename="ui/settingsdialog.ui" line="23"/>
         <location filename="build/mtb-config_autogen/include/ui_settingsdialog.h" line="95"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="63"/>
         <location filename="build/mtb-config_autogen/include/ui_settingsdialog.h" line="96"/>
         <source>MTB Daemon connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Připojení k MTB Daemonu</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="75"/>
         <location filename="build/mtb-config_autogen/include/ui_settingsdialog.h" line="97"/>
         <source>Host:</source>
-        <translation type="unfinished"></translation>
+        <translation>Host:</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="88"/>
         <location filename="build/mtb-config_autogen/include/ui_settingsdialog.h" line="98"/>
         <source>Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Port:</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="124"/>
         <location filename="build/mtb-config_autogen/include/ui_settingsdialog.h" line="99"/>
         <source>[Default: 3841]</source>
-        <translation type="unfinished"></translation>
+        <translation>[Výchozí: 3841]</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="139"/>
         <location filename="build/mtb-config_autogen/include/ui_settingsdialog.h" line="100"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>Angličtina</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="144"/>
         <location filename="build/mtb-config_autogen/include/ui_settingsdialog.h" line="101"/>
         <source>Czech</source>
-        <translation type="unfinished"></translation>
+        <translation>Čeština</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="158"/>
         <location filename="build/mtb-config_autogen/include/ui_settingsdialog.h" line="103"/>
         <source>Application language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jazyk aplikace:</translation>
     </message>
 </context>
 <context>
@@ -221,22 +221,22 @@
         <location filename="src/win/win_settings.cpp" line="26"/>
         <location filename="src/win/win_settings.cpp" line="48"/>
         <source>Cannot save!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze uložit!</translation>
     </message>
     <message>
         <location filename="src/win/win_settings.cpp" line="22"/>
         <source>Select a language!</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte jazyk!</translation>
     </message>
     <message>
         <location filename="src/win/win_settings.cpp" line="26"/>
         <source>Fill a mtb-daemon hostname!</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyplňte adresu MTB Daemon serveru!</translation>
     </message>
     <message>
         <location filename="src/win/win_settings.cpp" line="48"/>
         <source>Unable to save file </source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze uložit soubor</translation>
     </message>
 </context>
 </TS>
