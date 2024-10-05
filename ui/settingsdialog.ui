@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>SettingsDialog</class>
  <widget class="QDialog" name="SettingsDialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,10 +13,19 @@
     <height>190</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>Settings</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <widget class="QDialogButtonBox" name="bb_main">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -79,9 +91,9 @@
    <widget class="QLineEdit" name="le_mtb_daemon_host">
     <property name="geometry">
      <rect>
-      <x>82</x>
+      <x>120</x>
       <y>30</y>
-      <width>281</width>
+      <width>251</width>
       <height>25</height>
      </rect>
     </property>
@@ -89,14 +101,27 @@
    <widget class="QSpinBox" name="se_mtb_daemon_port">
     <property name="geometry">
      <rect>
-      <x>81</x>
+      <x>120</x>
       <y>60</y>
-      <width>281</width>
+      <width>251</width>
       <height>26</height>
      </rect>
     </property>
     <property name="maximum">
      <number>65535</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>[Default: 3841]</string>
     </property>
    </widget>
   </widget>
@@ -137,7 +162,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>bb_main</sender>
    <signal>accepted()</signal>
    <receiver>SettingsDialog</receiver>
    <slot>accept()</slot>
@@ -153,7 +178,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>bb_main</sender>
    <signal>rejected()</signal>
    <receiver>SettingsDialog</receiver>
    <slot>reject()</slot>

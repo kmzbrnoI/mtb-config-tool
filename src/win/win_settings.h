@@ -3,15 +3,19 @@
 
 #include <QDialog>
 #include "ui_settingsdialog.h"
+#include "settings.h"
 
 class SettingsWindow : public QDialog
 {
     Q_OBJECT
 public:
-    SettingsWindow(QWidget *parent = nullptr);
+    SettingsWindow(Settings& s, QWidget *parent = nullptr);
+    void open();
 
 private:
     Ui::SettingsDialog ui;
+    Settings& s;
+    void accept() override;
 
 private slots:
 
