@@ -1,5 +1,6 @@
 #include <QMessageBox>
 #include "win_settings.h"
+#include "main.h"
 
 SettingsWindow::SettingsWindow(Settings& s, QWidget *parent)
     : QDialog{parent}, s(s) {
@@ -28,8 +29,14 @@ void SettingsWindow::accept() {
 
     switch (this->ui.cb_language->currentIndex()) {
     default:
-    case 0: this->s["general"]["language"] = "en"; break;
-    case 1: this->s["general"]["language"] = "cz"; break;
+    case 0:
+        this->s["general"]["language"] = "en";
+        translate_app_en();
+        break;
+    case 1:
+        this->s["general"]["language"] = "cz";
+        translate_app_cz();
+        break;
     }
 
     this->s["mtb-daemon"]["host"] = this->ui.le_mtb_daemon_host->text();
@@ -43,4 +50,8 @@ void SettingsWindow::accept() {
 
     this->close();
     this->accepted();
+}
+
+void SettingsWindow::retranslate() {
+    this->ui.retranslateUi(this);
 }

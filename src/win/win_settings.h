@@ -10,7 +10,8 @@ class SettingsWindow : public QDialog
     Q_OBJECT
 public:
     SettingsWindow(Settings& s, QWidget *parent = nullptr);
-    void open();
+    void open() override;
+    void retranslate();
 
 private:
     Ui::SettingsDialog ui;

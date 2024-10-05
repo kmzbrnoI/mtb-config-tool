@@ -217,24 +217,24 @@
 <context>
     <name>SettingsWindow</name>
     <message>
-        <location filename="src/win/win_settings.cpp" line="21"/>
-        <location filename="src/win/win_settings.cpp" line="25"/>
-        <location filename="src/win/win_settings.cpp" line="41"/>
+        <location filename="src/win/win_settings.cpp" line="22"/>
+        <location filename="src/win/win_settings.cpp" line="26"/>
+        <location filename="src/win/win_settings.cpp" line="48"/>
         <source>Cannot save!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_settings.cpp" line="21"/>
+        <location filename="src/win/win_settings.cpp" line="22"/>
         <source>Select a language!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_settings.cpp" line="25"/>
+        <location filename="src/win/win_settings.cpp" line="26"/>
         <source>Fill a mtb-daemon hostname!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_settings.cpp" line="41"/>
+        <location filename="src/win/win_settings.cpp" line="48"/>
         <source>Unable to save file </source>
         <translation type="unfinished"></translation>
     </message>

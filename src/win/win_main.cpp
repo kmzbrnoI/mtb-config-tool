@@ -2,7 +2,7 @@
 #include "win_main.h"
 #include "version.h"
 
-MainWindow::MainWindow(Settings s, QWidget *parent)
+MainWindow::MainWindow(Settings& s, QWidget *parent)
     : QMainWindow(parent), s(s), settings_window(s) {
     ui.setupUi(this);
     this->setWindowTitle(QString(tr("MTB Configuration Tool")+" v%1.%2").\
@@ -25,4 +25,9 @@ void MainWindow::ui_m_about_triggered(bool) {
 
 void MainWindow::ui_a_options_triggered(bool) {
     this->settings_window.open();
+}
+
+void MainWindow::retranslate() {
+    this->ui.retranslateUi(this);
+    this->settings_window.retranslate();
 }

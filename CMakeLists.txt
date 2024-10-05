@@ -21,6 +21,7 @@ qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} mtb-config_cz.ts)
 
 set(PROJECT_SOURCES
     src/main.cpp
+    src/main.h
     src/client.h
     src/client.cpp
     src/settings.cpp

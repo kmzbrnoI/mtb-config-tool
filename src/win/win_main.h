@@ -12,7 +12,8 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(Settings s, QWidget *parent = nullptr);
+    MainWindow(Settings& s, QWidget *parent = nullptr);
+    void retranslate();
 
 private:
     Ui::MainWindow ui;
