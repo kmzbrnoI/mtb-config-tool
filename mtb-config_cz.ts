@@ -2,6 +2,35 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="cs_CZ">
 <context>
+    <name>DaemonClient</name>
+    <message>
+        <location filename="src/client.cpp" line="48"/>
+        <source>Client disconnected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/client.cpp" line="56"/>
+        <source>Daemon server socket error occured: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/client.cpp" line="98"/>
+        <source>Timeout waiting for response!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/client.cpp" line="109"/>
+        <source>Client is not connected to the server!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/client.cpp" line="122"/>
+        <location filename="src/client.cpp" line="138"/>
+        <source>No &apos;command&apos; present in the outgoing json!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <location filename="ui/mainwindow.ui" line="23"/>
