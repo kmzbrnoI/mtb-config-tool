@@ -10,7 +10,7 @@ SettingsWindow::SettingsWindow(Settings& s, QWidget *parent)
 }
 
 void SettingsWindow::open() {
-    this->ui.cb_language->setCurrentIndex((this->s["general"]["language"].toString() == "cz") ? 1 : 0);
+    this->ui.cb_language->setCurrentIndex((this->s["common"]["language"].toString() == "cz") ? 1 : 0);
     this->ui.le_mtb_daemon_host->setText(this->s["mtb-daemon"]["host"].toString());
     this->ui.se_mtb_daemon_port->setValue(this->s["mtb-daemon"]["port"].toInt());
 
@@ -30,11 +30,11 @@ void SettingsWindow::accept() {
     switch (this->ui.cb_language->currentIndex()) {
     default:
     case 0:
-        this->s["general"]["language"] = "en";
+        this->s["common"]["language"] = "en";
         translate_app_en();
         break;
     case 1:
-        this->s["general"]["language"] = "cz";
+        this->s["common"]["language"] = "cz";
         translate_app_cz();
         break;
     }

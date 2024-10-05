@@ -12,7 +12,7 @@ const QString CONFIG_FILENAME = "config.ini";
 using Config = QMap<QString, QMap<QString, QVariant>>;
 
 const Config DEFAULTS {
-    {"general", {
+    {"common", {
         {"language", "cz"},
     }},
     {"mtb-daemon", {

@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     main_window = std::make_unique<MainWindow>(settings);
     main_window->show();
 
-    if (settings["general"]["language"] == "cz")
+    if (settings["common"]["language"] == "cz")
         translate_app_cz();
     else
         translate_app_en();
