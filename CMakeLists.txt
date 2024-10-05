@@ -23,6 +23,7 @@ set(PROJECT_SOURCES
     src/main.cpp
     src/client.h
     src/client.cpp
+    src/settings.cpp
     src/win/win_main.cpp
     src/win/win_main.h
     src/win/win_settings.h
