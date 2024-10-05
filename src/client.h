@@ -76,6 +76,7 @@ private:
     QTimer m_tSent;
     uint16_t m_sendNextId = 1; // smaller type for sure
     QMap<unsigned, SentCommand> m_sent; // sent & waiting for response
+    bool connecting = false;
 
     void send(const QJsonObject&);
     unsigned timeoutSec(const QJsonObject&) const;
@@ -87,6 +88,7 @@ signals:
     void jsonReceived(const QJsonObject&);
     void onConnected();
     void onDisconnected();
+    void connectError(const QString& msg);
 
 };
 

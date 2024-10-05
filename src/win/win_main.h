@@ -3,9 +3,11 @@
 
 #include <QMainWindow>
 #include <QObject>
+#include <QLabel>
 #include "ui_mainwindow.h"
 #include "settings.h"
 #include "win_settings.h"
+#include "client.h"
 
 class MainWindow : public QMainWindow
 {
@@ -19,10 +21,24 @@ private:
     Ui::MainWindow ui;
     Settings& s;
     SettingsWindow m_settingsWindow;
+    DaemonClient m_client;
+
+    QLabel m_sb_connection;
+    QLabel m_sb_mtbusb;
+
+    void connectedUpdateGui();
+    QString daemonHostPort() const;
 
 private slots:
     void ui_MAboutTriggered(bool);
     void ui_AOptionsTriggered(bool);
+    void ui_AConnectTriggered(bool);
+    void ui_ADisconnectTriggered(bool);
+
+    void clientJsonReceived(const QJsonObject&);
+    void clientConnected();
+    void clientConnectError(const QString&);
+    void clientDisconnected();
 
 }; // class MainWindow
 

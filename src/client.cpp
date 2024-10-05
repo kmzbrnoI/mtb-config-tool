@@ -22,6 +22,7 @@ DaemonClient::DaemonClient(QObject *parent) : QObject(parent) {
 
 void DaemonClient::connect(const QHostAddress &addr, quint16 port, bool keepAlive) {
     //log("Connecting to MTB daemon server: "+addr.toString()+":"+QString::number(port)+" ...", LogLevel::Info);
+    this->connecting = true;
     this->m_socket.connectToHost(addr, port);
     if (keepAlive)
         this->m_tKeepAlive.start(CLIENT_KEEP_ALIVE_SEND_PERIOD_MS);
@@ -37,10 +38,12 @@ bool DaemonClient::connected() const {
 }
 
 void DaemonClient::clientConnected() {
+    this->connecting = false;
     emit onConnected();
 }
 
 void DaemonClient::clientDisconnected() {
+    this->connecting = false;
     this->m_tKeepAlive.stop();
     this->m_tSent.stop();
 
@@ -53,7 +56,12 @@ void DaemonClient::clientDisconnected() {
 }
 
 void DaemonClient::clientErrorOccured(QAbstractSocket::SocketError) {
-    qDebug() << tr("Daemon server socket error occured: ")+m_socket.errorString();
+    qDebug() << tr("DaemonClient::clientErrorOccured: ")+m_socket.errorString();
+
+    if (this->connecting) {
+        emit connectError(m_socket.errorString());
+        this->connecting = false;
+    }
     if (this->connected())
         this->disconnect();
     emit onDisconnected();
