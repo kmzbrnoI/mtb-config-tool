@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>845</width>
-    <height>681</height>
+    <width>1149</width>
+    <height>742</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -135,7 +135,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>845</width>
+     <width>1149</width>
      <height>22</height>
     </rect>
    </property>
@@ -152,7 +152,8 @@
     <property name="title">
      <string>MTB-USB</string>
     </property>
-    <addaction name="a_mtbbus_settings"/>
+    <addaction name="a_mtbusb_settings"/>
+    <addaction name="a_modules_refresh"/>
    </widget>
    <widget class="QMenu" name="m_help">
     <property name="title">
@@ -196,12 +197,15 @@
     <string>Connection Settings</string>
    </property>
   </action>
-  <action name="a_mtbbus_settings">
+  <action name="a_mtbusb_settings">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>MTBbus Settings</string>
+    <string>MTB-USB Settings</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
    </property>
   </action>
   <action name="a_about">
@@ -218,6 +222,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="a_modules_refresh">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Refresh modules list</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
  </widget>

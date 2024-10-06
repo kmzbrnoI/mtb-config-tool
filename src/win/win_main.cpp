@@ -64,13 +64,40 @@ void MainWindow::clientConnected() {
     this->connectedUpdateGui();
 
     this->m_client.sendNoExc(
+        {{"command", "version"}},
+        [this](const QJsonObject& content) {
+            this->connectingVersionReceived(content);
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QApplication::restoreOverrideCursor();
+            this->ui_ADisconnectTriggered(false);
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("version", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
+        }
+    );
+}
+
+void MainWindow::connectingVersionReceived(const QJsonObject& json) {
+    const QJsonObject& jsonVersion = json["version"].toObject();
+    if ((!jsonVersion.contains("sw_version_major")) || (!jsonVersion.contains("sw_version_minor")) ||
+        (jsonVersion["sw_version_major"].toInt(-1) == -1) || (jsonVersion["sw_version_minor"].toInt(-1) == -1)) {
+        QApplication::restoreOverrideCursor();
+        this->ui_ADisconnectTriggered(false);
+        QMessageBox::warning(this, tr("Error"), tr("Invalid received MTB Daemon version!")+"\n"+tr("Closing connection..."));
+        return;
+    }
+
+    this->m_daemonVersion.emplace(jsonVersion["sw_version_major"].toInt(), jsonVersion["sw_version_minor"].toInt());
+    this->m_sb_connection.setText(this->m_sb_connection.text() + " v"+this->m_daemonVersion->str());
+
+    this->m_client.sendNoExc(
         {{"command", "mtbusb"}},
         [this](const QJsonObject& content) {
             this->connectingMtbUsbReceived(content);
         },
         [this](unsigned errorCode, QString errorMessage) {
+            QApplication::restoreOverrideCursor();
             this->ui_ADisconnectTriggered(false);
-            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("modules", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("mtbusb", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
         }
     );
 }
@@ -96,6 +123,7 @@ void MainWindow::clientConnectError(const QString& msg) {
 }
 
 void MainWindow::clientDisconnected() {
+    this->m_daemonVersion.reset();
     this->connectedUpdateGui();
     QApplication::restoreOverrideCursor();
 }
@@ -109,9 +137,11 @@ void MainWindow::ui_AConnectTriggered(bool) {
     try {
         this->m_client.connect(QHostAddress(s["mtb-daemon"]["host"].toString()), s["mtb-daemon"]["port"].toInt());
     } catch (const QStrException& e) {
+        QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, e.str(), tr("Error!"));
         this->connectedUpdateGui();
     } catch (...) {
+        QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, tr("Unknown exception!"), tr("Error!"));
         this->connectedUpdateGui();
     }
@@ -126,9 +156,11 @@ void MainWindow::ui_ADisconnectTriggered(bool) {
     try {
         this->m_client.disconnect();
     } catch (const QStrException& e) {
+        QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, e.str(), tr("Error!"));
         this->connectedUpdateGui();
     } catch (...) {
+        QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, tr("Unknown exception!"), tr("Error!"));
         this->connectedUpdateGui();
     }
@@ -194,7 +226,6 @@ void MainWindow::clientReceivedMtbUsb(const QJsonObject& json) {
     const bool connected = json["connected"].toBool();
 
     if (connected) {
-        qDebug() << json;
         this->m_sb_mtbusb.setText(
             tr("MTB-USB connected: type: ")+QString::number(json["type"].toInt())+", "+
             tr("MtbBus speed: ")+QString::number(json["speed"].toInt())+" bdps, "+
