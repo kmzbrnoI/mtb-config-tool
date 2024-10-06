@@ -170,7 +170,11 @@ void DaemonClient::sendNoExc(const QJsonObject& jsonObj, ResponseOkEvent&& onOk,
 unsigned DaemonClient::timeoutSec(const QJsonObject& jsonObj) const {
     if (!jsonObj.contains("command"))
         throw EInvalidRequest(tr("No 'command' present in the outgoing json!"));
-    return (jsonObj["command"] == "module_upgrade_fw") ? 60 : 1; // long timeout for FW upgrade
+    if (jsonObj["command"] == "module_upgrade_fw")
+        return 60;
+    if (jsonObj["command"] == "module_reboot")
+        return 5;
+    return 1; // default
 }
 
 void DaemonClient::callError(const ResponseErrorEvent& f, DaemonClientError err) {
