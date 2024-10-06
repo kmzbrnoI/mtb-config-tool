@@ -188,7 +188,7 @@ QString MainWindow::daemonHostPort() const {
 
 void MainWindow::ui_updateModule(const QJsonObject& module) {
     if (!module.contains("address")) {
-        qDebug() << "MainWindow::ui_updateModule json does not contains 'address'";
+        log("MainWindow::ui_updateModule json does not contain 'address'", LogLevel::Error);
         return;
     }
 

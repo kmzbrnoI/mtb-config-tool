@@ -57,7 +57,7 @@ void DaemonClient::clientDisconnected() {
 }
 
 void DaemonClient::clientErrorOccured(QAbstractSocket::SocketError) {
-    qDebug() << tr("DaemonClient::clientErrorOccured: ")+m_socket.errorString();
+    log("DaemonClient::clientErrorOccured: "+m_socket.errorString(), LogLevel::Error);
 
     if (this->connecting) {
         emit connectError(m_socket.errorString());
@@ -95,7 +95,7 @@ void DaemonClient::msgReceived(const QJsonObject& json) {
             } else if (json["status"] == "error") {
                 sent.onError(json["error"]["code"].toInt(), json["error"]["message"].toString());
             } else {
-                qDebug() << "Unknown json['status']: " << json["status"] << Qt::endl;
+                log("Unknown json['status']: "+json["status"].toString(), LogLevel::Warning);
             }
         }
     }

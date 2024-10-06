@@ -2,7 +2,6 @@
 #include "settings.h"
 #include <QApplication>
 #include <QTranslator>
-#include <QDebug>
 #include <memory>
 #include "main.h"
 

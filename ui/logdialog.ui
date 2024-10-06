@@ -16,52 +16,6 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gl_main">
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Loglevel:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QComboBox" name="cb_loglevel">
-       <item>
-        <property name="text">
-         <string>None</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Error</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Warning</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Info</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Commands</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Raw Data</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Debug</string>
-        </property>
-       </item>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="b_clear">
        <property name="sizePolicy">
@@ -75,8 +29,11 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0" colspan="3">
+     <item row="2" column="0" colspan="4">
       <widget class="QTreeWidget" name="tw_log">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOn</enum>
+       </property>
        <property name="selectionMode">
         <enum>QAbstractItemView::SingleSelection</enum>
        </property>
@@ -109,13 +66,64 @@
        </column>
       </widget>
      </item>
-     <item row="3" column="0" colspan="3">
+     <item row="1" column="3">
+      <widget class="QComboBox" name="cb_loglevel">
+       <item>
+        <property name="text">
+         <string>None</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Error</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Warning</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Info</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Messages</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Debug</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="4">
       <widget class="QTextEdit" name="te_message">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Loglevel:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QCheckBox" name="chb_log_keep_alive">
+       <property name="text">
+        <string>Log keep-alive</string>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
