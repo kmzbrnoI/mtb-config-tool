@@ -107,16 +107,21 @@ void DaemonClient::msgReceived(const QJsonObject& json) {
 
 void DaemonClient::tSentTick() {
     QVector<uint16_t> idsToRemove;
+    QVector<ResponseErrorEvent> errEvToCall;
 
     for (const auto& [id, sent] : this->m_sent.asKeyValueRange()) {
         if (QDateTime::currentDateTime() >= sent.timeout) {
-            this->callError(sent.onError, DaemonClientError::Timeout);
+            errEvToCall.append(sent.onError);
             idsToRemove.append(id);
         }
     }
 
+    // must be removed from m_sent bedore calling error event
+    // (error event could take long time - e.g. MessageBox
     for (const uint16_t id : idsToRemove)
         this->m_sent.remove(id);
+    for (const ResponseErrorEvent& ev : errEvToCall)
+        this->callError(ev, DaemonClientError::Timeout);
 }
 
 void DaemonClient::send(const QJsonObject &jsonObj) {
