@@ -18,6 +18,23 @@ constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
 QString daemonSupportedVersionsStr();
 
+const QString TEXT_BEACON_OFF = "-";
+const QString TEXT_BEACON_ON = QObject::tr("YES");
+
+enum TwModulesColumns {
+    twAddrDec,
+    twAddrHex,
+    twAddrBin,
+    twName,
+    twType,
+    twState,
+    twFw,
+    twBootloader,
+    twError,
+    twWarning,
+    twBeacon,
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -32,6 +49,7 @@ private:
     Settings& s;
     DaemonClient m_client;
     std::array<QTreeWidgetItem*, MTBBUS_ADDR_COUNT> m_tw_lines; // [0] is not valid
+    std::array<QJsonObject, MTBBUS_ADDR_COUNT> m_modules;
     std::optional<DaemonVersion> m_daemonVersion;
     bool m_mtbUsbConnected = false;
     std::optional<MtbUsbStatus> m_mtbUsbStatus;

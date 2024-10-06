@@ -250,6 +250,9 @@ void MainWindow::connectedUpdate() {
         this->m_daemonVersion.reset();
         this->m_mtbUsbStatus.reset();
         this->m_mtbUsbConnected = false;
+
+        for (auto& module : this->m_modules)
+            module = {}; // clear everything
     }
 
     this->ui.a_mtbusb_settings->setEnabled(this->m_mtbUsbConnected);
@@ -276,18 +279,18 @@ void MainWindow::ui_updateModule(const QJsonObject& module) {
     }
     QTreeWidgetItem* item = m_tw_lines[address];
 
-    item->setText(0, QString::number(address));
-    item->setText(1, "0x"+(QString::number(address, 16).rightJustified(2, '0')));
-    item->setText(2, "0b"+(QString::number(address, 2).rightJustified(8, '0')));
-    item->setText(3, module["name"].toString());
-    item->setText(4, module["type"].toString());
-    item->setText(5, module["state"].toString());
+    item->setText(TwModulesColumns::twAddrDec, QString::number(address));
+    item->setText(TwModulesColumns::twAddrHex, "0x"+(QString::number(address, 16).rightJustified(2, '0')));
+    item->setText(TwModulesColumns::twAddrBin, "0b"+(QString::number(address, 2).rightJustified(8, '0')));
+    item->setText(TwModulesColumns::twName, module["name"].toString());
+    item->setText(TwModulesColumns::twType, module["type"].toString());
+    item->setText(TwModulesColumns::twState, module["state"].toString());
     const QString deprecated = module["fw_deprecated"].toBool() ? tr(" (deprecated)") : "";
-    item->setText(6, module.contains("firmware_version") ? module["firmware_version"].toString()+deprecated : "N/A");
-    item->setText(7, module.contains("bootloader_version") ? module["bootloader_version"].toString() : "N/A");
-    item->setText(8, module.contains("error") ? (module["error"].toBool() ? tr("ERROR") : "-") : "N/A");
-    item->setText(9, module.contains("warning") ? (module["warning"].toBool() ? tr("WARN") : "-") : "N/A");
-    item->setText(10, module.contains("beacon") ? (module["beacon"].toBool() ? tr("YES") : "-") : "N/A");
+    item->setText(TwModulesColumns::twFw, module.contains("firmware_version") ? module["firmware_version"].toString()+deprecated : "N/A");
+    item->setText(TwModulesColumns::twBootloader, module.contains("bootloader_version") ? module["bootloader_version"].toString() : "N/A");
+    item->setText(TwModulesColumns::twError, module.contains("error") ? (module["error"].toBool() ? tr("ERROR") : "-") : "N/A");
+    item->setText(TwModulesColumns::twWarning, module.contains("warning") ? (module["warning"].toBool() ? tr("WARN") : "-") : "N/A");
+    item->setText(TwModulesColumns::twBeacon, module.contains("beacon") ? (module["beacon"].toBool() ? TEXT_BEACON_ON : TEXT_BEACON_OFF) : "N/A");
 
     const QString& state = module["state"].toString();
 
@@ -332,13 +335,27 @@ void MainWindow::clientReceivedMtbUsb(const QJsonObject& json) {
 }
 
 void MainWindow::clientReceivedModule(const QJsonObject& json) {
+    if (!json.contains("address")) {
+        log("MainWindow::clientReceivedModule json does not contain 'address'", LogLevel::Error);
+        return;
+    }
+
+    const uint8_t address = json["address"].toInt();
+    this->m_modules[address] = json;
+
     this->ui_updateModule(json);
 }
 
 void MainWindow::clientReceivedModules(const QJsonObject& modules) {
     this->ui_twModulesClear();
-    for (const QString& addr : modules.keys())
-         this->ui_updateModule(modules[addr].toObject());
+    for (const QString& addrStr : modules.keys()) {
+        const uint8_t addr = addrStr.toInt(0);
+        if (addr == 0)
+            continue;
+        const QJsonObject& module = modules[addrStr].toObject();
+        this->m_modules[addr] = module;
+        this->ui_updateModule(module);
+    }
 }
 
 void MainWindow::ui_AModulesRefreshTriggered(bool) {
@@ -428,7 +445,7 @@ void MainWindow::ui_AModuleReboot() {
     const QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
     if (currentLine == nullptr)
         return;
-    unsigned addr = currentLine->text(0).toInt();
+    unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
 
     QMessageBox::StandardButton reply = QMessageBox::question(this, "?", tr("Really reboot module ")+QString::number(addr)+"?");
     if (reply == QMessageBox::StandardButton::No)
@@ -450,7 +467,22 @@ void MainWindow::ui_AModuleReboot() {
 }
 
 void MainWindow::ui_AModuleBeacon() {
+    QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
+    if (currentLine == nullptr)
+        return;
+    const unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
+    const bool beaconOn = (currentLine->text(TwModulesColumns::twBeacon) == TEXT_BEACON_ON);
 
+    this->m_client.sendNoExc(
+        {{"command", "module_beacon"}, {"address", static_cast<int>(addr)}, {"beacon", !beaconOn}},
+        [this, addr](const QJsonObject& content) {
+            this->m_modules[addr]["beacon"] = content["beacon"];
+            this->ui_updateModule(this->m_modules[addr]);
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_beacon", errorCode, errorMessage));
+        }
+    );
 }
 
 void MainWindow::ui_AModuleFwUpgrade() {
