@@ -8,9 +8,8 @@ enum class LogLevel {
     Error = 1,
     Warning = 2,
     Info = 3,
-    Commands = 4,
-    RawData = 5,
-    Debug = 6,
+    Messages = 4,
+    Debug = 5,
 };
 
 void log(const QString& msg, LogLevel level);

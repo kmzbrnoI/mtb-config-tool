@@ -72,7 +72,7 @@ void DaemonClient::clientReadyRead() {
     while (this->m_socket.canReadLine()) {
         QByteArray data = this->m_socket.readLine();
         if (data.size() > 0) {
-            log("RECV: "+QString(data), LogLevel::RawData);
+            log("RECV: "+QString(data).simplified(), LogLevel::Messages);
             QJsonObject json = QJsonDocument::fromJson(data).object();
             this->msgReceived(json);
         }
@@ -121,6 +121,7 @@ void DaemonClient::send(const QJsonObject &jsonObj) {
     QByteArray data = QJsonDocument(jsonObj).toJson(QJsonDocument::Compact);
     data.push_back("\n\n");
     this->m_socket.write(data);
+    log("SEND: "+QString(data).simplified(), LogLevel::Messages);
 }
 
 void DaemonClient::tKeepAliveTick() {

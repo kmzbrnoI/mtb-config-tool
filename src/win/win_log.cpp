@@ -11,6 +11,8 @@ LogWindow::LogWindow(QWidget *parent)
 
     QObject::connect(ui.b_clear, SIGNAL(released()), this, SLOT(ui_bClearHandle()));
     QObject::connect(ui.tw_log, SIGNAL(itemSelectionChanged()), this, SLOT(ui_twItemSelectionChanged()));
+
+    this->ui.cb_loglevel->setFocus();
 }
 
 void LogWindow::log(const QString &message, LogLevel loglevel) {
@@ -18,6 +20,9 @@ void LogWindow::log(const QString &message, LogLevel loglevel) {
 
     if (ui.tw_log->topLevelItemCount() > MAX_LOG_ROWS)
         ui.tw_log->clear();
+
+    if (((message == "RECV: {}") || (message == "SEND: {}")) && (loglevel == LogLevel::Messages) && (!this->ui.chb_log_keep_alive->isChecked()))
+        return; // Do not log keep-alive
 
     auto *item = new QTreeWidgetItem(ui.tw_log);
     item->setText(0, QTime::currentTime().toString("hh:mm:ss.zzz"));
@@ -41,10 +46,8 @@ void LogWindow::log(const QString &message, LogLevel loglevel) {
             item->setBackground(i, LOGC_WARN);
     } else if (loglevel == LogLevel::Info)
         item->setText(1, "Info");
-    else if (loglevel == LogLevel::Commands)
-        item->setText(1, "Commands");
-    else if (loglevel == LogLevel::RawData)
-        item->setText(1, "Raw Data");
+    else if (loglevel == LogLevel::Messages)
+        item->setText(1, "Messages");
     else if (loglevel == LogLevel::Debug)
         item->setText(1, "Debug");
 
