@@ -233,6 +233,19 @@ void MainWindow::ui_updateModule(const QJsonObject& module) {
     item->setText(8, module.contains("error") ? (module["error"].toBool() ? tr("ERROR") : "-") : "N/A");
     item->setText(9, module.contains("warning") ? (module["warning"].toBool() ? tr("WARN") : "-") : "N/A");
     item->setText(10, module.contains("beacon") ? (module["beacon"].toBool() ? tr("YES") : "-") : "N/A");
+
+    const QString& state = module["state"].toString();
+
+    if (module["error"].toBool())
+        setBacground(*item, QC_LIGHT_RED);
+    else if ((module["warning"].toBool()) || ((state != "active") && (state != "inactive")))
+        setBacground(*item, QC_LIGHT_YELLOW);
+    else if (module["beacon"].toBool())
+        setBacground(*item, QC_LIGHT_BLUE);
+    else if (state == "inactive")
+        setBacground(*item, QC_LIGHT_GRAY);
+    else
+        setBacground(*item, QC_LIGHT_GREEN);
 }
 
 unsigned MainWindow::ui_twModulesInsertIndex(unsigned addr) {

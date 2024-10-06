@@ -11,3 +11,8 @@ void MtbUsbStatus::update(const QJsonObject& json) {
     for (const QJsonValue& addr : json["active_modules"].toArray())
         this->activeModules.append(addr.toInt());
 }
+
+void setBacground(QTreeWidgetItem& item, const QBrush& brush) {
+    for (int i = 0; i < item.columnCount(); i++)
+        item.setBackground(i, brush);
+}

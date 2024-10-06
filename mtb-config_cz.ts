@@ -172,7 +172,7 @@
         <location filename="src/win/win_main.cpp" line="88"/>
         <location filename="src/win/win_main.cpp" line="114"/>
         <location filename="src/win/win_main.cpp" line="129"/>
-        <location filename="src/win/win_main.cpp" line="289"/>
+        <location filename="src/win/win_main.cpp" line="302"/>
         <source>Error</source>
         <translation>Porucha</translation>
     </message>
@@ -370,41 +370,41 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="254"/>
+        <location filename="src/win/win_main.cpp" line="267"/>
         <source>MTB-USB connected: type: </source>
         <oldsource>MTB-USB connected, type: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="255"/>
+        <location filename="src/win/win_main.cpp" line="268"/>
         <source>MtbBus speed: </source>
         <oldsource>speed: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="256"/>
+        <location filename="src/win/win_main.cpp" line="269"/>
         <source>FW: v</source>
         <oldsource>FW: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="257"/>
+        <location filename="src/win/win_main.cpp" line="270"/>
         <source>protocol: v</source>
         <oldsource>protocol version: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="260"/>
+        <location filename="src/win/win_main.cpp" line="273"/>
         <source>No MTB-USB connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="285"/>
+        <location filename="src/win/win_main.cpp" line="298"/>
         <source>List of modules updated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="285"/>
+        <location filename="src/win/win_main.cpp" line="298"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
