@@ -80,6 +80,9 @@ void DaemonClient::clientReadyRead() {
 void DaemonClient::msgReceived(const QJsonObject& json) {
     if ((!json.contains("command")) || (!json.contains("type")))
         return;
+
+    emit jsonReceived(json);
+
     if ((json["type"] == "response") && (json.contains("id"))) {
         const unsigned id = json["id"].toInt();
         if ((id < 0x10000) && (this->m_sent.contains(id)) && (json.contains("status"))) {
@@ -94,8 +97,6 @@ void DaemonClient::msgReceived(const QJsonObject& json) {
             }
         }
     }
-
-    emit jsonReceived(json);
 }
 
 void DaemonClient::tSentTick() {
@@ -162,4 +163,8 @@ unsigned DaemonClient::timeoutSec(const QJsonObject& jsonObj) const {
 
 void DaemonClient::callError(const ResponseErrorEvent& f, DaemonClientError err) {
     f(err, _ERROR_TEXT[err]);
+}
+
+QString DaemonClient::standardErrrorMessage(const QString& command, unsigned errorCode, QString errorMessage) {
+    return command + " " + tr("reqest error: ")+errorMessage+", "+tr("error code: ")+QString::number(errorCode);
 }

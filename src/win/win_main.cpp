@@ -17,6 +17,9 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_AOptionsTriggered(bool)));
     QObject::connect(ui.a_connect, SIGNAL(triggered(bool)), this, SLOT(ui_AConnectTriggered(bool)));
     QObject::connect(ui.a_disconnect, SIGNAL(triggered(bool)), this, SLOT(ui_ADisconnectTriggered(bool)));
+    QObject::connect(ui.a_mtbusb_settings, SIGNAL(triggered(bool)), this, SLOT(ui_AMtbUsbSettingsTriggered(bool)));
+    QObject::connect(ui.a_daemon_connection_settings, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonConnectSettingsTriggered(bool)));
+    QObject::connect(ui.a_modules_refresh, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesRefreshTriggered(bool)));
 
     QObject::connect(&m_client, SIGNAL(jsonReceived(const QJsonObject&)), this, SLOT(clientJsonReceived(const QJsonObject&)));
     QObject::connect(&m_client, SIGNAL(onConnected()), this, SLOT(clientConnected()));
@@ -36,6 +39,10 @@ void MainWindow::ui_MAboutTriggered(bool) {
 }
 
 void MainWindow::ui_AOptionsTriggered(bool) {
+    this->m_settingsWindow.open();
+}
+
+void MainWindow::ui_ADaemonConnectSettingsTriggered(bool) {
     this->m_settingsWindow.open();
 }
 
@@ -62,10 +69,8 @@ void MainWindow::clientConnected() {
             this->connectingMtbUsbReceived(content);
         },
         [this](unsigned errorCode, QString errorMessage) {
-            (void)errorCode;
-            (void)errorMessage;
             this->ui_ADisconnectTriggered(false);
-            QMessageBox::warning(this, tr("No response for 'mtbusb' command from MTB Daemon server. Closing connection..."), tr("Error"));
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("modules", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
         }
     );
 }
@@ -79,10 +84,8 @@ void MainWindow::connectingMtbUsbReceived(const QJsonObject&) {
             QApplication::restoreOverrideCursor();
         },
         [this](unsigned errorCode, QString errorMessage) {
-            (void)errorCode;
-            (void)errorMessage;
             this->ui_ADisconnectTriggered(false);
-            QMessageBox::warning(this, tr("No response for 'modules' command from MTB Daemon server. Closing connection..."), tr("Error"));
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("modules", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
         }
     );
 }
@@ -134,6 +137,8 @@ void MainWindow::ui_ADisconnectTriggered(bool) {
 void MainWindow::connectedUpdateGui() {
     this->ui.a_connect->setEnabled(!this->m_client.connected());
     this->ui.a_disconnect->setEnabled(this->m_client.connected());
+    this->ui.a_modules_refresh->setEnabled(this->m_client.connected());
+    this->ui.a_mtbusb_settings->setEnabled(this->m_client.connected());
 
     this->m_sb_connection.setText((this->m_client.connected()) ? tr("Connected to MTB Daemon ")+this->daemonHostPort(): tr("Disconnected from MTB Daemon"));
 
@@ -205,9 +210,35 @@ void MainWindow::clientReceivedModule(const QJsonObject& json) {
 }
 
 void MainWindow::clientReceivedModules(const QJsonObject& modules) {
+    this->ui_twModulesClear();
+    for (const QString& addr : modules.keys())
+         this->ui_updateModule(modules[addr].toObject());
+}
+
+void MainWindow::ui_AModulesRefreshTriggered(bool) {
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    this->ui_twModulesClear();
+
+    this->m_client.sendNoExc(
+        {{"command", "modules"}},
+        [this](const QJsonObject& content) {
+            (void)content;
+            QApplication::restoreOverrideCursor();
+            QMessageBox::information(this, tr("Info"), tr("List of modules updated."));
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QApplication::restoreOverrideCursor();
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("modules", errorCode, errorMessage));
+        }
+    );
+}
+
+void MainWindow::ui_AMtbUsbSettingsTriggered(bool) {
+
+}
+
+void MainWindow::ui_twModulesClear() {
     this->ui.tw_modules->clear();
     for (auto& ref : this->m_tw_lines)
         ref = nullptr;
-    for (const QString& addr : modules.keys())
-         this->ui_updateModule(modules[addr].toObject());
 }

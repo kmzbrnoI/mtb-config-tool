@@ -40,12 +40,16 @@ private:
 
     void ui_updateModule(const QJsonObject&);
     unsigned ui_twModulesInsertIndex(unsigned addr);
+    void ui_twModulesClear();
 
 private slots:
     void ui_MAboutTriggered(bool);
     void ui_AOptionsTriggered(bool);
     void ui_AConnectTriggered(bool);
     void ui_ADisconnectTriggered(bool);
+    void ui_AMtbUsbSettingsTriggered(bool);
+    void ui_AModulesRefreshTriggered(bool);
+    void ui_ADaemonConnectSettingsTriggered(bool);
 
     void clientJsonReceived(const QJsonObject&);
     void clientConnected();

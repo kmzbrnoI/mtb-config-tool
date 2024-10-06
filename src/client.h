@@ -62,6 +62,8 @@ public:
     void sendNoExc(const QJsonObject&, ResponseOkEvent&&, ResponseErrorEvent&&);
     bool connected() const;
 
+    static QString standardErrrorMessage(const QString& command, unsigned errorCode, QString errorMessage);
+
 private slots:
     void clientConnected();
     void clientDisconnected();
