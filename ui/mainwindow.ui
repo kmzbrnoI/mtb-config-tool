@@ -145,6 +145,7 @@
     </property>
     <addaction name="a_connect"/>
     <addaction name="a_disconnect"/>
+    <addaction name="a_mtb_daemon_save"/>
     <addaction name="separator"/>
     <addaction name="a_daemon_connection_settings"/>
     <addaction name="a_log"/>
@@ -242,6 +243,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="a_mtb_daemon_save">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Save MTB Daemon config to file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
  </widget>

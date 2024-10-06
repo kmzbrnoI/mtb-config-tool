@@ -22,6 +22,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_daemon_connection_settings, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonConnectSettingsTriggered(bool)));
     QObject::connect(ui.a_modules_refresh, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesRefreshTriggered(bool)));
     QObject::connect(ui.a_log, SIGNAL(triggered(bool)), this, SLOT(ui_ALogTriggered(bool)));
+    QObject::connect(ui.a_mtb_daemon_save, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonSaveConfigTriggered(bool)));
 
     QObject::connect(&m_client, SIGNAL(jsonReceived(const QJsonObject&)), this, SLOT(clientJsonReceived(const QJsonObject&)));
     QObject::connect(&m_client, SIGNAL(onConnected()), this, SLOT(clientConnected()));
@@ -204,6 +205,7 @@ void MainWindow::connectedUpdate() {
     this->ui.a_connect->setEnabled(!this->m_client.connected());
     this->ui.a_disconnect->setEnabled(this->m_client.connected());
     this->ui.a_modules_refresh->setEnabled(this->m_client.connected());
+    this->ui.a_mtb_daemon_save->setEnabled(this->m_client.connected());
 
     this->m_sb_connection.setText((this->m_client.connected()) ? tr("Connected to MTB Daemon ")+this->daemonHostPort(): tr("Disconnected from MTB Daemon"));
 
@@ -352,4 +354,21 @@ QString daemonSupportedVersionsStr() {
     for (unsigned i = 0; i < DAEMON_SUPPORTED_VERSIONS.count()-1; i++)
         result += DAEMON_SUPPORTED_VERSIONS[i] + ", ";
     return result + DAEMON_SUPPORTED_VERSIONS[DAEMON_SUPPORTED_VERSIONS.count()-1];
+}
+
+void MainWindow::ui_ADaemonSaveConfigTriggered(bool) {
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+
+    this->m_client.sendNoExc(
+        {{"command", "save_config"}},
+        [this](const QJsonObject& content) {
+            (void)content;
+            QApplication::restoreOverrideCursor();
+            QMessageBox::information(this, tr("OK"), tr("MTB Daemon's configuration saved to the server's configuration file."));
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QApplication::restoreOverrideCursor();
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("save_config", errorCode, errorMessage));
+        }
+    );
 }

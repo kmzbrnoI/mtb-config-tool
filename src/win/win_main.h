@@ -67,6 +67,7 @@ private slots:
     void ui_AMtbUsbSettingsTriggered(bool);
     void ui_AModulesRefreshTriggered(bool);
     void ui_ADaemonConnectSettingsTriggered(bool);
+    void ui_ADaemonSaveConfigTriggered(bool);
     void ui_ALogTriggered(bool);
 
     void clientJsonReceived(const QJsonObject&);
