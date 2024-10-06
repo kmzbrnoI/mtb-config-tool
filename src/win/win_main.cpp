@@ -171,16 +171,17 @@ void MainWindow::ui_updateModule(const QJsonObject& module) {
     QTreeWidgetItem* item = m_tw_lines[address];
 
     item->setText(0, QString::number(address));
-    item->setText(1, "0x"+QString::number(address, 16));
-    item->setText(2, "0b"+QString::number(address, 2));
+    item->setText(1, "0x"+(QString::number(address, 16).rightJustified(2, '0')));
+    item->setText(2, "0b"+(QString::number(address, 2).rightJustified(8, '0')));
     item->setText(3, module["name"].toString());
     item->setText(4, module["type"].toString());
     item->setText(5, module["state"].toString());
-    item->setText(6, module["firmware_version"].toString());
-    item->setText(7, module["bootloader_version"].toString());
-    item->setText(8, module["error"].toBool() ? "1" : "0");
-    item->setText(9, module["warning"].toBool() ? "1" : "0");
-    item->setText(10, module["beacon"].toBool() ? "1" : "0");
+    const QString deprecated = module["fw_deprecated"].toBool() ? tr(" (deprecated)") : "";
+    item->setText(6, module.contains("firmware_version") ? module["firmware_version"].toString()+deprecated : "N/A");
+    item->setText(7, module.contains("bootloader_version") ? module["bootloader_version"].toString() : "N/A");
+    item->setText(8, module.contains("error") ? (module["error"].toBool() ? tr("ERROR") : "-") : "N/A");
+    item->setText(9, module.contains("warning") ? (module["warning"].toBool() ? tr("WARN") : "-") : "N/A");
+    item->setText(10, module.contains("beacon") ? (module["beacon"].toBool() ? tr("YES") : "-") : "N/A");
 }
 
 unsigned MainWindow::ui_twModulesInsertIndex(unsigned addr) {
