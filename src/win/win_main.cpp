@@ -72,7 +72,8 @@ void MainWindow::clientConnected() {
         [this](unsigned errorCode, QString errorMessage) {
             QApplication::restoreOverrideCursor();
             this->ui_ADisconnectTriggered(false);
-            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("version", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("version", errorCode, errorMessage)+"\n"+
+                                 tr("Are you using MTB Daemon < v1.5? Upgrade!")+"\n"+tr("Closing connection..."));
         }
     );
 }
@@ -87,8 +88,19 @@ void MainWindow::connectingVersionReceived(const QJsonObject& json) {
         return;
     }
 
+    const QString versionStr = jsonVersion["sw_version"].toString();
     this->m_daemonVersion.emplace(jsonVersion["sw_version_major"].toInt(), jsonVersion["sw_version_minor"].toInt());
     this->m_sb_connection.setText(this->m_sb_connection.text() + " v"+this->m_daemonVersion->str());
+
+    if (!DAEMON_SUPPORTED_VERSIONS.contains(versionStr)) {
+        QApplication::restoreOverrideCursor();
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "?", tr("Unsupported MTB Daemon received version: ")+versionStr+"\n"+
+            tr("Supported versions: ")+daemonSupportedVersionsStr()+"\n"+tr("Continue?"));
+        if (reply == QMessageBox::No) {
+            this->ui_ADisconnectTriggered(false);
+            return;
+        }
+    }
 
     this->m_client.sendNoExc(
         {{"command", "mtbusb"}},
@@ -283,4 +295,13 @@ void MainWindow::ui_ALogTriggered(bool) {
 void MainWindow::closeEvent(QCloseEvent *event) {
     this->m_logWindow.close();
     QMainWindow::closeEvent(event);
+}
+
+QString daemonSupportedVersionsStr() {
+    if (DAEMON_SUPPORTED_VERSIONS.empty())
+        return "";
+    QString result = "";
+    for (unsigned i = 0; i < DAEMON_SUPPORTED_VERSIONS.count()-1; i++)
+        result += DAEMON_SUPPORTED_VERSIONS[i] + ", ";
+    return result + DAEMON_SUPPORTED_VERSIONS[DAEMON_SUPPORTED_VERSIONS.count()-1];
 }

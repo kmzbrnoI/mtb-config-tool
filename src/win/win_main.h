@@ -13,6 +13,8 @@
 #include "win_log.h"
 
 constexpr unsigned MTBBUS_ADDR_COUNT = 256;
+const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
+QString daemonSupportedVersionsStr();
 
 struct DaemonVersion {
     unsigned major;
