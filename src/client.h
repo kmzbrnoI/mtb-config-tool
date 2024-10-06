@@ -55,6 +55,8 @@ class DaemonClient : public QObject {
     Q_OBJECT
 
 public:
+    static DaemonClient* instance;
+
     DaemonClient(QObject *parent = nullptr);
     void connect(const QHostAddress&, quint16 port, bool keepAlive=true);
     void disconnect();

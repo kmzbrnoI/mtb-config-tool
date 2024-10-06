@@ -18,6 +18,8 @@ LogWindow::LogWindow(QWidget *parent)
 void LogWindow::log(const QString &message, LogLevel loglevel) {
     constexpr size_t COLUMN_COUNT = 3;
 
+    if (static_cast<int>(loglevel) > this->ui.cb_loglevel->currentIndex())
+        return;
     if (ui.tw_log->topLevelItemCount() > MAX_LOG_ROWS)
         ui.tw_log->clear();
 

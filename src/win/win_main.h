@@ -11,18 +11,11 @@
 #include "win_settings.h"
 #include "client.h"
 #include "win_log.h"
+#include "win_mtbusb.h"
 
 constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
 QString daemonSupportedVersionsStr();
-
-struct DaemonVersion {
-    unsigned major;
-    unsigned minor;
-
-    DaemonVersion(unsigned major, unsigned minor) : major(major), minor(minor) {}
-    QString str() const { return QString::number(major)+"."+QString::number(minor); }
-};
 
 class MainWindow : public QMainWindow
 {
@@ -34,18 +27,22 @@ public:
 
 private:
     Ui::MainWindow ui;
-    SettingsWindow m_settingsWindow;
-    LogWindow m_logWindow;
 
     Settings& s;
     DaemonClient m_client;
     std::array<QTreeWidgetItem*, MTBBUS_ADDR_COUNT> m_tw_lines; // [0] is not valid
     std::optional<DaemonVersion> m_daemonVersion;
+    bool m_mtbUsbConnected = false;
+    std::optional<MtbUsbStatus> m_mtbUsbStatus;
+
+    SettingsWindow m_settingsWindow;
+    MtbUsbWindow m_mtbUsbWindow;
+    LogWindow m_logWindow;
 
     QLabel m_sb_connection;
     QLabel m_sb_mtbusb;
 
-    void connectedUpdateGui();
+    void connectedUpdate();
     QString daemonHostPort() const;
 
     void connectingVersionReceived(const QJsonObject&);

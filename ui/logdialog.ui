@@ -68,6 +68,9 @@
      </item>
      <item row="1" column="3">
       <widget class="QComboBox" name="cb_loglevel">
+       <property name="currentIndex">
+        <number>2</number>
+       </property>
        <item>
         <property name="text">
          <string>None</string>

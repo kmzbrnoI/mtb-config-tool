@@ -1,9 +1,10 @@
 #include <QMessageBox>
+#include <QJsonArray>
 #include "win_main.h"
 #include "version.h"
 
 MainWindow::MainWindow(Settings& s, QWidget *parent)
-    : QMainWindow(parent), m_settingsWindow(s), s(s) {
+    : QMainWindow(parent), s(s), m_settingsWindow(s), m_mtbUsbWindow(this->m_mtbUsbStatus) {
     ui.setupUi(this);
     this->setWindowTitle(QString(tr("MTB Configuration Tool")+" v%1.%2").\
                          arg(MTB_CONFIG_VERSION_MAJOR).arg(MTB_CONFIG_VERSION_MINOR));
@@ -11,7 +12,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     this->ui.sb_main->addWidget(&this->m_sb_connection);
     this->ui.sb_main->addWidget(&this->m_sb_mtbusb);
 
-    this->connectedUpdateGui();
+    this->connectedUpdate();
 
     QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_MAboutTriggered(bool)));
     QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_AOptionsTriggered(bool)));
@@ -62,7 +63,7 @@ void MainWindow::clientJsonReceived(const QJsonObject& json) {
 }
 
 void MainWindow::clientConnected() {
-    this->connectedUpdateGui();
+    this->connectedUpdate();
 
     this->m_client.sendNoExc(
         {{"command", "version"}},
@@ -136,8 +137,7 @@ void MainWindow::clientConnectError(const QString& msg) {
 }
 
 void MainWindow::clientDisconnected() {
-    this->m_daemonVersion.reset();
-    this->connectedUpdateGui();
+    this->connectedUpdate();
     QApplication::restoreOverrideCursor();
 }
 
@@ -152,11 +152,11 @@ void MainWindow::ui_AConnectTriggered(bool) {
     } catch (const QStrException& e) {
         QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, e.str(), tr("Error!"));
-        this->connectedUpdateGui();
+        this->connectedUpdate();
     } catch (...) {
         QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, tr("Unknown exception!"), tr("Error!"));
-        this->connectedUpdateGui();
+        this->connectedUpdate();
     }
 }
 
@@ -171,19 +171,18 @@ void MainWindow::ui_ADisconnectTriggered(bool) {
     } catch (const QStrException& e) {
         QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, e.str(), tr("Error!"));
-        this->connectedUpdateGui();
+        this->connectedUpdate();
     } catch (...) {
         QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, tr("Unknown exception!"), tr("Error!"));
-        this->connectedUpdateGui();
+        this->connectedUpdate();
     }
 }
 
-void MainWindow::connectedUpdateGui() {
+void MainWindow::connectedUpdate() {
     this->ui.a_connect->setEnabled(!this->m_client.connected());
     this->ui.a_disconnect->setEnabled(this->m_client.connected());
     this->ui.a_modules_refresh->setEnabled(this->m_client.connected());
-    this->ui.a_mtbusb_settings->setEnabled(this->m_client.connected());
 
     this->m_sb_connection.setText((this->m_client.connected()) ? tr("Connected to MTB Daemon ")+this->daemonHostPort(): tr("Disconnected from MTB Daemon"));
 
@@ -191,7 +190,14 @@ void MainWindow::connectedUpdateGui() {
         this->m_sb_mtbusb.setText("---");
         this->ui.tw_modules->clear();
         this->ui.tw_modules->setEnabled(false);
+        this->m_mtbUsbWindow.close();
+
+        this->m_daemonVersion.reset();
+        this->m_mtbUsbStatus.reset();
+        this->m_mtbUsbConnected = false;
     }
+
+    this->ui.a_mtbusb_settings->setEnabled(this->m_mtbUsbConnected);
 }
 
 QString MainWindow::daemonHostPort() const {
@@ -236,18 +242,25 @@ unsigned MainWindow::ui_twModulesInsertIndex(unsigned addr) {
 }
 
 void MainWindow::clientReceivedMtbUsb(const QJsonObject& json) {
-    const bool connected = json["connected"].toBool();
+    this->m_mtbUsbConnected = json["connected"].toBool();
+    if (this->m_mtbUsbConnected)
+        this->m_mtbUsbStatus.emplace(json);
+    else
+        this->m_mtbUsbStatus.reset();
 
-    if (connected) {
+    if (this->m_mtbUsbStatus) {
+        const MtbUsbStatus& status = this->m_mtbUsbStatus.value();
         this->m_sb_mtbusb.setText(
-            tr("MTB-USB connected: type: ")+QString::number(json["type"].toInt())+", "+
-            tr("MtbBus speed: ")+QString::number(json["speed"].toInt())+" bdps, "+
-            tr("FW: v")+json["firmware_version"].toString()+", "+
-            tr("protocol: v")+json["protocol_version"].toString()
+            tr("MTB-USB connected: type: ")+QString::number(status.type)+", "+
+            tr("MtbBus speed: ")+QString::number(status.speed)+" bdps, "+
+            tr("FW: v")+status.firmware_version+", "+
+            tr("protocol: v")+status.protocol_version
         );
     } else {
         this->m_sb_mtbusb.setText(tr("No MTB-USB connected"));
     }
+
+    this->connectedUpdate();
 }
 
 void MainWindow::clientReceivedModule(const QJsonObject& json) {
@@ -279,7 +292,7 @@ void MainWindow::ui_AModulesRefreshTriggered(bool) {
 }
 
 void MainWindow::ui_AMtbUsbSettingsTriggered(bool) {
-
+    this->m_mtbUsbWindow.open();
 }
 
 void MainWindow::ui_twModulesClear() {
@@ -294,6 +307,7 @@ void MainWindow::ui_ALogTriggered(bool) {
 
 void MainWindow::closeEvent(QCloseEvent *event) {
     this->m_logWindow.close();
+    this->m_mtbUsbWindow.close();
     QMainWindow::closeEvent(event);
 }
 

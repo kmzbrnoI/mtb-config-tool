@@ -5,7 +5,11 @@
 #include "client.h"
 #include "log.h"
 
+DaemonClient* DaemonClient::instance = nullptr;
+
 DaemonClient::DaemonClient(QObject *parent) : QObject(parent) {
+    DaemonClient::instance = this;
+
     QObject::connect(&this->m_tKeepAlive, SIGNAL(timeout()), this, SLOT(tKeepAliveTick()));
     QObject::connect(&this->m_tSent, SIGNAL(timeout()), this, SLOT(tSentTick()));
     QObject::connect(&m_socket, SIGNAL(connected()), this, SLOT(clientConnected()));

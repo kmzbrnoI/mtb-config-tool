@@ -2,14 +2,27 @@
 #define MTBUSBWINDOW_H
 
 #include <QMainWindow>
+#include "ui_mtbusbdialog.h"
+#include "common.h"
 
-class MtbUsbWindow : public QMainWindow
+class MtbUsbWindow : public QDialog
 {
     Q_OBJECT
-public:
-    explicit MtbUsbWindow(QWidget *parent = nullptr);
+    const std::optional<MtbUsbStatus>& mtbUsbStatus;
 
-signals:
+public:
+    explicit MtbUsbWindow(const std::optional<MtbUsbStatus>&, QWidget *parent = nullptr);
+    void open() override;
+
+private:
+    Ui::MtbUsbDialog ui;
+
+    void update();
+    unsigned selectedSpeed() const;
+
+private slots:
+    void ui_bUpdateHandle();
+    void ui_bClicked(QAbstractButton *button);
 
 };
 

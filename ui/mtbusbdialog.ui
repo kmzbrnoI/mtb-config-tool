@@ -1,72 +1,202 @@
-<ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog" >
-  <property name="geometry" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MtbUsbDialog</class>
+ <widget class="QDialog" name="MtbUsbDialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>181</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Dialog</string>
+  <property name="windowTitle">
+   <string>MTB-USB</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox" >
-   <property name="geometry" >
+  <widget class="QDialogButtonBox" name="bb_main">
+   <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>240</y>
-     <width>341</width>
+     <x>200</x>
+     <y>140</y>
+     <width>191</width>
      <height>32</height>
     </rect>
    </property>
-   <property name="orientation" >
+   <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
-   <property name="standardButtons" >
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Apply</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>171</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>MTB-USB type:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="l_type">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>10</y>
+     <width>54</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>171</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>MTB-USB firmware version:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>171</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>MTBbus protocol version:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>171</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>MTBbus speed:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="l_fw_version">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>40</y>
+     <width>54</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="l_protocol_version">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>70</y>
+     <width>54</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cb_speed">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>100</y>
+     <width>201</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>38400 bd/s</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>57600 bd/s</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>115200 bd/s</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>230400 bd/s</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="b_update">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>80</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Update</string>
    </property>
   </widget>
  </widget>
- <pixmapfunction></pixmapfunction>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
-   <slot>accept()</slot>
+   <sender>bb_main</sender>
+   <signal>rejected()</signal>
+   <receiver>MtbUsbDialog</receiver>
+   <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>248</x>
-     <y>254</y>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>157</x>
+    <hint type="destinationlabel">
+     <x>286</x>
      <y>274</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
-   <slot>reject()</slot>
+   <sender>bb_main</sender>
+   <signal>accepted()</signal>
+   <receiver>MtbUsbDialog</receiver>
+   <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>316</x>
-     <y>260</y>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
-     <x>286</x>
+    <hint type="destinationlabel">
+     <x>157</x>
      <y>274</y>
     </hint>
    </hints>
   </connection>
  </connections>
 </ui>
-
