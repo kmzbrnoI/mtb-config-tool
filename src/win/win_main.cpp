@@ -1,5 +1,7 @@
 #include <QMessageBox>
 #include <QJsonArray>
+#include <QFileDialog>
+#include <QFileInfo>
 #include "win_main.h"
 #include "version.h"
 
@@ -486,9 +488,100 @@ void MainWindow::ui_AModuleBeacon() {
 }
 
 void MainWindow::ui_AModuleFwUpgrade() {
+    QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
+    if (currentLine == nullptr)
+        return;
+    const unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
 
+    QString filename = QFileDialog::getOpenFileName(
+        this,
+        tr("Choose firmware hex file"),
+        s["paths"]["fw"].toString(),
+        tr("Hex file (*.hex)")
+    );
+
+    if (filename == "")
+        return;
+
+    QFileInfo fileInfo(filename);
+    s["paths"]["fw"] = fileInfo.dir().absolutePath();
+    s.save(CONFIG_FILENAME);
+
+    QJsonObject firmware;
+    try {
+        firmware = MainWindow::loadFwHex(filename);
+    } catch (const QStrException& e) {
+        QMessageBox::warning(this, tr("Error"), tr("Unable to load hex file")+"\n"+e.str());
+        return;
+    } catch (...) {
+        QMessageBox::warning(this, tr("Error"), tr("Unable to load hex file - general exception"));
+        return;
+    }
+
+    this->m_modules[addr]["state"] = "fw_upgrading";
+    this->ui_updateModule(this->m_modules[addr]);
+
+    this->m_client.sendNoExc(
+        {{"command", "module_upgrade_fw"}, {"address", static_cast<int>(addr)}, {"firmware", firmware}},
+        [this](const QJsonObject& content) {
+            this->fwUpgraded(content);
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_upgrade_fw", errorCode, errorMessage));
+        }
+    );
+}
+
+void MainWindow::fwUpgraded(const QJsonObject& json) {
+    uint8_t addr = json["address"].toInt();
+
+    // firmware upgraded -> ask new module state
+    this->m_client.sendNoExc(
+        {{"command", "module"}, {"address", addr}},
+        [this, addr](const QJsonObject& content) {
+            (void)content;
+            QMessageBox::information(this, tr("Finished"), tr("Firmware of module ")+QString::number(addr)+tr(" successfully upgraded."));
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module", errorCode, errorMessage));
+        }
+    );
 }
 
 void MainWindow::ui_AModuleDiagnostics() {
 
+}
+
+QJsonObject MainWindow::loadFwHex(const QString& filename) {
+    QJsonObject firmware;
+    QFile file(filename);
+    if (!file.open(QFile::ReadOnly | QFile::Text))
+        throw EHexParseError(tr("Cannot read file ")+filename);
+
+    bool ok = true;
+    unsigned offset = 0;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().simplified();
+        if (!line.startsWith(':'))
+            throw EHexParseError(tr("Some line in input file does not start with ':'"));
+
+        unsigned type = line.mid(7, 2).toInt(&ok, 16);
+        if (!ok)
+            throw EHexParseError(tr("Type !ok"));
+
+        unsigned addr = offset + line.mid(3, 4).toInt(&ok, 16);
+        if (!ok)
+            throw EHexParseError(tr("Addr !ok"));
+
+        if (type == 2) {
+            offset = line.mid(9, 4).toInt(&ok, 16)*16;
+            if (!ok)
+                throw EHexParseError(tr("Offset !ok"));
+        } else if (type == 0) {
+            firmware[QString::number(addr)] = line.mid(9, line.length()-11);
+        }
+    }
+
+    return firmware;
 }

@@ -35,6 +35,10 @@ enum TwModulesColumns {
     twBeacon,
 };
 
+struct EHexParseError : public QStrException {
+    EHexParseError(const QString& str) : QStrException(str) {}
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -79,6 +83,8 @@ private:
     void ui_setupModulesContextMenu();
 
     void closeEvent(QCloseEvent *event) override;
+    static QJsonObject loadFwHex(const QString& filename);
+    void fwUpgraded(const QJsonObject&);
 
 private slots:
     void ui_MAboutTriggered(bool);
