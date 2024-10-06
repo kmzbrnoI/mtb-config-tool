@@ -47,6 +47,8 @@ private:
 
     void connectingVersionReceived(const QJsonObject&);
     void connectingMtbUsbReceived(const QJsonObject&);
+    void connectingModulesReceived(const QJsonObject&);
+
     void clientReceivedMtbUsb(const QJsonObject&);
     void clientReceivedModule(const QJsonObject&);
     void clientReceivedModules(const QJsonObject&);

@@ -103,6 +103,7 @@ void MainWindow::connectingVersionReceived(const QJsonObject& json) {
         }
     }
 
+    // version ok -> ask mtbusb status
     this->m_client.sendNoExc(
         {{"command", "mtbusb"}},
         [this](const QJsonObject& content) {
@@ -117,18 +118,38 @@ void MainWindow::connectingVersionReceived(const QJsonObject& json) {
 }
 
 void MainWindow::connectingMtbUsbReceived(const QJsonObject&) {
+    // mtbusb received -> ask modules
     this->m_client.sendNoExc(
         {{"command", "modules"}},
         [this](const QJsonObject& content) {
-            (void)content;
-            this->ui.tw_modules->setEnabled(true);
-            QApplication::restoreOverrideCursor();
+            this->connectingModulesReceived(content);
         },
         [this](unsigned errorCode, QString errorMessage) {
             this->ui_ADisconnectTriggered(false);
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("modules", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
         }
     );
+}
+
+void MainWindow::connectingModulesReceived(const QJsonObject&) {
+    // modules received -> subscribe events
+    // This is not an ideal solution as we don't care about state of inputs,
+    // however we need to detect changes of warnings/errors/beacon etc.
+    // MTB Daemon currently supports no method to register only the events we care about
+    this->m_client.sendNoExc(
+        {{"command", "module_subscribe"}},
+        [this](const QJsonObject& content) {
+            // Connecting finished
+            (void)content;
+            this->ui.tw_modules->setEnabled(true);
+            QApplication::restoreOverrideCursor();
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            this->ui_ADisconnectTriggered(false);
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_subscribe", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
+        }
+    );
+
 }
 
 void MainWindow::clientConnectError(const QString& msg) {
