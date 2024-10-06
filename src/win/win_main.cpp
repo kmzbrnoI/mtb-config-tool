@@ -13,6 +13,9 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     this->ui.sb_main->addWidget(&this->m_sb_mtbusb);
 
     this->connectedUpdate();
+    this->ui_setupModulesContextMenu();
+
+    QObject::connect(ui.tw_modules, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(ui_twCustomContextMenu(const QPoint&)));
 
     QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_MAboutTriggered(bool)));
     QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_AOptionsTriggered(bool)));
@@ -24,10 +27,39 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_log, SIGNAL(triggered(bool)), this, SLOT(ui_ALogTriggered(bool)));
     QObject::connect(ui.a_mtb_daemon_save, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonSaveConfigTriggered(bool)));
 
+    QObject::connect(ui.tw_modules, SIGNAL(itemSelectionChanged()), this, SLOT(ui_twModulesSelectionChanged()));
+    QObject::connect(ui.a_module_configure, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleConfigure()));
+    QObject::connect(ui.a_module_reboot, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleReboot()));
+    QObject::connect(ui.a_module_fw_upgrade, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleFwUpgrade()));
+    QObject::connect(ui.a_module_beacon, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleBeacon()));
+    QObject::connect(ui.a_module_diagnostics, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleDiagnostics()));
+
     QObject::connect(&m_client, SIGNAL(jsonReceived(const QJsonObject&)), this, SLOT(clientJsonReceived(const QJsonObject&)));
     QObject::connect(&m_client, SIGNAL(onConnected()), this, SLOT(clientConnected()));
     QObject::connect(&m_client, SIGNAL(onDisconnected()), this, SLOT(clientDisconnected()));
     QObject::connect(&m_client, SIGNAL(connectError(const QString&)), this, SLOT(clientConnectError(const QString&)));
+}
+
+void MainWindow::ui_setupModulesContextMenu() {
+    QAction *aConfigure = new QAction(tr("Configure"), this);
+    connect(aConfigure, SIGNAL(triggered()), this, SLOT(ui_AModuleConfigure()));
+    this->twModulesContextMenu.addAction(aConfigure);
+
+    QAction *aReboot = new QAction(tr("Reboot"), this);
+    connect(aReboot, SIGNAL(triggered()), this, SLOT(ui_AModuleReboot()));
+    this->twModulesContextMenu.addAction(aReboot);
+
+    QAction *aBeacon = new QAction(tr("Beacon of/off"), this);
+    connect(aBeacon, SIGNAL(triggered()), this, SLOT(ui_AModuleBeacon()));
+    this->twModulesContextMenu.addAction(aBeacon);
+
+    QAction *aFwUpgrade = new QAction(tr("Firmware upgrade"), this);
+    connect(aFwUpgrade, SIGNAL(triggered()), this, SLOT(ui_AModuleFwUpgrade()));
+    this->twModulesContextMenu.addAction(aFwUpgrade);
+
+    QAction *aDisgnostics = new QAction(tr("Diagnostics"), this);
+    connect(aDisgnostics, SIGNAL(triggered()), this, SLOT(ui_AModuleDiagnostics()));
+    this->twModulesContextMenu.addAction(aDisgnostics);
 }
 
 void MainWindow::ui_MAboutTriggered(bool) {
@@ -371,4 +403,39 @@ void MainWindow::ui_ADaemonSaveConfigTriggered(bool) {
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("save_config", errorCode, errorMessage));
         }
     );
+}
+
+void MainWindow::ui_twCustomContextMenu(const QPoint& pos) {
+    QTreeWidgetItem *nd = this->ui.tw_modules->itemAt(pos);
+    this->twModulesContextMenu.setEnabled(nd != nullptr);
+    this->twModulesContextMenu.exec(ui.tw_modules->mapToGlobal(pos));
+}
+
+void MainWindow::ui_twModulesSelectionChanged() {
+    const bool selected = !this->ui.tw_modules->selectedItems().empty();
+    this->ui.a_module_configure->setEnabled(selected);
+    this->ui.a_module_reboot->setEnabled(selected);
+    this->ui.a_module_beacon->setEnabled(selected);
+    this->ui.a_module_fw_upgrade->setEnabled(selected);
+    this->ui.a_module_diagnostics->setEnabled(selected);
+}
+
+void MainWindow::ui_AModuleConfigure() {
+
+}
+
+void MainWindow::ui_AModuleReboot() {
+
+}
+
+void MainWindow::ui_AModuleBeacon() {
+
+}
+
+void MainWindow::ui_AModuleFwUpgrade() {
+
+}
+
+void MainWindow::ui_AModuleDiagnostics() {
+
 }

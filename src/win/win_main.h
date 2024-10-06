@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QObject>
 #include <QLabel>
+#include <QMenu>
 #include <array>
 #include <optional>
 #include "ui_mainwindow.h"
@@ -41,6 +42,7 @@ private:
 
     QLabel m_sb_connection;
     QLabel m_sb_mtbusb;
+    QMenu twModulesContextMenu;
 
     void connectedUpdate();
     QString daemonHostPort() const;
@@ -56,6 +58,7 @@ private:
     void ui_updateModule(const QJsonObject&);
     unsigned ui_twModulesInsertIndex(unsigned addr);
     void ui_twModulesClear();
+    void ui_setupModulesContextMenu();
 
     void closeEvent(QCloseEvent *event) override;
 
@@ -69,6 +72,14 @@ private slots:
     void ui_ADaemonConnectSettingsTriggered(bool);
     void ui_ADaemonSaveConfigTriggered(bool);
     void ui_ALogTriggered(bool);
+    void ui_twCustomContextMenu(const QPoint&);
+
+    void ui_twModulesSelectionChanged();
+    void ui_AModuleConfigure();
+    void ui_AModuleReboot();
+    void ui_AModuleBeacon();
+    void ui_AModuleFwUpgrade();
+    void ui_AModuleDiagnostics();
 
     void clientJsonReceived(const QJsonObject&);
     void clientConnected();
