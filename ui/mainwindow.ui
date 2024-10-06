@@ -147,6 +147,7 @@
     <addaction name="a_disconnect"/>
     <addaction name="separator"/>
     <addaction name="a_daemon_connection_settings"/>
+    <addaction name="a_log"/>
    </widget>
    <widget class="QMenu" name="m_mtb_usb">
     <property name="title">
@@ -233,6 +234,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="a_log">
+   <property name="text">
+    <string>Log</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>

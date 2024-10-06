@@ -20,18 +20,20 @@ qt_standard_project_setup(I18N_TRANSLATED_LANGUAGES cz)
 qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} mtb-config_cz.ts)
 
 set(PROJECT_SOURCES
-    src/main.cpp
-    src/main.h
+    src/main.h src/main.cpp
     src/q-str-exception.h
-    src/client.h
-    src/client.cpp
-    src/settings.cpp
-    src/win/win_main.cpp
-    src/win/win_main.h
-    src/win/win_settings.h
-    src/win/win_settings.cpp
+    src/client.h src/client.cpp
+    src/settings.h src/settings.cpp
+    src/log.h src/log.cpp
+    src/win/win_main.h src/win/win_main.cpp
+    src/win/win_settings.h src/win/win_settings.cpp
+    src/win/win_log.h src/win/win_log.cpp
+    src/win/win_mtbusb.h src/win/win_mtbusb.cpp
+    src/common.h
     ui/mainwindow.ui
     ui/settingsdialog.ui
+    ui/logdialog.ui
+    ui/mtbusbdialog.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

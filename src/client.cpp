@@ -3,6 +3,7 @@
 #include <QHostAddress>
 #include <QVector>
 #include "client.h"
+#include "log.h"
 
 DaemonClient::DaemonClient(QObject *parent) : QObject(parent) {
     QObject::connect(&this->m_tKeepAlive, SIGNAL(timeout()), this, SLOT(tKeepAliveTick()));
@@ -71,6 +72,7 @@ void DaemonClient::clientReadyRead() {
     while (this->m_socket.canReadLine()) {
         QByteArray data = this->m_socket.readLine();
         if (data.size() > 0) {
+            log("RECV: "+QString(data), LogLevel::RawData);
             QJsonObject json = QJsonDocument::fromJson(data).object();
             this->msgReceived(json);
         }

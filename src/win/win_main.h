@@ -4,12 +4,13 @@
 #include <QMainWindow>
 #include <QObject>
 #include <QLabel>
+#include <array>
+#include <optional>
 #include "ui_mainwindow.h"
 #include "settings.h"
 #include "win_settings.h"
 #include "client.h"
-#include <array>
-#include <optional>
+#include "win_log.h"
 
 constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 
@@ -31,8 +32,10 @@ public:
 
 private:
     Ui::MainWindow ui;
-    Settings& s;
     SettingsWindow m_settingsWindow;
+    LogWindow m_logWindow;
+
+    Settings& s;
     DaemonClient m_client;
     std::array<QTreeWidgetItem*, MTBBUS_ADDR_COUNT> m_tw_lines; // [0] is not valid
     std::optional<DaemonVersion> m_daemonVersion;
@@ -53,6 +56,8 @@ private:
     unsigned ui_twModulesInsertIndex(unsigned addr);
     void ui_twModulesClear();
 
+    void closeEvent(QCloseEvent *event) override;
+
 private slots:
     void ui_MAboutTriggered(bool);
     void ui_AOptionsTriggered(bool);
@@ -61,6 +66,7 @@ private slots:
     void ui_AMtbUsbSettingsTriggered(bool);
     void ui_AModulesRefreshTriggered(bool);
     void ui_ADaemonConnectSettingsTriggered(bool);
+    void ui_ALogTriggered(bool);
 
     void clientJsonReceived(const QJsonObject&);
     void clientConnected();

@@ -3,7 +3,7 @@
 #include "version.h"
 
 MainWindow::MainWindow(Settings& s, QWidget *parent)
-    : QMainWindow(parent), s(s), m_settingsWindow(s) {
+    : QMainWindow(parent), m_settingsWindow(s), s(s) {
     ui.setupUi(this);
     this->setWindowTitle(QString(tr("MTB Configuration Tool")+" v%1.%2").\
                          arg(MTB_CONFIG_VERSION_MAJOR).arg(MTB_CONFIG_VERSION_MINOR));
@@ -20,6 +20,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_mtbusb_settings, SIGNAL(triggered(bool)), this, SLOT(ui_AMtbUsbSettingsTriggered(bool)));
     QObject::connect(ui.a_daemon_connection_settings, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonConnectSettingsTriggered(bool)));
     QObject::connect(ui.a_modules_refresh, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesRefreshTriggered(bool)));
+    QObject::connect(ui.a_log, SIGNAL(triggered(bool)), this, SLOT(ui_ALogTriggered(bool)));
 
     QObject::connect(&m_client, SIGNAL(jsonReceived(const QJsonObject&)), this, SLOT(clientJsonReceived(const QJsonObject&)));
     QObject::connect(&m_client, SIGNAL(onConnected()), this, SLOT(clientConnected()));
@@ -273,4 +274,13 @@ void MainWindow::ui_twModulesClear() {
     this->ui.tw_modules->clear();
     for (auto& ref : this->m_tw_lines)
         ref = nullptr;
+}
+
+void MainWindow::ui_ALogTriggered(bool) {
+    this->m_logWindow.show();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    this->m_logWindow.close();
+    QMainWindow::closeEvent(event);
 }

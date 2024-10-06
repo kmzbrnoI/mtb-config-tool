@@ -18,8 +18,6 @@ private:
     Settings& s;
     void accept() override;
 
-private slots:
-
 };
 
 #endif // SETTINGSWINDOW_H
