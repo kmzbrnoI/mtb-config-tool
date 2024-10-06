@@ -412,7 +412,7 @@ void MainWindow::ui_twCustomContextMenu(const QPoint& pos) {
 }
 
 void MainWindow::ui_twModulesSelectionChanged() {
-    const bool selected = !this->ui.tw_modules->selectedItems().empty();
+    const bool selected = (this->ui.tw_modules->currentItem() != nullptr);
     this->ui.a_module_configure->setEnabled(selected);
     this->ui.a_module_reboot->setEnabled(selected);
     this->ui.a_module_beacon->setEnabled(selected);
@@ -425,7 +425,28 @@ void MainWindow::ui_AModuleConfigure() {
 }
 
 void MainWindow::ui_AModuleReboot() {
+    const QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
+    if (currentLine == nullptr)
+        return;
+    unsigned addr = currentLine->text(0).toInt();
 
+    QMessageBox::StandardButton reply = QMessageBox::question(this, "?", tr("Really reboot module ")+QString::number(addr)+"?");
+    if (reply == QMessageBox::StandardButton::No)
+        return;
+
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    this->m_client.sendNoExc(
+        {{"command", "module_reboot"}, {"address", static_cast<int>(addr)}},
+        [this](const QJsonObject& content) {
+            (void)content;
+            QApplication::restoreOverrideCursor();
+            QMessageBox::information(this, tr("Finished"), tr("Module successfully rebooted"));
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QApplication::restoreOverrideCursor();
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_reboot", errorCode, errorMessage));
+        }
+    );
 }
 
 void MainWindow::ui_AModuleBeacon() {
