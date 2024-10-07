@@ -4,6 +4,7 @@
 #include <QFileInfo>
 #include "win_main.h"
 #include "version.h"
+#include "win_mtbuniconfig.h"
 
 MainWindow::MainWindow(Settings& s, QWidget *parent)
     : QMainWindow(parent), s(s), m_settingsWindow(s), m_mtbUsbWindow(this->m_mtbUsbStatus) {
@@ -255,6 +256,9 @@ void MainWindow::connectedUpdate() {
 
         for (auto& module : this->m_modules)
             module = {}; // clear everything
+
+        for (auto& window : this->m_configWindows)
+            window.reset();
     }
 
     this->ui.a_mtbusb_settings->setEnabled(this->m_mtbUsbConnected);
@@ -346,6 +350,7 @@ void MainWindow::clientReceivedModule(const QJsonObject& json) {
     this->m_modules[address] = json;
 
     this->ui_updateModule(json);
+    this->checkModuleTypeChanged(json);
 }
 
 void MainWindow::clientReceivedModules(const QJsonObject& modules) {
@@ -357,6 +362,7 @@ void MainWindow::clientReceivedModules(const QJsonObject& modules) {
         const QJsonObject& module = modules[addrStr].toObject();
         this->m_modules[addr] = module;
         this->ui_updateModule(module);
+        this->checkModuleTypeChanged(module);
     }
 }
 
@@ -395,6 +401,8 @@ void MainWindow::ui_ALogTriggered(bool) {
 void MainWindow::closeEvent(QCloseEvent *event) {
     this->m_logWindow.close();
     this->m_mtbUsbWindow.close();
+    for (auto& window : this->m_configWindows)
+        window.reset();
     QMainWindow::closeEvent(event);
 }
 
@@ -440,7 +448,25 @@ void MainWindow::ui_twModulesSelectionChanged() {
 }
 
 void MainWindow::ui_AModuleConfigure() {
+    const QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
+    if (currentLine == nullptr)
+        return;
+    unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
 
+    const unsigned typeCode = this->m_modules[addr]["type_code"].toInt();
+
+    if ((typeCode&0xF0) == 0x10) { // MTB-UNI and variants
+        if (!this->m_configWindows[addr])
+            this->m_configWindows[addr] = std::make_unique<MtbUniConfigWindow>();
+    } else {
+        QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code ")+QString::number(typeCode)+tr(", no configuration window available!"));
+        return;
+    }
+
+    if (!this->m_configWindows[addr]->isVisible())
+        this->m_configWindows[addr]->editModule(this->m_modules[addr]);
+    else
+        this->m_configWindows[addr]->activateWindow();
 }
 
 void MainWindow::ui_AModuleReboot() {
@@ -584,4 +610,22 @@ QJsonObject MainWindow::loadFwHex(const QString& filename) {
     }
 
     return firmware;
+}
+
+void MainWindow::checkModuleTypeChanged(const QJsonObject& module) {
+    const uint8_t address = module["address"].toInt();
+    const unsigned typeCode = module["typeCode"].toInt();
+
+    bool changed = false;
+    if (this->m_configWindows[address]) {
+        if (((typeCode&0xF0) == 0x10) && (!is<MtbUniConfigWindow>(*this->m_configWindows[address]))) // MTB-UNI and variants
+            changed = true;
+    }
+
+    if (changed) {
+        bool visible = this->m_configWindows[address]->isVisible();
+        this->m_configWindows[address].reset();
+        if (visible)
+            QMessageBox::warning(this, tr("Warning"), tr("Type of module ")+QString::number(address)+tr(" changed, configuration window closed."));
+    }
 }

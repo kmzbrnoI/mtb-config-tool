@@ -4,7 +4,7 @@ project(mtb-config VERSION 0.1 LANGUAGES CXX)
 configure_file(src/version.h.in version.h)
 
 set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOUIC_SEARCH_PATHS ui)
+set(CMAKE_AUTOUIC_SEARCH_PATHS ui ui/modules)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
@@ -30,10 +30,13 @@ set(PROJECT_SOURCES
     src/win/win_log.h src/win/win_log.cpp
     src/win/win_mtbusb.h src/win/win_mtbusb.cpp
     src/common.h src/common.cpp
+    src/win/modules/win_config.h
+    src/win/modules/win_mtbuniconfig.h src/win/modules/win_mtbuniconfig.cpp
     ui/mainwindow.ui
     ui/settingsdialog.ui
     ui/logdialog.ui
     ui/mtbusbdialog.ui
+    ui/modules/mtbuniconfig.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -74,6 +77,7 @@ target_include_directories(mtb-config PUBLIC
     "${PROJECT_BINARY_DIR}"
     src
     src/win
+    src/win/modules
 )
 
 install(TARGETS mtb-config

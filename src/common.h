@@ -30,6 +30,21 @@ struct MtbUsbStatus {
     void update(const QJsonObject&);
 };
 
+enum class MtbModuleType {
+    Unknown = 0x00,
+    Univ2ir = 0x10,
+    Univ2noIr = 0x11,
+    Univ40 = 0x15,
+    Univ42 = 0x16,
+    Unis10 = 0x50,
+    Rc = 0x30,
+};
+
 void setBacground(QTreeWidgetItem& item, const QBrush& brush);
+
+template <typename Target, typename Source>
+bool is(const Source &x) {
+    return (dynamic_cast<const Target *>(&x) != nullptr);
+}
 
 #endif // COMMON_H

@@ -13,6 +13,7 @@
 #include "client.h"
 #include "win_log.h"
 #include "win_mtbusb.h"
+#include "win_config.h"
 
 constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
@@ -54,6 +55,7 @@ private:
     DaemonClient m_client;
     std::array<QTreeWidgetItem*, MTBBUS_ADDR_COUNT> m_tw_lines; // [0] is not valid
     std::array<QJsonObject, MTBBUS_ADDR_COUNT> m_modules;
+    std::array<std::unique_ptr<MtbModuleConfigDialog>, MTBBUS_ADDR_COUNT> m_configWindows;
     std::optional<DaemonVersion> m_daemonVersion;
     bool m_mtbUsbConnected = false;
     std::optional<MtbUsbStatus> m_mtbUsbStatus;
@@ -85,6 +87,8 @@ private:
     void closeEvent(QCloseEvent *event) override;
     static QJsonObject loadFwHex(const QString& filename);
     void fwUpgraded(const QJsonObject&);
+
+    void checkModuleTypeChanged(const QJsonObject& module);
 
 private slots:
     void ui_MAboutTriggered(bool);
