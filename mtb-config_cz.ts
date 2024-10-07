@@ -637,7 +637,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="11"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="18"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="46"/>
+        <source>Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="19"/>
+        <source>Delay:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="47"/>
+        <source>Default:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="56"/>
+        <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="56"/>
+        <source>on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="72"/>
         <source>Configuration of module </source>
         <translation type="unfinished"></translation>
     </message>

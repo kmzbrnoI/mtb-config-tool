@@ -47,4 +47,7 @@ bool is(const Source &x) {
     return (dynamic_cast<const Target *>(&x) != nullptr);
 }
 
+constexpr unsigned UNI_INPUTS_COUNT = 16;
+constexpr unsigned UNI_OUTPUTS_COUNT = 16;
+
 #endif // COMMON_H
