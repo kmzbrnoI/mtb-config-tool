@@ -463,10 +463,8 @@ void MainWindow::ui_AModuleConfigure() {
         return;
     }
 
-    if (!this->m_configWindows[addr]->isVisible())
-        this->m_configWindows[addr]->editModule(this->m_modules[addr]);
-    else
-        this->m_configWindows[addr]->activateWindow();
+    // Reopen already active window -> refill up-to-date values
+    this->m_configWindows[addr]->editModule(this->m_modules[addr]);
 }
 
 void MainWindow::ui_AModuleReboot() {

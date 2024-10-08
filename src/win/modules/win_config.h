@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QJsonObject>
+#include "common.h"
 
 class MtbModuleConfigDialog : public QDialog {
     Q_OBJECT
@@ -11,7 +12,7 @@ public:
     MtbModuleConfigDialog(QWidget *parent = nullptr) : QDialog(parent) {}
 
     virtual void editModule(const QJsonObject& module) = 0;
-    virtual void newModule() = 0;
+    virtual void newModule(unsigned addr, MtbModuleType) = 0;
 
 };
 

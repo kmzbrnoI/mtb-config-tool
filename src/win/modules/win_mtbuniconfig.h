@@ -32,7 +32,7 @@ public:
     MtbUniConfigWindow(QWidget *parent = nullptr);
 
     virtual void editModule(const QJsonObject& module) override;
-    virtual void newModule() override;
+    virtual void newModule(unsigned addr, MtbModuleType) override;
 
 private:
     Ui::MtbUniConfigWindow ui;
@@ -41,6 +41,10 @@ private:
 
     void createGuiInputs();
     void createGuiOutputs();
+    void updateUiType(MtbModuleType);
+    void jsonParseError(const QString& err);
+    static void fillOutputSafeState(QComboBox&, unsigned value, const QString& type);
+
 };
 
 #endif // WIN_MTBUNICONFIG_H
