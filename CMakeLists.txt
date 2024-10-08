@@ -30,7 +30,7 @@ set(PROJECT_SOURCES
     src/win/win_log.h src/win/win_log.cpp
     src/win/win_mtbusb.h src/win/win_mtbusb.cpp
     src/common.h src/common.cpp
-    src/win/modules/win_config.h
+    src/win/modules/win_config.h src/win/modules/win_config.cpp
     src/win/modules/win_mtbuniconfig.h src/win/modules/win_mtbuniconfig.cpp
     ui/mainwindow.ui
     ui/settingsdialog.ui

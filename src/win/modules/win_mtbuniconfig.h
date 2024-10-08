@@ -45,10 +45,15 @@ private:
     void createGuiOutputs();
     void updateUiType(MtbModuleType);
     void jsonParseError(const QString& err);
+    void apply();
+
     static void fillOutputSafeState(QComboBox&, unsigned value, const QString& type);
+    static int outputCbToValue(const QString& type, unsigned index);
 
 private slots:
+    void ui_bClicked(QAbstractButton *button);
     void ui_cbOutputTypeCurrentIndexChanged(int);
+
 };
 
 #endif // WIN_MTBUNICONFIG_H

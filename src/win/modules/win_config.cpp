@@ -20,3 +20,13 @@ void MtbModuleConfigDialog::refresh() {
         }
     );
 }
+
+void MtbModuleConfigDialog::updateModuleFromMtbDaemon() {
+    DaemonClient::instance->sendNoExc(
+        {{"command", "module"}, {"address", this->address}},
+        [](const QJsonObject&) {},
+        [this](unsigned errorCode, QString errorMessage) {
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module", errorCode, errorMessage));
+        }
+    );
+}

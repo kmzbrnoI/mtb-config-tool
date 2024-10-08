@@ -17,6 +17,9 @@ public:
 
 protected:
     uint8_t address;
+    MtbModuleType type;
+
+    void updateModuleFromMtbDaemon();
 
 protected slots:
     void refresh();

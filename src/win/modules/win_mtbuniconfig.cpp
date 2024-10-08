@@ -1,16 +1,22 @@
 #include <QJsonArray>
 #include <QMessageBox>
 #include "win_mtbuniconfig.h"
+#include "client.h"
 
 MtbUniConfigWindow::MtbUniConfigWindow(QWidget *parent) :
     MtbModuleConfigDialog(parent) {
     this->ui.setupUi(this);
     this->setFixedSize(this->width(), this->height());
-    this->setWindowFlags(Qt::Tool);
+    //this->setWindowFlags(Qt::Tool);
     this->createGuiInputs();
     this->createGuiOutputs();
 
+    QPushButton *b = this->ui.bb_main->button(QDialogButtonBox::Apply);
+    if (b)
+        b->setDefault(true);
+
     QObject::connect(ui.b_refresh, SIGNAL(released()), this, SLOT(refresh()));
+    QObject::connect(ui.bb_main, SIGNAL(clicked(QAbstractButton*)), this, SLOT(ui_bClicked(QAbstractButton*)));
 }
 
 void MtbUniConfigWindow::createGuiInputs() {
@@ -83,8 +89,8 @@ void MtbUniConfigWindow::update(const QJsonObject& module) {
     if (!module["name"].isString())
         return this->jsonParseError("'name' does not exist or is invalid type.");
     this->ui.le_name->setText(module["name"].toString());
-    MtbModuleType moduleType = static_cast<MtbModuleType>(module["type_code"].toInt());
-    this->updateUiType(moduleType);
+    this->type = static_cast<MtbModuleType>(module["type_code"].toInt());
+    this->updateUiType(this->type);
 
     if (!module["type"].isString())
         return this->jsonParseError("'type' "+tr("does not exist or is invalid type."));
@@ -99,7 +105,7 @@ void MtbUniConfigWindow::update(const QJsonObject& module) {
 
     // Inputs
 
-    if (moduleType == MtbModuleType::Univ2ir) {
+    if (this->type == MtbModuleType::Univ2ir) {
         if (!config["irs"].isArray())
             return this->jsonParseError("'irs' "+tr("does not exist or is invalid type."));
         const QJsonArray& irs = config["irs"].toArray();
@@ -155,6 +161,9 @@ void MtbUniConfigWindow::update(const QJsonObject& module) {
 
 void MtbUniConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     this->updateInProgress = true;
+    this->type = this->type;
+    this->address = 0;
+
     this->updateUiType(type);
 
     this->ui.le_name->setText("");
@@ -215,6 +224,16 @@ void MtbUniConfigWindow::fillOutputSafeState(QComboBox& cb, unsigned value, cons
     }
 }
 
+int MtbUniConfigWindow::outputCbToValue(const QString& type, unsigned index) {
+    if (type == "plain")
+        return index;
+    if (type == "s-com")
+        return index;
+    if (type == "flicker")
+        return index < UniFlickerPerMin.size() ? UniFlickerPerMin[index] : 0;
+    return 0;
+}
+
 void MtbUniConfigWindow::ui_cbOutputTypeCurrentIndexChanged(int) {
     if (updateInProgress)
         return;
@@ -223,4 +242,66 @@ void MtbUniConfigWindow::ui_cbOutputTypeCurrentIndexChanged(int) {
             MtbUniConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, 0, this->m_guiOutputs[i].type.currentText());
         }
     }
+}
+
+void MtbUniConfigWindow::ui_bClicked(QAbstractButton *button) {
+    if (button == this->ui.bb_main->button(QDialogButtonBox::StandardButton::Apply)) {
+        this->apply();
+    }
+}
+
+void MtbUniConfigWindow::apply() {
+    if (this->ui.le_name->text() == "") {
+        QMessageBox::warning(this, tr("Error"), tr("Fill in module name!"));
+        return;
+    }
+
+
+    QJsonArray inputsDelay;
+    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++)
+        inputsDelay.append(static_cast<double>(this->m_guiInputs[i].delay.currentIndex())/10);
+
+    QJsonArray outputsSafe;
+    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+        QJsonObject output;
+        const QString& outputType = this->m_guiOutputs[i].type.currentText();
+        output["type"] = outputType;
+        output["value"] = MtbUniConfigWindow::outputCbToValue(outputType, this->m_guiOutputs[i].safeState.currentIndex());
+        outputsSafe.append(output);
+    }
+
+    QJsonObject config{
+        {"inputsDelay", inputsDelay},
+        {"outputsSafe", outputsSafe},
+    };
+
+    if (this->type == MtbModuleType::Univ2ir) {
+        QJsonArray irs;
+        for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++)
+            irs.append(this->m_guiInputs[i].type.currentIndex() == 1);
+        config["irs"] = irs;
+    }
+
+    QJsonObject newModule{
+        {"command", "module_set_config"},
+        {"address", this->address},
+        {"type_code", static_cast<int>(this->type)},
+        {"name", this->ui.le_name->text()},
+        {"config", {config}}
+    };
+
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    DaemonClient::instance->sendNoExc(
+        newModule,
+        [this](const QJsonObject& content) {
+            (void)content;
+            QApplication::restoreOverrideCursor();
+            QMessageBox::information(this, tr("Ok"), tr("Configuration successfully set."));
+            this->updateModuleFromMtbDaemon();
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QApplication::restoreOverrideCursor();
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_set_config", errorCode, errorMessage));
+        }
+    );
 }
