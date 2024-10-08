@@ -65,6 +65,8 @@ void MtbUniConfigWindow::createGuiOutputs() {
         this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].type, i, 2);
         this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].safeStateLabel, i, 3);
         this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].safeState, i, 4);
+
+        QObject::connect(&this->m_guiOutputs[i].type, SIGNAL(currentIndexChanged(int)), this, SLOT(ui_cbOutputTypeCurrentIndexChanged(int)));
     }
 }
 
@@ -140,8 +142,10 @@ void MtbUniConfigWindow::update(const QJsonObject& module) {
         const QString& type = output["type"].toString();
         const unsigned value = output["value"].toInt();
 
+        this->updateInProgress = true;
         this->m_guiOutputs[i].type.setCurrentText(type);
         MtbUniConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, value, type);
+        this->updateInProgress = false;
     }
 
     this->ui.b_refresh->setEnabled(true);
@@ -150,6 +154,7 @@ void MtbUniConfigWindow::update(const QJsonObject& module) {
 }
 
 void MtbUniConfigWindow::newModule(unsigned addr, MtbModuleType type) {
+    this->updateInProgress = true;
     this->updateUiType(type);
 
     this->ui.le_name->setText("");
@@ -166,6 +171,7 @@ void MtbUniConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     this->ui.b_refresh->setEnabled(false);
     this->setWindowTitle(tr("New module ")+QString::number(addr)+" – "+moduleTypeToStr(type));
     this->ui.le_name->setFocus();
+    this->updateInProgress = false;
     this->show();
 }
 
@@ -206,5 +212,15 @@ void MtbUniConfigWindow::fillOutputSafeState(QComboBox& cb, unsigned value, cons
                 cb.setCurrentIndex(i);
     } else {
         cb.setCurrentIndex(-1);
+    }
+}
+
+void MtbUniConfigWindow::ui_cbOutputTypeCurrentIndexChanged(int) {
+    if (updateInProgress)
+        return;
+    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+        if (sender() == &this->m_guiOutputs[i].type) {
+            MtbUniConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, 0, this->m_guiOutputs[i].type.currentText());
+        }
     }
 }

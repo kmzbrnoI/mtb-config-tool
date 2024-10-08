@@ -39,6 +39,7 @@ private:
     Ui::MtbUniConfigWindow ui;
     std::array<UniGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
     std::array<UniGuiOutput, UNI_INPUTS_COUNT> m_guiOutputs;
+    bool updateInProgress = false;
 
     void createGuiInputs();
     void createGuiOutputs();
@@ -46,6 +47,8 @@ private:
     void jsonParseError(const QString& err);
     static void fillOutputSafeState(QComboBox&, unsigned value, const QString& type);
 
+private slots:
+    void ui_cbOutputTypeCurrentIndexChanged(int);
 };
 
 #endif // WIN_MTBUNICONFIG_H
