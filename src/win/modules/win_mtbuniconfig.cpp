@@ -9,6 +9,8 @@ MtbUniConfigWindow::MtbUniConfigWindow(QWidget *parent) :
     this->setWindowFlags(Qt::Tool);
     this->createGuiInputs();
     this->createGuiOutputs();
+
+    QObject::connect(ui.b_refresh, SIGNAL(released()), this, SLOT(refresh()));
 }
 
 void MtbUniConfigWindow::createGuiInputs() {
@@ -67,9 +69,14 @@ void MtbUniConfigWindow::createGuiOutputs() {
 }
 
 void MtbUniConfigWindow::editModule(const QJsonObject& module) {
+    this->update(module);
+    this->show();
+}
+
+void MtbUniConfigWindow::update(const QJsonObject& module) {
     if (module["address"].toInt(-1) == -1)
         return this->jsonParseError("'address' does not exist or is invalid type.");
-    const uint8_t addr = module["address"].toInt();
+    this->address = module["address"].toInt();
 
     if (!module["name"].isString())
         return this->jsonParseError("'name' does not exist or is invalid type.");
@@ -137,13 +144,26 @@ void MtbUniConfigWindow::editModule(const QJsonObject& module) {
         MtbUniConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, value, type);
     }
 
-    this->setWindowTitle(tr("Configuration of module ")+QString::number(addr)+" – "+module["type"].toString());
+    this->ui.b_refresh->setEnabled(true);
+    this->setWindowTitle(tr("Configuration of module ")+QString::number(this->address)+" – "+module["type"].toString());
     this->ui.le_name->setFocus();
-    this->show();
 }
 
 void MtbUniConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     this->updateUiType(type);
+
+    this->ui.le_name->setText("");
+    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
+        this->m_guiInputs[i].type.setCurrentIndex(0);
+        this->m_guiInputs[i].delay.setCurrentIndex(0);
+    }
+
+    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+        this->m_guiOutputs[i].type.setCurrentText(0);
+        MtbUniConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, 0, "plain");
+    }
+
+    this->ui.b_refresh->setEnabled(false);
     this->setWindowTitle(tr("New module ")+QString::number(addr)+" – "+moduleTypeToStr(type));
     this->ui.le_name->setFocus();
     this->show();
