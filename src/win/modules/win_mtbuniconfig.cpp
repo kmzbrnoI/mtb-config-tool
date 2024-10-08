@@ -256,6 +256,30 @@ void MtbUniConfigWindow::apply() {
         return;
     }
 
+    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
+        if (this->m_guiInputs[i].type.currentIndex() < 0) {
+            QMessageBox::warning(this, tr("Error"), tr("Fill in all input types!"));
+            return;
+        }
+
+        if (this->m_guiInputs[i].delay.currentIndex() < 0) {
+            QMessageBox::warning(this, tr("Error"), tr("Fill in all input delays!"));
+            return;
+        }
+    }
+
+    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+        if (this->m_guiOutputs[i].type.currentIndex() < 0) {
+            QMessageBox::warning(this, tr("Error"), tr("Fill in all output types!"));
+            return;
+        }
+
+        if (this->m_guiOutputs[i].safeState.currentIndex() < 0) {
+            QMessageBox::warning(this, tr("Error"), tr("Fill in all output safe states!"));
+            return;
+        }
+    }
+
 
     QJsonArray inputsDelay;
     for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++)
