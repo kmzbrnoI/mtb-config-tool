@@ -45,8 +45,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    static MainWindow* instance;
+
     MainWindow(Settings& s, QWidget *parent = nullptr);
     void retranslate();
+    void criticalError(const QString&);
 
 private:
     Ui::MainWindow ui;
@@ -66,6 +69,7 @@ private:
 
     QLabel m_sb_connection;
     QLabel m_sb_mtbusb;
+    QLabel m_sb_error;
     QMenu twModulesContextMenu;
 
     void connectedUpdate();
@@ -101,6 +105,7 @@ private slots:
     void ui_ADaemonSaveConfigTriggered(bool);
     void ui_ALogTriggered(bool);
     void ui_twCustomContextMenu(const QPoint&);
+    void ui_AClearErrorSb();
 
     void ui_twModulesSelectionChanged();
     void ui_AModuleConfigure();

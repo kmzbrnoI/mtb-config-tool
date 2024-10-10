@@ -182,10 +182,17 @@
     <addaction name="a_module_fw_upgrade"/>
     <addaction name="a_module_diagnostics"/>
    </widget>
+   <widget class="QMenu" name="m_window">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="a_clear_error_sb"/>
+   </widget>
    <addaction name="m_mtb_daemon"/>
    <addaction name="m_mtb_usb"/>
    <addaction name="m_module"/>
    <addaction name="m_settings"/>
+   <addaction name="m_window"/>
    <addaction name="m_help"/>
   </widget>
   <widget class="QStatusBar" name="sb_main"/>
@@ -308,6 +315,14 @@
    </property>
    <property name="text">
     <string>Diagnostics</string>
+   </property>
+  </action>
+  <action name="a_clear_error_sb">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Clear error in status bar</string>
    </property>
   </action>
  </widget>

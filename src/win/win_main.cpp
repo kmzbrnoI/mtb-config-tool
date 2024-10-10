@@ -7,14 +7,19 @@
 #include "win_mtbuniconfig.h"
 #include "qjsonsafe.h"
 
+MainWindow* MainWindow::instance = nullptr;
+
 MainWindow::MainWindow(Settings& s, QWidget *parent)
     : QMainWindow(parent), s(s), m_settingsWindow(s), m_mtbUsbWindow(this->m_mtbUsbStatus) {
+    MainWindow::instance = this;
     ui.setupUi(this);
     this->setWindowTitle(QString(tr("MTB Configuration Tool")+" v%1.%2").\
                          arg(MTB_CONFIG_VERSION_MAJOR).arg(MTB_CONFIG_VERSION_MINOR));
 
+    this->m_sb_error.setStyleSheet("color: red; font-weight: bold;");
     this->ui.sb_main->addWidget(&this->m_sb_connection);
     this->ui.sb_main->addWidget(&this->m_sb_mtbusb);
+    this->ui.sb_main->addWidget(&this->m_sb_error);
 
     this->connectedUpdate();
     this->ui_setupModulesContextMenu();
@@ -29,7 +34,6 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_daemon_connection_settings, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonConnectSettingsTriggered(bool)));
     QObject::connect(ui.a_modules_refresh, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesRefreshTriggered(bool)));
     QObject::connect(ui.a_log, SIGNAL(triggered(bool)), this, SLOT(ui_ALogTriggered(bool)));
-    QObject::connect(ui.a_mtb_daemon_save, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonSaveConfigTriggered(bool)));
 
     QObject::connect(ui.tw_modules, SIGNAL(itemSelectionChanged()), this, SLOT(ui_twModulesSelectionChanged()));
     QObject::connect(ui.a_module_configure, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleConfigure()));
@@ -37,6 +41,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_module_fw_upgrade, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleFwUpgrade()));
     QObject::connect(ui.a_module_beacon, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleBeacon()));
     QObject::connect(ui.a_module_diagnostics, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleDiagnostics()));
+    QObject::connect(ui.a_clear_error_sb, SIGNAL(triggered(bool)), this, SLOT(ui_AClearErrorSb()));
 
     QObject::connect(&m_client, SIGNAL(jsonReceived(const QJsonObject&)), this, SLOT(clientJsonReceived(const QJsonObject&)));
     QObject::connect(&m_client, SIGNAL(onConnected()), this, SLOT(clientConnected()));
@@ -640,4 +645,14 @@ void MainWindow::checkModuleTypeChanged(const QJsonObject& module) {
         if (visible)
             QMessageBox::warning(this, tr("Warning"), tr("Type of module ")+QString::number(address)+tr(" changed, configuration window closed."));
     }
+}
+
+void MainWindow::ui_AClearErrorSb() {
+    this->m_sb_error.setText("");
+    this->ui.a_clear_error_sb->setEnabled(false);
+}
+
+void MainWindow::criticalError(const QString& err) {
+    this->m_sb_error.setText(QTime::currentTime().toString("hh:mm:ss") + " " + err);
+    this->ui.a_clear_error_sb->setEnabled(true);
 }
