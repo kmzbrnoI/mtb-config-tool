@@ -631,7 +631,7 @@ QJsonObject MainWindow::loadFwHex(const QString& filename) {
 
 void MainWindow::checkModuleTypeChanged(const QJsonObject& module) {
     const uint8_t address = QJsonSafe::safeUInt(module["address"]);
-    const unsigned typeCode = QJsonSafe::safeUInt(module["typeCode"]);
+    const unsigned typeCode = QJsonSafe::safeUInt(module["type_code"]);
 
     bool changed = false;
     if (this->m_configWindows[address]) {
