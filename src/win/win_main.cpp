@@ -5,6 +5,7 @@
 #include "win_main.h"
 #include "version.h"
 #include "win_mtbuniconfig.h"
+#include "qjsonsafe.h"
 
 MainWindow::MainWindow(Settings& s, QWidget *parent)
     : QMainWindow(parent), s(s), m_settingsWindow(s), m_mtbUsbWindow(this->m_mtbUsbStatus) {
@@ -90,12 +91,18 @@ void MainWindow::retranslate() {
 }
 
 void MainWindow::clientJsonReceived(const QJsonObject& json) {
-    if (json["command"] == "mtbusb")
-        this->clientReceivedMtbUsb(json["mtbusb"].toObject());
-    else if (json["command"] == "module")
-        this->clientReceivedModule(json["module"].toObject());
-    else if (json["command"] == "modules")
-        this->clientReceivedModules(json["modules"].toObject());
+    try {
+        if (json["command"] == "mtbusb")
+            this->clientReceivedMtbUsb(QJsonSafe::safeObject(json["mtbusb"]));
+        else if (json["command"] == "module")
+            this->clientReceivedModule(QJsonSafe::safeObject(json["module"]));
+        else if (json["command"] == "modules")
+            this->clientReceivedModules(QJsonSafe::safeObject(json["modules"]));
+    } catch (const QStrException& e) {
+        log("MainWindow::clientJsonReceived exception: "+e.str(), LogLevel::Error);
+    } catch (...) {
+        log("MainWindow::clientJsonReceived unknown exception!", LogLevel::Error);
+    }
 }
 
 void MainWindow::clientConnected() {
@@ -116,27 +123,26 @@ void MainWindow::clientConnected() {
 }
 
 void MainWindow::connectingVersionReceived(const QJsonObject& json) {
-    const QJsonObject& jsonVersion = json["version"].toObject();
-    if ((!jsonVersion.contains("sw_version_major")) || (!jsonVersion.contains("sw_version_minor")) ||
-        (jsonVersion["sw_version_major"].toInt(-1) == -1) || (jsonVersion["sw_version_minor"].toInt(-1) == -1)) {
+    try {
+        const QJsonObject& jsonVersion = QJsonSafe::safeObject(json["version"]);
+        const QString versionStr = QJsonSafe::safeString(jsonVersion["sw_version"]);
+        this->m_daemonVersion.emplace(QJsonSafe::safeUInt(jsonVersion["sw_version_major"]), QJsonSafe::safeUInt(jsonVersion["sw_version_minor"]));
+        this->m_sb_connection.setText(this->m_sb_connection.text() + " v"+this->m_daemonVersion->str());
+
+        if (!DAEMON_SUPPORTED_VERSIONS.contains(versionStr)) {
+            QApplication::restoreOverrideCursor();
+            QMessageBox::StandardButton reply = QMessageBox::question(this, "?", tr("Unsupported MTB Daemon received version: ")+versionStr+"\n"+
+                tr("Supported versions: ")+daemonSupportedVersionsStr()+"\n"+tr("Continue?"));
+            if (reply == QMessageBox::No) {
+                this->ui_ADisconnectTriggered(false);
+                return;
+            }
+        }
+    } catch (const QStrException& e) {
         QApplication::restoreOverrideCursor();
         this->ui_ADisconnectTriggered(false);
-        QMessageBox::warning(this, tr("Error"), tr("Invalid received MTB Daemon version!")+"\n"+tr("Closing connection..."));
+        QMessageBox::warning(this, tr("Error"), tr("Invalid received MTB Daemon version!")+"\n"+e.str()+"\n"+tr("Closing connection..."));
         return;
-    }
-
-    const QString versionStr = jsonVersion["sw_version"].toString();
-    this->m_daemonVersion.emplace(jsonVersion["sw_version_major"].toInt(), jsonVersion["sw_version_minor"].toInt());
-    this->m_sb_connection.setText(this->m_sb_connection.text() + " v"+this->m_daemonVersion->str());
-
-    if (!DAEMON_SUPPORTED_VERSIONS.contains(versionStr)) {
-        QApplication::restoreOverrideCursor();
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "?", tr("Unsupported MTB Daemon received version: ")+versionStr+"\n"+
-            tr("Supported versions: ")+daemonSupportedVersionsStr()+"\n"+tr("Continue?"));
-        if (reply == QMessageBox::No) {
-            this->ui_ADisconnectTriggered(false);
-            return;
-        }
     }
 
     // version ok -> ask mtbusb status
@@ -274,7 +280,7 @@ void MainWindow::ui_updateModule(const QJsonObject& module) {
         return;
     }
 
-    const uint8_t address = module["address"].toInt();
+    const uint8_t address = module["address"].toInt(0);
     if (address == 0)
         return;
 
@@ -346,7 +352,10 @@ void MainWindow::clientReceivedModule(const QJsonObject& json) {
         return;
     }
 
-    const uint8_t address = json["address"].toInt();
+    const uint8_t address = json["address"].toInt(0);
+    if (address == 0)
+        return;
+
     this->m_modules[address] = json;
 
     this->ui_updateModule(json);
@@ -359,7 +368,7 @@ void MainWindow::clientReceivedModules(const QJsonObject& modules) {
         const uint8_t addr = addrStr.toInt(0);
         if (addr == 0)
             continue;
-        const QJsonObject& module = modules[addrStr].toObject();
+        const QJsonObject& module = QJsonSafe::safeObject(modules[addrStr]);
         this->m_modules[addr] = module;
         this->ui_updateModule(module);
         this->checkModuleTypeChanged(module);
@@ -448,23 +457,26 @@ void MainWindow::ui_twModulesSelectionChanged() {
 }
 
 void MainWindow::ui_AModuleConfigure() {
-    const QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
-    if (currentLine == nullptr)
-        return;
-    unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
+    try {
+        const QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
+        if (currentLine == nullptr)
+            throw QStrException("currentLine == nullptr");
+        unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
+        const unsigned typeCode = QJsonSafe::safeUInt(this->m_modules[addr]["type_code"]);
 
-    const unsigned typeCode = this->m_modules[addr]["type_code"].toInt();
+        if ((typeCode&0xF0) == 0x10) { // MTB-UNI and variants
+            if (!this->m_configWindows[addr])
+                this->m_configWindows[addr] = std::make_unique<MtbUniConfigWindow>();
+        } else {
+            QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code ")+QString::number(typeCode)+tr(", no configuration window available!"));
+            return;
+        }
 
-    if ((typeCode&0xF0) == 0x10) { // MTB-UNI and variants
-        if (!this->m_configWindows[addr])
-            this->m_configWindows[addr] = std::make_unique<MtbUniConfigWindow>();
-    } else {
-        QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code ")+QString::number(typeCode)+tr(", no configuration window available!"));
-        return;
+        // Reopen already active window -> refill up-to-date values
+        this->m_configWindows[addr]->editModule(this->m_modules[addr]);
+    } catch (const QStrException& e) {
+        QMessageBox::critical(this, "Error", "Cannot edit module: "+e.str());
     }
-
-    // Reopen already active window -> refill up-to-date values
-    this->m_configWindows[addr]->editModule(this->m_modules[addr]);
 }
 
 void MainWindow::ui_AModuleReboot() {
@@ -557,7 +569,9 @@ void MainWindow::ui_AModuleFwUpgrade() {
 }
 
 void MainWindow::fwUpgraded(const QJsonObject& json) {
-    uint8_t addr = json["address"].toInt();
+    uint8_t addr = json["address"].toInt(0);
+    if (addr == 0)
+        return;
 
     // firmware upgraded -> ask new module state
     this->m_client.sendNoExc(
@@ -611,8 +625,8 @@ QJsonObject MainWindow::loadFwHex(const QString& filename) {
 }
 
 void MainWindow::checkModuleTypeChanged(const QJsonObject& module) {
-    const uint8_t address = module["address"].toInt();
-    const unsigned typeCode = module["typeCode"].toInt();
+    const uint8_t address = QJsonSafe::safeUInt(module["address"]);
+    const unsigned typeCode = QJsonSafe::safeUInt(module["typeCode"]);
 
     bool changed = false;
     if (this->m_configWindows[address]) {

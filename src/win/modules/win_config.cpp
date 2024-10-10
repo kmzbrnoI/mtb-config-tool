@@ -10,8 +10,12 @@ void MtbModuleConfigDialog::refresh() {
         [this](const QJsonObject& content) {
             QApplication::restoreOverrideCursor();
             if (this->isVisible()) { // is case of different type received
-                this->update(content["module"].toObject());
-                QMessageBox::information(this, tr("Finished"), tr("Module information successfully updated."));
+                try {
+                    this->update(content["module"].toObject());
+                    QMessageBox::information(this, tr("Finished"), tr("Module information successfully updated."));
+                } catch (const QStrException& e) {
+                    QMessageBox::critical(this, "Error", "Module update failed: "+e.str());
+                }
             }
         },
         [this](unsigned errorCode, QString errorMessage) {
@@ -25,7 +29,11 @@ void MtbModuleConfigDialog::updateModuleFromMtbDaemon() {
     DaemonClient::instance->sendNoExc(
         {{"command", "module"}, {"address", this->address}},
         [this](const QJsonObject& content) {
-            this->update(content["module"].toObject());
+            try {
+                this->update(content["module"].toObject());
+            } catch (const QStrException& e) {
+                QMessageBox::critical(this, "Error", "Module update failed: "+e.str());
+            }
         },
         [this](unsigned errorCode, QString errorMessage) {
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module", errorCode, errorMessage));

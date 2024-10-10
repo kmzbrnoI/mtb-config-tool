@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include "win_mtbuniconfig.h"
 #include "client.h"
+#include "qjsonsafe.h"
 
 MtbUniConfigWindow::MtbUniConfigWindow(QWidget *parent) :
     MtbModuleConfigDialog(parent) {
@@ -82,71 +83,37 @@ void MtbUniConfigWindow::editModule(const QJsonObject& module) {
 }
 
 void MtbUniConfigWindow::update(const QJsonObject& module) {
-    if (module["address"].toInt(-1) == -1)
-        return this->jsonParseError("'address' does not exist or is invalid type.");
-    this->address = module["address"].toInt();
-
-    if (!module["name"].isString())
-        return this->jsonParseError("'name' does not exist or is invalid type.");
-    this->ui.le_name->setText(module["name"].toString());
-    this->type = static_cast<MtbModuleType>(module["type_code"].toInt());
+    this->address = QJsonSafe::safeUInt(module["address"]);
+    this->ui.le_name->setText(QJsonSafe::safeString(module["name"]));
+    this->type = static_cast<MtbModuleType>(QJsonSafe::safeUInt(module["type_code"]));
     this->updateUiType(this->type);
 
-    if (!module["type"].isString())
-        return this->jsonParseError("'type' "+tr("does not exist or is invalid type."));
-    const QString& typeStr = module["type"].toString();
-    if (!module[typeStr].isObject())
-        return this->jsonParseError("'"+typeStr+tr("' does not exist or is invalid type."));
-    const QJsonObject& uni = module[typeStr].toObject();
-    if (!uni["config"].isObject())
-        return this->jsonParseError("'config' "+tr("does not exist or is invalid type."));
-    const QJsonObject& config = uni["config"].toObject();
-
+    const QString& typeStr = QJsonSafe::safeString(module["type"]);
+    const QJsonObject& uni = QJsonSafe::safeObject(module[typeStr]);
+    const QJsonObject& config = QJsonSafe::safeObject(uni["config"]);
 
     // Inputs
 
     if (this->type == MtbModuleType::Univ2ir) {
-        if (!config["irs"].isArray())
-            return this->jsonParseError("'irs' "+tr("does not exist or is invalid type."));
-        const QJsonArray& irs = config["irs"].toArray();
-        if (irs.size() != UNI_INPUTS_COUNT)
-            return this->jsonParseError(tr("Invalid irs size!"));
-
-        for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
-            if (!irs[i].isBool())
-                return this->jsonParseError(tr("'irs[i]' is not a bool!"));
-            this->m_guiInputs[i].type.setCurrentIndex(irs[i].toBool());
-        }
+        const QJsonArray& irs = QJsonSafe::safeArray(config["irs"], UNI_INPUTS_COUNT);
+        for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++)
+            this->m_guiInputs[i].type.setCurrentIndex(QJsonSafe::safeBool(irs[i]));
     }
 
-    if ((!config["inputsDelay"].isArray()) || (config["inputsDelay"].toArray().size() != UNI_INPUTS_COUNT))
-        return this->jsonParseError("'inputsDelay' "+tr("does not exist or is invalid type or has invalid length."));
-    const QJsonArray& inputsDelay = config["inputsDelay"].toArray();
+    const QJsonArray& inputsDelay = QJsonSafe::safeArray(config["inputsDelay"], UNI_INPUTS_COUNT);
     for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
-        if (!inputsDelay[i].isDouble())
-            return this->jsonParseError(tr("'inputsDelay[i]' is not a double!"));
-        unsigned delay = static_cast<int>(inputsDelay[i].toDouble() * 10);
+        unsigned delay = static_cast<int>(QJsonSafe::safeDouble(inputsDelay[i].toDouble()) * 10);
         this->m_guiInputs[i].delay.setCurrentIndex(delay);
     }
 
 
     // Outputs
 
-    if ((!config["outputsSafe"].isArray()) || (config["outputsSafe"].toArray().size() != UNI_INPUTS_COUNT))
-        return this->jsonParseError("'outputsSafe' "+tr("does not exist or is invalid type or has invalid length."));
-    const QJsonArray& outputs = config["outputsSafe"].toArray();
+    const QJsonArray& outputs = QJsonSafe::safeArray(config["outputsSafe"], UNI_OUTPUTS_COUNT);
     for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
-        if (!outputs[i].isObject())
-            return this->jsonParseError("'outputs[i]' "+tr("is not an object."));
-        const QJsonObject& output = outputs[i].toObject();
-
-        if (!output["type"].isString())
-            return this->jsonParseError("'type' "+tr("does not exist or is invalid type."));
-        if (output["value"].toInt(-1) == -1)
-            return this->jsonParseError("'type' "+tr("does not exist or is invalid type."));
-
-        const QString& type = output["type"].toString();
-        const unsigned value = output["value"].toInt();
+        const QJsonObject& output = QJsonSafe::safeObject(outputs[i]);
+        const QString& type = QJsonSafe::safeString(output["type"]);
+        const unsigned value = QJsonSafe::safeUInt(output["value"]);
 
         this->updateInProgress = true;
         this->m_guiOutputs[i].type.setCurrentText(type);
