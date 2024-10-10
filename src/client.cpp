@@ -87,7 +87,13 @@ void DaemonClient::msgReceived(const QJsonObject& json) {
     if ((!json.contains("command")) || (!json.contains("type")))
         return;
 
-    emit jsonReceived(json);
+    try {
+        emit jsonReceived(json);
+    } catch (const QStrException& e) {
+        log("msgReceived emit jsonReceived exception: "+e.str(), LogLevel::Error);
+    } catch (...) {
+        log("msgReceived emit jsonReceived unknown exception!", LogLevel::Error);
+    }
 
     if ((json["type"] == "response") && (json.contains("id"))) {
         const unsigned id = json["id"].toInt();
@@ -95,9 +101,21 @@ void DaemonClient::msgReceived(const QJsonObject& json) {
             const SentCommand sent = this->m_sent[id];
             this->m_sent.remove(id);
             if (json["status"] == "ok") {
-                sent.onOk(json);
+                try {
+                    sent.onOk(json);
+                } catch (const QStrException& e) {
+                    log("msgReceived onOk exception: "+e.str(), LogLevel::Error);
+                } catch (...) {
+                    log("msgReceived onOk unknown exception!", LogLevel::Error);
+                }
             } else if (json["status"] == "error") {
-                sent.onError(json["error"]["code"].toInt(), json["error"]["message"].toString());
+                try {
+                    sent.onError(json["error"]["code"].toInt(), json["error"]["message"].toString());
+                } catch (const QStrException& e) {
+                    log("msgReceived onError exception: "+e.str(), LogLevel::Error);
+                } catch (...) {
+                    log("msgReceived onError unknown exception!", LogLevel::Error);
+                }
             } else {
                 log("Unknown json['status']: "+json["status"].toString(), LogLevel::Warning);
             }
