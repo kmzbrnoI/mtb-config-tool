@@ -78,6 +78,7 @@ void MtbUniConfigWindow::createGuiOutputs() {
 }
 
 void MtbUniConfigWindow::editModule(const QJsonObject& module) {
+    this->creatingNewModule = false;
     this->update(module);
     this->show();
 }
@@ -128,8 +129,9 @@ void MtbUniConfigWindow::update(const QJsonObject& module) {
 
 void MtbUniConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     this->updateInProgress = true;
-    this->type = this->type;
-    this->address = 0;
+    this->creatingNewModule = true;
+    this->type = type;
+    this->address = addr;
 
     this->updateUiType(type);
 
@@ -148,7 +150,7 @@ void MtbUniConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     this->setWindowTitle(tr("New module ")+QString::number(addr)+" – "+moduleTypeToStr(type));
     this->ui.le_name->setFocus();
     this->updateInProgress = false;
-    this->show();
+    this->exec();
 }
 
 void MtbUniConfigWindow::updateUiType(MtbModuleType type) {
@@ -287,7 +289,7 @@ void MtbUniConfigWindow::apply() {
         [this](const QJsonObject& content) {
             (void)content;
             QApplication::restoreOverrideCursor();
-            QMessageBox::information(this, tr("Ok"), tr("Configuration successfully set."));
+            QMessageBox::information(this, tr("Ok"), (this->creatingNewModule) ? tr("Module successfully created.") : tr("Configuration successfully set."));
             this->updateModuleFromMtbDaemon();
         },
         [this](unsigned errorCode, QString errorMessage) {

@@ -200,5 +200,5 @@ void DaemonClient::callError(const ResponseErrorEvent& f, DaemonClientError err)
 }
 
 QString DaemonClient::standardErrrorMessage(const QString& command, unsigned errorCode, QString errorMessage) {
-    return command + " " + tr("reqest error: ")+errorMessage+", "+tr("error code: ")+QString::number(errorCode);
+    return command + " " + tr("request error: ")+errorMessage+", "+tr("error code: ")+QString::number(errorCode);
 }

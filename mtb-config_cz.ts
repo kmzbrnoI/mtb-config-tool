@@ -16,7 +16,8 @@
     </message>
     <message>
         <location filename="src/client.cpp" line="203"/>
-        <source>reqest error: </source>
+        <source>request error: </source>
+        <oldsource>reqest error: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29,80 +30,86 @@
     <name>LogDialog</name>
     <message>
         <location filename="ui/logdialog.ui" line="14"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="114"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="120"/>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="119"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="127"/>
+        <location filename="ui/logdialog.ui" line="116"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="133"/>
         <source>Loglevel:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="96"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="124"/>
+        <location filename="ui/logdialog.ui" line="46"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="125"/>
         <source>Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="28"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="115"/>
+        <location filename="ui/logdialog.ui" line="129"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="134"/>
         <source>Clear log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="54"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="119"/>
+        <location filename="ui/logdialog.ui" line="88"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="131"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="59"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="118"/>
+        <location filename="ui/logdialog.ui" line="93"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="130"/>
         <source>Loglevel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="64"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="117"/>
+        <location filename="ui/logdialog.ui" line="98"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="129"/>
         <source>Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="76"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="120"/>
+        <location filename="ui/logdialog.ui" line="26"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="121"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="81"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="121"/>
+        <location filename="ui/logdialog.ui" line="31"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="122"/>
         <source>Error</source>
         <translation type="unfinished">Porucha</translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="86"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="122"/>
+        <location filename="ui/logdialog.ui" line="36"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="123"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="91"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="123"/>
+        <location filename="ui/logdialog.ui" line="41"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="124"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="101"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="125"/>
+        <location filename="ui/logdialog.ui" line="51"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="126"/>
         <source>Debug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/logdialog.ui" line="126"/>
-        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="128"/>
+        <location filename="ui/logdialog.ui" line="106"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="132"/>
         <source>Log keep-alive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/logdialog.ui" line="136"/>
+        <location filename="build/mtb-config_autogen/include/ui_logdialog.h" line="135"/>
+        <source>Log module IO changes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -110,503 +117,607 @@
     <name>MainWindow</name>
     <message>
         <location filename="ui/mainwindow.ui" line="23"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="178"/>
-        <location filename="src/win/win_main.cpp" line="13"/>
-        <location filename="src/win/win_main.cpp" line="72"/>
-        <location filename="src/win/win_main.cpp" line="73"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="193"/>
+        <location filename="src/win/win_main.cpp" line="16"/>
+        <location filename="src/win/win_main.cpp" line="78"/>
+        <location filename="src/win/win_main.cpp" line="79"/>
         <source>MTB Configuration Tool</source>
         <translation>MTB konfigurační nástroj</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="76"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="228"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="245"/>
         <source>Address DEC</source>
         <translation>Adresa DEC</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="84"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="227"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="244"/>
         <source>Address HEX</source>
         <translation>Adresa HEX</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="89"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="226"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="243"/>
         <source>Address BIN</source>
         <translation>Adresa BIN</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="94"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="225"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="242"/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="99"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="224"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="241"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="104"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="223"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="240"/>
         <source>State</source>
         <translation>Stav</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="109"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="222"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="239"/>
         <source>Firmware</source>
         <translation></translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="114"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="221"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="238"/>
         <source>Bootloader</source>
         <translation></translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="119"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="220"/>
-        <location filename="src/win/win_main.cpp" line="119"/>
-        <location filename="src/win/win_main.cpp" line="144"/>
-        <location filename="src/win/win_main.cpp" line="157"/>
-        <location filename="src/win/win_main.cpp" line="171"/>
-        <location filename="src/win/win_main.cpp" line="191"/>
-        <location filename="src/win/win_main.cpp" line="391"/>
-        <location filename="src/win/win_main.cpp" line="439"/>
-        <location filename="src/win/win_main.cpp" line="502"/>
-        <location filename="src/win/win_main.cpp" line="521"/>
-        <location filename="src/win/win_main.cpp" line="550"/>
-        <location filename="src/win/win_main.cpp" line="553"/>
-        <location filename="src/win/win_main.cpp" line="566"/>
-        <location filename="src/win/win_main.cpp" line="584"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="237"/>
+        <location filename="src/win/win_main.cpp" line="127"/>
+        <location filename="src/win/win_main.cpp" line="152"/>
+        <location filename="src/win/win_main.cpp" line="165"/>
+        <location filename="src/win/win_main.cpp" line="179"/>
+        <location filename="src/win/win_main.cpp" line="199"/>
+        <location filename="src/win/win_main.cpp" line="401"/>
+        <location filename="src/win/win_main.cpp" line="449"/>
+        <location filename="src/win/win_main.cpp" line="512"/>
+        <location filename="src/win/win_main.cpp" line="531"/>
+        <location filename="src/win/win_main.cpp" line="560"/>
+        <location filename="src/win/win_main.cpp" line="563"/>
+        <location filename="src/win/win_main.cpp" line="576"/>
+        <location filename="src/win/win_main.cpp" line="594"/>
         <source>Error</source>
         <translation>Porucha</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="124"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="219"/>
-        <location filename="src/win/win_main.cpp" line="641"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="236"/>
+        <location filename="src/win/win_main.cpp" line="651"/>
+        <location filename="src/win/win_main.cpp" line="678"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="129"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="218"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="235"/>
         <source>Beacon</source>
         <translation>Maják</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="147"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="229"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="246"/>
         <source>MTB Daemon</source>
         <translation></translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="158"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="230"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="247"/>
         <source>MTB-USB</source>
         <translation></translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="165"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="231"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="248"/>
         <source>Help</source>
         <translation>Nápověda</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="171"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="232"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="249"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="177"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="233"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="250"/>
         <source>Module</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="194"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="179"/>
+        <location filename="ui/mainwindow.ui" line="189"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="251"/>
+        <source>Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/mainwindow.ui" line="203"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="194"/>
         <source>Connect</source>
         <translation>Připojit</translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="197"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="181"/>
+        <location filename="ui/mainwindow.ui" line="206"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="196"/>
         <source>F5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="205"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="183"/>
+        <location filename="ui/mainwindow.ui" line="214"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="198"/>
         <source>Disconnect</source>
         <translation>Odpojit</translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="208"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="185"/>
+        <location filename="ui/mainwindow.ui" line="217"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="200"/>
         <source>F6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="213"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="187"/>
+        <location filename="ui/mainwindow.ui" line="222"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="202"/>
         <source>Connection Settings</source>
         <translation>Nastavení připojení</translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="221"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="188"/>
+        <location filename="ui/mainwindow.ui" line="230"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="203"/>
         <source>MTB-USB Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="224"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="190"/>
+        <location filename="ui/mainwindow.ui" line="233"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="205"/>
         <source>Ctrl+U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="229"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="192"/>
+        <location filename="ui/mainwindow.ui" line="238"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="207"/>
         <source>About</source>
         <translation>O programu</translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="232"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="194"/>
+        <location filename="ui/mainwindow.ui" line="241"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="209"/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="237"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="196"/>
+        <location filename="ui/mainwindow.ui" line="246"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="211"/>
         <source>Options</source>
         <translation>Možnosti</translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="240"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="198"/>
+        <location filename="ui/mainwindow.ui" line="249"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="213"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="248"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="200"/>
+        <location filename="ui/mainwindow.ui" line="257"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="215"/>
         <source>Refresh modules list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="251"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="202"/>
+        <location filename="ui/mainwindow.ui" line="260"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="217"/>
         <source>Ctrl+R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="256"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="204"/>
+        <location filename="ui/mainwindow.ui" line="265"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="219"/>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="259"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="206"/>
+        <location filename="ui/mainwindow.ui" line="268"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="221"/>
         <source>Ctrl+L</source>
         <oldsource>Ctrl+S</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="267"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="208"/>
+        <location filename="ui/mainwindow.ui" line="276"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="223"/>
         <source>Save MTB&#xa0;Daemon config to file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="270"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="210"/>
+        <location filename="ui/mainwindow.ui" line="279"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="225"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="294"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="214"/>
+        <location filename="ui/mainwindow.ui" line="303"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="229"/>
         <source>Beacon on/off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="75"/>
+        <location filename="ui/mainwindow.ui" line="327"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="232"/>
+        <source>Clear error in status bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/mainwindow.ui" line="335"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="233"/>
+        <source>Add new module</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/win_main.cpp" line="81"/>
         <source>Created by Jan Horáček 2024</source>
         <translation>Vytvořil Jan Horáček 2024</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="120"/>
+        <location filename="src/win/win_main.cpp" line="128"/>
         <source>Are you using MTB Daemon &lt; v1.5? Upgrade!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="134"/>
+        <location filename="src/win/win_main.cpp" line="142"/>
         <source>Unsupported MTB Daemon received version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="135"/>
+        <location filename="src/win/win_main.cpp" line="143"/>
         <source>Supported versions: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="135"/>
+        <location filename="src/win/win_main.cpp" line="143"/>
         <source>Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="199"/>
+        <location filename="src/win/win_main.cpp" line="207"/>
         <source>Unable to connect to </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="211"/>
+        <location filename="src/win/win_main.cpp" line="219"/>
         <source>Connecting to MTB Daemon </source>
         <oldsource>Connecting to MTB Daemon...</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="251"/>
+        <location filename="src/win/win_main.cpp" line="260"/>
         <source>Connected to MTB Daemon </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="251"/>
+        <location filename="src/win/win_main.cpp" line="260"/>
         <source>Disconnected from MTB Daemon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="300"/>
+        <location filename="src/win/win_main.cpp" line="310"/>
         <source> (deprecated)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="303"/>
+        <location filename="src/win/win_main.cpp" line="313"/>
         <source>ERROR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="304"/>
+        <location filename="src/win/win_main.cpp" line="314"/>
         <source>WARN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="337"/>
+        <location filename="src/win/win_main.cpp" line="347"/>
         <source>MTB-USB connected: type: </source>
         <oldsource>MTB-USB connected, type: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="338"/>
+        <location filename="src/win/win_main.cpp" line="348"/>
         <source>MtbBus speed: </source>
         <oldsource>speed: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="339"/>
+        <location filename="src/win/win_main.cpp" line="349"/>
         <source>FW: v</source>
         <oldsource>FW: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="340"/>
+        <location filename="src/win/win_main.cpp" line="350"/>
         <source>protocol: v</source>
         <oldsource>protocol version: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="343"/>
+        <location filename="src/win/win_main.cpp" line="353"/>
         <source>No MTB-USB connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="387"/>
+        <location filename="src/win/win_main.cpp" line="397"/>
         <source>List of modules updated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="387"/>
+        <location filename="src/win/win_main.cpp" line="397"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="435"/>
+        <location filename="src/win/win_main.cpp" line="445"/>
         <source>MTB Daemon&apos;s configuration saved to the server&apos;s configuration file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="435"/>
+        <location filename="src/win/win_main.cpp" line="445"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="471"/>
+        <location filename="src/win/win_main.cpp" line="481"/>
         <source>Unknown module type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="471"/>
+        <location filename="src/win/win_main.cpp" line="481"/>
         <source>Unknown module type code </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="471"/>
+        <location filename="src/win/win_main.cpp" line="481"/>
         <source>, no configuration window available!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="488"/>
+        <location filename="src/win/win_main.cpp" line="498"/>
         <source>Really reboot module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="498"/>
-        <location filename="src/win/win_main.cpp" line="581"/>
+        <location filename="src/win/win_main.cpp" line="508"/>
+        <location filename="src/win/win_main.cpp" line="591"/>
         <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="498"/>
+        <location filename="src/win/win_main.cpp" line="508"/>
         <source>Module successfully rebooted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="534"/>
+        <location filename="src/win/win_main.cpp" line="544"/>
         <source>Choose firmware hex file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="536"/>
+        <location filename="src/win/win_main.cpp" line="546"/>
         <source>Hex file (*.hex)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="550"/>
+        <location filename="src/win/win_main.cpp" line="560"/>
         <source>Unable to load hex file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="553"/>
+        <location filename="src/win/win_main.cpp" line="563"/>
         <source>Unable to load hex file - general exception</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="581"/>
+        <location filename="src/win/win_main.cpp" line="591"/>
         <source>Firmware of module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="581"/>
+        <location filename="src/win/win_main.cpp" line="591"/>
         <source> successfully upgraded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="597"/>
+        <location filename="src/win/win_main.cpp" line="607"/>
         <source>Cannot read file </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="605"/>
+        <location filename="src/win/win_main.cpp" line="615"/>
         <source>Some line in input file does not start with &apos;:&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="609"/>
+        <location filename="src/win/win_main.cpp" line="619"/>
         <source>Type !ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="613"/>
+        <location filename="src/win/win_main.cpp" line="623"/>
         <source>Addr !ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="618"/>
+        <location filename="src/win/win_main.cpp" line="628"/>
         <source>Offset !ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="641"/>
+        <location filename="src/win/win_main.cpp" line="651"/>
         <source>Type of module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="641"/>
+        <location filename="src/win/win_main.cpp" line="651"/>
         <source> changed, configuration window closed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="199"/>
-        <location filename="src/win/win_main.cpp" line="217"/>
-        <location filename="src/win/win_main.cpp" line="221"/>
-        <location filename="src/win/win_main.cpp" line="236"/>
-        <location filename="src/win/win_main.cpp" line="240"/>
+        <location filename="src/win/win_main.cpp" line="678"/>
+        <source>Module being edited was deleted on the server!
+Module </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/win_main.cpp" line="207"/>
+        <location filename="src/win/win_main.cpp" line="225"/>
+        <location filename="src/win/win_main.cpp" line="229"/>
+        <location filename="src/win/win_main.cpp" line="244"/>
+        <location filename="src/win/win_main.cpp" line="248"/>
         <source>Error!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="278"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="212"/>
-        <location filename="src/win/win_main.cpp" line="48"/>
+        <location filename="ui/mainwindow.ui" line="287"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="227"/>
+        <location filename="src/win/win_main.cpp" line="54"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="286"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="213"/>
-        <location filename="src/win/win_main.cpp" line="52"/>
+        <location filename="ui/mainwindow.ui" line="295"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="228"/>
+        <location filename="src/win/win_main.cpp" line="58"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="56"/>
+        <location filename="src/win/win_main.cpp" line="62"/>
         <source>Beacon of/off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="302"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="215"/>
-        <location filename="src/win/win_main.cpp" line="60"/>
+        <location filename="ui/mainwindow.ui" line="311"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="230"/>
+        <location filename="src/win/win_main.cpp" line="66"/>
         <source>Firmware upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/mainwindow.ui" line="310"/>
-        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="216"/>
-        <location filename="src/win/win_main.cpp" line="64"/>
+        <location filename="ui/mainwindow.ui" line="319"/>
+        <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="231"/>
+        <location filename="src/win/win_main.cpp" line="70"/>
         <source>Diagnostics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="120"/>
-        <location filename="src/win/win_main.cpp" line="144"/>
-        <location filename="src/win/win_main.cpp" line="157"/>
-        <location filename="src/win/win_main.cpp" line="171"/>
-        <location filename="src/win/win_main.cpp" line="191"/>
+        <location filename="src/win/win_main.cpp" line="128"/>
+        <location filename="src/win/win_main.cpp" line="152"/>
+        <location filename="src/win/win_main.cpp" line="165"/>
+        <location filename="src/win/win_main.cpp" line="179"/>
+        <location filename="src/win/win_main.cpp" line="199"/>
         <source>Closing connection...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="144"/>
+        <location filename="src/win/win_main.cpp" line="152"/>
         <source>Invalid received MTB Daemon version!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="221"/>
-        <location filename="src/win/win_main.cpp" line="240"/>
+        <location filename="src/win/win_main.cpp" line="229"/>
+        <location filename="src/win/win_main.cpp" line="248"/>
         <source>Unknown exception!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="230"/>
+        <location filename="src/win/win_main.cpp" line="238"/>
         <source>Disconnecting from MTB Daemon...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ModuleAddDialog</name>
+    <message>
+        <location filename="build/mtb-config_autogen/include/ui_moduleadddialog.h" line="45"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/modules/moduleadd.ui" line="14"/>
+        <location filename="build/mtb-config_autogen/include/ui_moduleadd.h" line="83"/>
+        <source>Add new MTB module</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/modules/moduleadd.ui" line="42"/>
+        <location filename="build/mtb-config_autogen/include/ui_moduleadd.h" line="84"/>
+        <source>Module type</source>
+        <oldsource>Module Type</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/modules/moduleadd.ui" line="54"/>
+        <location filename="build/mtb-config_autogen/include/ui_moduleadd.h" line="85"/>
+        <source>MTB-UNI v2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/modules/moduleadd.ui" line="67"/>
+        <location filename="build/mtb-config_autogen/include/ui_moduleadd.h" line="86"/>
+        <source>MTB-UNI v2 IR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/modules/moduleadd.ui" line="80"/>
+        <location filename="build/mtb-config_autogen/include/ui_moduleadd.h" line="87"/>
+        <source>MTB-UNI v4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/modules/moduleadd.ui" line="93"/>
+        <location filename="build/mtb-config_autogen/include/ui_moduleadd.h" line="88"/>
+        <source>MTB-UNIS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/modules/moduleadd.ui" line="106"/>
+        <location filename="build/mtb-config_autogen/include/ui_moduleadd.h" line="89"/>
+        <source>MTB-RC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/modules/moduleadd.ui" line="120"/>
+        <location filename="build/mtb-config_autogen/include/ui_moduleadd.h" line="90"/>
+        <source>Module address:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="36"/>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="53"/>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="58"/>
+        <source>Cannot add module!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="36"/>
+        <source>Select a module type!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="53"/>
+        <source>Module configuration dialog is not available!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="58"/>
+        <source>Internal error: missing configDialog pointer!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -624,7 +735,7 @@
     </message>
     <message>
         <location filename="src/win/modules/win_config.cpp" line="23"/>
-        <location filename="src/win/modules/win_config.cpp" line="39"/>
+        <location filename="src/win/modules/win_config.cpp" line="41"/>
         <source>Error</source>
         <translation type="unfinished">Porucha</translation>
     </message>
@@ -679,75 +790,80 @@
     </message>
     <message>
         <location filename="src/win/modules/win_mtbuniconfig.cpp" line="67"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="169"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="171"/>
         <source>off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="src/win/modules/win_mtbuniconfig.cpp" line="67"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="170"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="172"/>
         <source>on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="125"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="126"/>
         <source>Configuration of module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="148"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="150"/>
         <source>New module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="163"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="222"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="228"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="233"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="240"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="245"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="295"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="165"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="224"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="230"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="235"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="242"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="247"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="297"/>
         <source>Error</source>
         <translation type="unfinished">Porucha</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="163"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="165"/>
         <source>JSON&#xa0;parse error:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="222"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="224"/>
         <source>Fill in module name!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="228"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="230"/>
         <source>Fill in all input types!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="233"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="235"/>
         <source>Fill in all input delays!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="240"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="242"/>
         <source>Fill in all output types!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="245"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="247"/>
         <source>Fill in all output safe states!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="290"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="292"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="290"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="292"/>
         <source>Configuration successfully set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="292"/>
+        <source>Module successfully created.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -885,7 +1001,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.h" line="23"/>
+        <location filename="src/win/win_main.h" line="24"/>
         <source>YES</source>
         <translation type="unfinished"></translation>
     </message>

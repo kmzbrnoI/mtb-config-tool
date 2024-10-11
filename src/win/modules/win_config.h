@@ -16,6 +16,7 @@ public:
     virtual void update(const QJsonObject& module) = 0;
 
 protected:
+    bool creatingNewModule;
     uint8_t address;
     MtbModuleType type;
 

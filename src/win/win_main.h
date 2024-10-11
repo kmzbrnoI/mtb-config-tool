@@ -14,6 +14,7 @@
 #include "win_log.h"
 #include "win_mtbusb.h"
 #include "win_config.h"
+#include "win_moduleadd.h"
 
 constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
@@ -66,6 +67,7 @@ private:
     SettingsWindow m_settingsWindow;
     MtbUsbWindow m_mtbUsbWindow;
     LogWindow m_logWindow;
+    ModuleAddDialog m_moduleAddDialog;
 
     QLabel m_sb_connection;
     QLabel m_sb_mtbusb;
@@ -114,6 +116,7 @@ private slots:
     void ui_AModuleBeacon();
     void ui_AModuleFwUpgrade();
     void ui_AModuleDiagnostics();
+    void ui_AModuleAdd();
 
     void clientJsonReceived(const QJsonObject&);
     void clientConnected();

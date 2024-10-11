@@ -31,12 +31,14 @@ set(PROJECT_SOURCES
     src/win/win_mtbusb.h src/win/win_mtbusb.cpp
     src/common.h src/common.cpp
     src/qjsonsafe.h src/qjsonsafe.cpp
+    src/win/modules/win_moduleadd.h src/win/modules/win_moduleadd.cpp
     src/win/modules/win_config.h src/win/modules/win_config.cpp
     src/win/modules/win_mtbuniconfig.h src/win/modules/win_mtbuniconfig.cpp
     ui/mainwindow.ui
     ui/settingsdialog.ui
     ui/logdialog.ui
     ui/mtbusbdialog.ui
+    ui/modules/moduleadd.ui
     ui/modules/mtbuniconfig.ui
 )
 

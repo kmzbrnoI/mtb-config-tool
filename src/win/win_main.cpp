@@ -41,6 +41,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_module_fw_upgrade, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleFwUpgrade()));
     QObject::connect(ui.a_module_beacon, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleBeacon()));
     QObject::connect(ui.a_module_diagnostics, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleDiagnostics()));
+    QObject::connect(ui.a_module_add, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleAdd()));
     QObject::connect(ui.a_clear_error_sb, SIGNAL(triggered(bool)), this, SLOT(ui_AClearErrorSb()));
 
     QObject::connect(&m_client, SIGNAL(jsonReceived(const QJsonObject&)), this, SLOT(clientJsonReceived(const QJsonObject&)));
@@ -254,6 +255,7 @@ void MainWindow::connectedUpdate() {
     this->ui.a_disconnect->setEnabled(this->m_client.connected());
     this->ui.a_modules_refresh->setEnabled(this->m_client.connected());
     this->ui.a_mtb_daemon_save->setEnabled(this->m_client.connected());
+    this->ui.a_module_add->setEnabled(this->m_client.connected());
 
     this->m_sb_connection.setText((this->m_client.connected()) ? tr("Connected to MTB Daemon ")+this->daemonHostPort(): tr("Disconnected from MTB Daemon"));
 
@@ -262,6 +264,7 @@ void MainWindow::connectedUpdate() {
         this->ui.tw_modules->clear();
         this->ui.tw_modules->setEnabled(false);
         this->m_mtbUsbWindow.close();
+        this->m_moduleAddDialog.close();
 
         this->m_daemonVersion.reset();
         this->m_mtbUsbStatus.reset();
@@ -674,4 +677,8 @@ void MainWindow::clientReceivedModuleDeleted(const QJsonObject &json) {
     if ((this->m_configWindows[addr]) && (this->m_configWindows[addr]->isVisible())) {
         QMessageBox::warning(this, tr("Warning"), tr("Module being edited was deleted on the server!\nModule ")+QString::number(addr));
     }
+}
+
+void MainWindow::ui_AModuleAdd() {
+    this->m_moduleAddDialog.add();
 }

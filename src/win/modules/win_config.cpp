@@ -31,6 +31,8 @@ void MtbModuleConfigDialog::updateModuleFromMtbDaemon() {
         [this](const QJsonObject& content) {
             try {
                 this->update(content["module"].toObject());
+                if (this->creatingNewModule)
+                    this->close();
             } catch (const QStrException& e) {
                 QMessageBox::critical(this, "Error", "Module update failed: "+e.str());
             }

@@ -181,6 +181,8 @@
     <addaction name="a_module_beacon"/>
     <addaction name="a_module_fw_upgrade"/>
     <addaction name="a_module_diagnostics"/>
+    <addaction name="separator"/>
+    <addaction name="a_module_add"/>
    </widget>
    <widget class="QMenu" name="m_window">
     <property name="title">
@@ -323,6 +325,14 @@
    </property>
    <property name="text">
     <string>Clear error in status bar</string>
+   </property>
+  </action>
+  <action name="a_module_add">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Add new module</string>
    </property>
   </action>
  </widget>
