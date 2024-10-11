@@ -86,6 +86,8 @@ private:
     void clientReceivedModules(const QJsonObject&);
     void clientReceivedModuleDeleted(const QJsonObject&);
 
+    void moduleDeleted(uint8_t addr);
+
     void ui_updateModule(const QJsonObject&);
     unsigned ui_twModulesInsertIndex(unsigned addr);
     void ui_twModulesClear();
@@ -117,6 +119,7 @@ private slots:
     void ui_AModuleFwUpgrade();
     void ui_AModuleDiagnostics();
     void ui_AModuleAdd();
+    void ui_AModuleDelete();
 
     void clientJsonReceived(const QJsonObject&);
     void clientConnected();

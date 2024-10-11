@@ -42,6 +42,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_module_beacon, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleBeacon()));
     QObject::connect(ui.a_module_diagnostics, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleDiagnostics()));
     QObject::connect(ui.a_module_add, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleAdd()));
+    QObject::connect(ui.a_module_delete, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleDelete()));
     QObject::connect(ui.a_clear_error_sb, SIGNAL(triggered(bool)), this, SLOT(ui_AClearErrorSb()));
 
     QObject::connect(&m_client, SIGNAL(jsonReceived(const QJsonObject&)), this, SLOT(clientJsonReceived(const QJsonObject&)));
@@ -51,25 +52,41 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
 }
 
 void MainWindow::ui_setupModulesContextMenu() {
-    QAction *aConfigure = new QAction(tr("Configure"), this);
-    connect(aConfigure, SIGNAL(triggered()), this, SLOT(ui_AModuleConfigure()));
-    this->twModulesContextMenu.addAction(aConfigure);
+    {
+        QAction *aConfigure = new QAction(tr("Configure"), this);
+        connect(aConfigure, SIGNAL(triggered()), this, SLOT(ui_AModuleConfigure()));
+        this->twModulesContextMenu.addAction(aConfigure);
+    }
 
-    QAction *aReboot = new QAction(tr("Reboot"), this);
-    connect(aReboot, SIGNAL(triggered()), this, SLOT(ui_AModuleReboot()));
-    this->twModulesContextMenu.addAction(aReboot);
+    {
+        QAction *aReboot = new QAction(tr("Reboot"), this);
+        connect(aReboot, SIGNAL(triggered()), this, SLOT(ui_AModuleReboot()));
+        this->twModulesContextMenu.addAction(aReboot);
+    }
 
-    QAction *aBeacon = new QAction(tr("Beacon of/off"), this);
-    connect(aBeacon, SIGNAL(triggered()), this, SLOT(ui_AModuleBeacon()));
-    this->twModulesContextMenu.addAction(aBeacon);
+    {
+        QAction *aBeacon = new QAction(tr("Beacon of/off"), this);
+        connect(aBeacon, SIGNAL(triggered()), this, SLOT(ui_AModuleBeacon()));
+        this->twModulesContextMenu.addAction(aBeacon);
+    }
 
-    QAction *aFwUpgrade = new QAction(tr("Firmware upgrade"), this);
-    connect(aFwUpgrade, SIGNAL(triggered()), this, SLOT(ui_AModuleFwUpgrade()));
-    this->twModulesContextMenu.addAction(aFwUpgrade);
+    {
+        QAction *aFwUpgrade = new QAction(tr("Firmware upgrade"), this);
+        connect(aFwUpgrade, SIGNAL(triggered()), this, SLOT(ui_AModuleFwUpgrade()));
+        this->twModulesContextMenu.addAction(aFwUpgrade);
+    }
 
-    QAction *aDisgnostics = new QAction(tr("Diagnostics"), this);
-    connect(aDisgnostics, SIGNAL(triggered()), this, SLOT(ui_AModuleDiagnostics()));
-    this->twModulesContextMenu.addAction(aDisgnostics);
+    {
+        QAction *aDelete = new QAction(tr("Delete"), this);
+        connect(aDelete, SIGNAL(triggered()), this, SLOT(ui_AModuleDelete()));
+        this->twModulesContextMenu.addAction(aDelete);
+    }
+
+    {
+        QAction *aDisgnostics = new QAction(tr("Diagnostics"), this);
+        connect(aDisgnostics, SIGNAL(triggered()), this, SLOT(ui_AModuleDiagnostics()));
+        this->twModulesContextMenu.addAction(aDisgnostics);
+    }
 }
 
 void MainWindow::ui_MAboutTriggered(bool) {
@@ -463,6 +480,7 @@ void MainWindow::ui_twModulesSelectionChanged() {
     this->ui.a_module_reboot->setEnabled(selected);
     this->ui.a_module_beacon->setEnabled(selected);
     this->ui.a_module_fw_upgrade->setEnabled(selected);
+    this->ui.a_module_delete->setEnabled(selected);
     this->ui.a_module_diagnostics->setEnabled(selected);
 }
 
@@ -664,8 +682,11 @@ void MainWindow::criticalError(const QString& err) {
 
 void MainWindow::clientReceivedModuleDeleted(const QJsonObject &json) {
     uint8_t addr = QJsonSafe::safeUInt(json["module"]);
-    if (addr == 0)
-        return;
+    if (addr != 0)
+        this->moduleDeleted(addr);
+}
+
+void MainWindow::moduleDeleted(uint8_t addr) {
     this->m_modules[addr] = {};
     if (this->m_tw_lines[addr] != nullptr) {
         int i = this->ui.tw_modules->indexOfTopLevelItem(this->m_tw_lines[addr]);
@@ -681,4 +702,30 @@ void MainWindow::clientReceivedModuleDeleted(const QJsonObject &json) {
 
 void MainWindow::ui_AModuleAdd() {
     this->m_moduleAddDialog.add();
+}
+
+void MainWindow::ui_AModuleDelete() {
+    const QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
+    if (currentLine == nullptr)
+        return;
+    unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
+
+    QMessageBox::StandardButton reply = QMessageBox::question(this, "?", tr("Really delete module ")+QString::number(addr)+"?");
+    if (reply == QMessageBox::StandardButton::No)
+        return;
+
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    this->m_client.sendNoExc(
+        {{"command", "module_delete"}, {"address", static_cast<int>(addr)}},
+        [addr, this](const QJsonObject& content) {
+            (void)content;
+            QApplication::restoreOverrideCursor();
+            this->moduleDeleted(addr);
+            QMessageBox::information(this, tr("Finished"), tr("Module successfully deleted."));
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QApplication::restoreOverrideCursor();
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_delete", errorCode, errorMessage));
+        }
+    );
 }

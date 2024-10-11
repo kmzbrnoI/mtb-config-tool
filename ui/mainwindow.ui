@@ -180,6 +180,7 @@
     <addaction name="a_module_reboot"/>
     <addaction name="a_module_beacon"/>
     <addaction name="a_module_fw_upgrade"/>
+    <addaction name="a_module_delete"/>
     <addaction name="a_module_diagnostics"/>
     <addaction name="separator"/>
     <addaction name="a_module_add"/>
@@ -333,6 +334,14 @@
    </property>
    <property name="text">
     <string>Add new module</string>
+   </property>
+  </action>
+  <action name="a_module_delete">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Delete</string>
    </property>
   </action>
  </widget>
