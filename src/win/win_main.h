@@ -15,6 +15,7 @@
 #include "win_mtbusb.h"
 #include "win_config.h"
 #include "win_moduleadd.h"
+#include "win_change_adress.h"
 
 constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
@@ -68,6 +69,7 @@ private:
     MtbUsbWindow m_mtbUsbWindow;
     LogWindow m_logWindow;
     ModuleAddDialog m_moduleAddDialog;
+    ChangeAddressDialog m_changeAddressDialog;
 
     QLabel m_sb_connection;
     QLabel m_sb_mtbusb;
@@ -120,6 +122,7 @@ private slots:
     void ui_AModuleDiagnostics();
     void ui_AModuleAdd();
     void ui_AModuleDelete();
+    void ui_AModuleChangeAddr();
 
     void clientJsonReceived(const QJsonObject&);
     void clientConnected();

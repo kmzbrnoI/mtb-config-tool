@@ -182,6 +182,7 @@
     <addaction name="a_module_fw_upgrade"/>
     <addaction name="a_module_delete"/>
     <addaction name="a_module_diagnostics"/>
+    <addaction name="a_module_change_addr"/>
     <addaction name="separator"/>
     <addaction name="a_module_add"/>
    </widget>
@@ -342,6 +343,14 @@
    </property>
    <property name="text">
     <string>Delete</string>
+   </property>
+  </action>
+  <action name="a_module_change_addr">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Change address</string>
    </property>
   </action>
  </widget>

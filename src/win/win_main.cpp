@@ -43,6 +43,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_module_diagnostics, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleDiagnostics()));
     QObject::connect(ui.a_module_add, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleAdd()));
     QObject::connect(ui.a_module_delete, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleDelete()));
+    QObject::connect(ui.a_module_change_addr, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleChangeAddr()));
     QObject::connect(ui.a_clear_error_sb, SIGNAL(triggered(bool)), this, SLOT(ui_AClearErrorSb()));
 
     QObject::connect(&m_client, SIGNAL(jsonReceived(const QJsonObject&)), this, SLOT(clientJsonReceived(const QJsonObject&)));
@@ -83,9 +84,15 @@ void MainWindow::ui_setupModulesContextMenu() {
     }
 
     {
-        QAction *aDisgnostics = new QAction(tr("Diagnostics"), this);
-        connect(aDisgnostics, SIGNAL(triggered()), this, SLOT(ui_AModuleDiagnostics()));
-        this->twModulesContextMenu.addAction(aDisgnostics);
+        QAction *aDiagnostics = new QAction(tr("Diagnostics"), this);
+        connect(aDiagnostics, SIGNAL(triggered()), this, SLOT(ui_AModuleDiagnostics()));
+        this->twModulesContextMenu.addAction(aDiagnostics);
+    }
+
+    {
+        QAction *aChangeAddr = new QAction(tr("Change address"), this);
+        connect(aChangeAddr, SIGNAL(triggered()), this, SLOT(ui_AModuleChangeAddr()));
+        this->twModulesContextMenu.addAction(aChangeAddr);
     }
 }
 
@@ -273,6 +280,7 @@ void MainWindow::connectedUpdate() {
     this->ui.a_modules_refresh->setEnabled(this->m_client.connected());
     this->ui.a_mtb_daemon_save->setEnabled(this->m_client.connected());
     this->ui.a_module_add->setEnabled(this->m_client.connected());
+    this->ui.a_module_change_addr->setEnabled(this->m_client.connected());
 
     this->m_sb_connection.setText((this->m_client.connected()) ? tr("Connected to MTB Daemon ")+this->daemonHostPort(): tr("Disconnected from MTB Daemon"));
 
@@ -282,6 +290,7 @@ void MainWindow::connectedUpdate() {
         this->ui.tw_modules->setEnabled(false);
         this->m_mtbUsbWindow.close();
         this->m_moduleAddDialog.close();
+        this->m_changeAddressDialog.close();
 
         this->m_daemonVersion.reset();
         this->m_mtbUsbStatus.reset();
@@ -728,4 +737,14 @@ void MainWindow::ui_AModuleDelete() {
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_delete", errorCode, errorMessage));
         }
     );
+}
+
+void MainWindow::ui_AModuleChangeAddr() {
+    const QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
+    if (currentLine != nullptr) {
+        unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
+        this->m_changeAddressDialog.openFromModule(addr);
+    } else {
+        this->m_changeAddressDialog.openGeneral();
+    }
 }

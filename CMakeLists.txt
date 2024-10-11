@@ -31,6 +31,7 @@ set(PROJECT_SOURCES
     src/win/win_mtbusb.h src/win/win_mtbusb.cpp
     src/common.h src/common.cpp
     src/qjsonsafe.h src/qjsonsafe.cpp
+    src/win/win_change_adress.h src/win/win_change_adress.cpp
     src/win/modules/win_moduleadd.h src/win/modules/win_moduleadd.cpp
     src/win/modules/win_config.h src/win/modules/win_config.cpp
     src/win/modules/win_mtbuniconfig.h src/win/modules/win_mtbuniconfig.cpp
@@ -40,6 +41,7 @@ set(PROJECT_SOURCES
     ui/mtbusbdialog.ui
     ui/modules/moduleadd.ui
     ui/modules/mtbuniconfig.ui
+    ui/changeaddress.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
