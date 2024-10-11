@@ -2,6 +2,7 @@
 #define LOG_H
 
 #include <QString>
+#include <QJsonObject>
 
 enum class LogLevel {
     None = 0,

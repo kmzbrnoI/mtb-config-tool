@@ -20,11 +20,14 @@ void LogWindow::log(const QString &message, LogLevel loglevel) {
 
     if (static_cast<int>(loglevel) > this->ui.cb_loglevel->currentIndex())
         return;
-    if (ui.tw_log->topLevelItemCount() > MAX_LOG_ROWS)
-        ui.tw_log->clear();
-
     if (((message == "RECV: {}") || (message == "SEND: {}")) && (loglevel == LogLevel::Messages) && (!this->ui.chb_log_keep_alive->isChecked()))
         return; // Do not log keep-alive
+    if (((message.contains("module_inputs_changed")) || (message.contains("module_outputs_changed"))) &&
+            (loglevel == LogLevel::Messages) && (!this->ui.chb_log_io->isChecked()))
+        return;
+
+    if (ui.tw_log->topLevelItemCount() > MAX_LOG_ROWS)
+        ui.tw_log->clear();
 
     auto *item = new QTreeWidgetItem(ui.tw_log);
     item->setText(0, QTime::currentTime().toString("hh:mm:ss.zzz"));
