@@ -103,6 +103,8 @@ void MainWindow::clientJsonReceived(const QJsonObject& json) {
             this->clientReceivedModule(QJsonSafe::safeObject(json["module"]));
         else if (json["command"] == "modules")
             this->clientReceivedModules(QJsonSafe::safeObject(json["modules"]));
+        else if (json["command"] == "module_deleted")
+            this->clientReceivedModuleDeleted(QJsonSafe::safeObject(json));
     } catch (const QStrException& e) {
         log("MainWindow::clientJsonReceived exception: "+e.str(), LogLevel::Error);
     } catch (...) {
@@ -655,4 +657,21 @@ void MainWindow::ui_AClearErrorSb() {
 void MainWindow::criticalError(const QString& err) {
     this->m_sb_error.setText(QTime::currentTime().toString("hh:mm:ss") + " " + err);
     this->ui.a_clear_error_sb->setEnabled(true);
+}
+
+void MainWindow::clientReceivedModuleDeleted(const QJsonObject &json) {
+    uint8_t addr = QJsonSafe::safeUInt(json["module"]);
+    if (addr == 0)
+        return;
+    this->m_modules[addr] = {};
+    if (this->m_tw_lines[addr] != nullptr) {
+        int i = this->ui.tw_modules->indexOfTopLevelItem(this->m_tw_lines[addr]);
+        if (i >= 0)
+            this->ui.tw_modules->takeTopLevelItem(i);
+        this->m_tw_lines[addr] = nullptr;
+    }
+
+    if ((this->m_configWindows[addr]) && (this->m_configWindows[addr]->isVisible())) {
+        QMessageBox::warning(this, tr("Warning"), tr("Module being edited was deleted on the server!\nModule ")+QString::number(addr));
+    }
 }

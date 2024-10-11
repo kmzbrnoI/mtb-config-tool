@@ -82,6 +82,7 @@ private:
     void clientReceivedMtbUsb(const QJsonObject&);
     void clientReceivedModule(const QJsonObject&);
     void clientReceivedModules(const QJsonObject&);
+    void clientReceivedModuleDeleted(const QJsonObject&);
 
     void ui_updateModule(const QJsonObject&);
     unsigned ui_twModulesInsertIndex(unsigned addr);
