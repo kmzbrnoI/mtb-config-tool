@@ -14,6 +14,7 @@ public:
     virtual void editModule(const QJsonObject& module) = 0;
     virtual void newModule(unsigned addr, MtbModuleType) = 0;
     virtual void update(const QJsonObject& module) = 0;
+    virtual void retranslate() = 0;
 
 protected:
     bool creatingNewModule;

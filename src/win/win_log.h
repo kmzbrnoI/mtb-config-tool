@@ -20,6 +20,7 @@ class LogWindow : public QDialog
 public:
     explicit LogWindow(QWidget *parent = nullptr);
     void log(const QString &message, LogLevel loglevel);
+    void retranslate();
 
     static LogWindow* instance;
 

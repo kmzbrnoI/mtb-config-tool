@@ -118,6 +118,13 @@ void MainWindow::ui_ADaemonConnectSettingsTriggered() {
 void MainWindow::retranslate() {
     this->ui.retranslateUi(this);
     this->m_settingsWindow.retranslate();
+    this->m_mtbUsbWindow.retranslate();
+    this->m_logWindow.retranslate();
+    this->m_moduleAddDialog.retranslate();
+    this->m_changeAddressDialog.retranslate();
+    for (auto& windowPtr : this->m_configWindows)
+        if (windowPtr)
+            windowPtr->retranslate();
 }
 
 void MainWindow::clientJsonReceived(const QJsonObject& json) {

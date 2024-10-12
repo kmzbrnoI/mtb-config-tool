@@ -13,6 +13,7 @@ public:
     ModuleAddDialog(QWidget *parent = nullptr);
 
     void add();
+    void retranslate();
 
 private:
     Ui::ModuleAddDialog ui;

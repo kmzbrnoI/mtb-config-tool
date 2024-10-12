@@ -81,3 +81,7 @@ unsigned MtbUsbWindow::selectedSpeed() const {
     default: return 0;
     }
 }
+
+void MtbUsbWindow::retranslate() {
+    this->ui.retranslateUi(this);
+}

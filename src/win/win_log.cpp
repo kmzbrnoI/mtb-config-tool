@@ -71,3 +71,7 @@ void LogWindow::ui_twItemSelectionChanged() {
     else
         this->ui.te_message->setText(this->ui.tw_log->selectedItems()[0]->text(2));
 }
+
+void LogWindow::retranslate() {
+    this->ui.retranslateUi(this);
+}

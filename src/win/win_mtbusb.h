@@ -13,6 +13,7 @@ class MtbUsbWindow : public QDialog
 public:
     explicit MtbUsbWindow(const std::optional<MtbUsbStatus>&, QWidget *parent = nullptr);
     void open() override;
+    void retranslate();
 
 private:
     Ui::MtbUsbDialog ui;

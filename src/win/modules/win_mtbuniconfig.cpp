@@ -298,3 +298,7 @@ void MtbUniConfigWindow::apply() {
         }
     );
 }
+
+void MtbUniConfigWindow::retranslate() {
+    this->ui.retranslateUi(this);
+}

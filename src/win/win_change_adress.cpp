@@ -64,3 +64,7 @@ void ChangeAddressDialog::ui_bClicked(QAbstractButton* btn) {
         }
     );
 }
+
+void ChangeAddressDialog::retranslate() {
+    this->ui.retranslateUi(this);
+}

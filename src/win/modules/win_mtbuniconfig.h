@@ -34,6 +34,7 @@ public:
     virtual void editModule(const QJsonObject& module) override;
     virtual void newModule(unsigned addr, MtbModuleType) override;
     virtual void update(const QJsonObject& module) override;
+    virtual void retranslate() override;
 
 private:
     Ui::MtbUniConfigWindow ui;

@@ -13,6 +13,7 @@ public:
 
     void openFromModule(uint8_t module);
     void openGeneral();
+    void retranslate();
 
 private:
     Ui::ChangeAddressDialog ui;

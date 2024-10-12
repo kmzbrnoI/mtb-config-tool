@@ -63,3 +63,7 @@ void ModuleAddDialog::accept() {
     this->accepted();
     configDialog->newModule(addr, type);
 }
+
+void ModuleAddDialog::retranslate() {
+    this->ui.retranslateUi(this);
+}
