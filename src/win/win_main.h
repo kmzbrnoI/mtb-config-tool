@@ -102,15 +102,15 @@ private:
     void checkModuleTypeChanged(const QJsonObject& module);
 
 private slots:
-    void ui_MAboutTriggered(bool);
-    void ui_AOptionsTriggered(bool);
-    void ui_AConnectTriggered(bool);
-    void ui_ADisconnectTriggered(bool);
-    void ui_AMtbUsbSettingsTriggered(bool);
-    void ui_AModulesRefreshTriggered(bool);
-    void ui_ADaemonConnectSettingsTriggered(bool);
-    void ui_ADaemonSaveConfigTriggered(bool);
-    void ui_ALogTriggered(bool);
+    void ui_MAboutTriggered();
+    void ui_AOptionsTriggered();
+    void ui_AConnectTriggered();
+    void ui_ADisconnectTriggered();
+    void ui_AMtbUsbSettingsTriggered();
+    void ui_AModulesRefreshTriggered();
+    void ui_ADaemonConnectSettingsTriggered();
+    void ui_ADaemonSaveConfigTriggered();
+    void ui_ALogTriggered();
     void ui_twCustomContextMenu(const QPoint&);
     void ui_AClearErrorSb();
 

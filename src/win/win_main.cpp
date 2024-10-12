@@ -26,14 +26,14 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
 
     QObject::connect(ui.tw_modules, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(ui_twCustomContextMenu(const QPoint&)));
 
-    QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_MAboutTriggered(bool)));
-    QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_AOptionsTriggered(bool)));
-    QObject::connect(ui.a_connect, SIGNAL(triggered(bool)), this, SLOT(ui_AConnectTriggered(bool)));
-    QObject::connect(ui.a_disconnect, SIGNAL(triggered(bool)), this, SLOT(ui_ADisconnectTriggered(bool)));
-    QObject::connect(ui.a_mtbusb_settings, SIGNAL(triggered(bool)), this, SLOT(ui_AMtbUsbSettingsTriggered(bool)));
-    QObject::connect(ui.a_daemon_connection_settings, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonConnectSettingsTriggered(bool)));
-    QObject::connect(ui.a_modules_refresh, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesRefreshTriggered(bool)));
-    QObject::connect(ui.a_log, SIGNAL(triggered(bool)), this, SLOT(ui_ALogTriggered(bool)));
+    QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_MAboutTriggered()));
+    QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_AOptionsTriggered()));
+    QObject::connect(ui.a_connect, SIGNAL(triggered(bool)), this, SLOT(ui_AConnectTriggered()));
+    QObject::connect(ui.a_disconnect, SIGNAL(triggered(bool)), this, SLOT(ui_ADisconnectTriggered()));
+    QObject::connect(ui.a_mtbusb_settings, SIGNAL(triggered(bool)), this, SLOT(ui_AMtbUsbSettingsTriggered()));
+    QObject::connect(ui.a_daemon_connection_settings, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonConnectSettingsTriggered()));
+    QObject::connect(ui.a_modules_refresh, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesRefreshTriggered()));
+    QObject::connect(ui.a_log, SIGNAL(triggered(bool)), this, SLOT(ui_ALogTriggered()));
 
     QObject::connect(ui.tw_modules, SIGNAL(itemSelectionChanged()), this, SLOT(ui_twModulesSelectionChanged()));
     QObject::connect(ui.a_module_configure, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleConfigure()));
@@ -96,7 +96,7 @@ void MainWindow::ui_setupModulesContextMenu() {
     }
 }
 
-void MainWindow::ui_MAboutTriggered(bool) {
+void MainWindow::ui_MAboutTriggered() {
     QMessageBox::information(
         this,
         tr("MTB Configuration Tool"),
@@ -107,11 +107,11 @@ void MainWindow::ui_MAboutTriggered(bool) {
     );
 }
 
-void MainWindow::ui_AOptionsTriggered(bool) {
+void MainWindow::ui_AOptionsTriggered() {
     this->m_settingsWindow.open();
 }
 
-void MainWindow::ui_ADaemonConnectSettingsTriggered(bool) {
+void MainWindow::ui_ADaemonConnectSettingsTriggered() {
     this->m_settingsWindow.open();
 }
 
@@ -147,7 +147,7 @@ void MainWindow::clientConnected() {
         },
         [this](unsigned errorCode, QString errorMessage) {
             QApplication::restoreOverrideCursor();
-            this->ui_ADisconnectTriggered(false);
+            this->ui_ADisconnectTriggered();
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("version", errorCode, errorMessage)+"\n"+
                                  tr("Are you using MTB Daemon < v1.5? Upgrade!")+"\n"+tr("Closing connection..."));
         }
@@ -166,13 +166,13 @@ void MainWindow::connectingVersionReceived(const QJsonObject& json) {
             QMessageBox::StandardButton reply = QMessageBox::question(this, "?", tr("Unsupported MTB Daemon received version: ")+versionStr+"\n"+
                 tr("Supported versions: ")+daemonSupportedVersionsStr()+"\n"+tr("Continue?"));
             if (reply == QMessageBox::No) {
-                this->ui_ADisconnectTriggered(false);
+                this->ui_ADisconnectTriggered();
                 return;
             }
         }
     } catch (const QStrException& e) {
         QApplication::restoreOverrideCursor();
-        this->ui_ADisconnectTriggered(false);
+        this->ui_ADisconnectTriggered();
         QMessageBox::warning(this, tr("Error"), tr("Invalid received MTB Daemon version!")+"\n"+e.str()+"\n"+tr("Closing connection..."));
         return;
     }
@@ -185,7 +185,7 @@ void MainWindow::connectingVersionReceived(const QJsonObject& json) {
         },
         [this](unsigned errorCode, QString errorMessage) {
             QApplication::restoreOverrideCursor();
-            this->ui_ADisconnectTriggered(false);
+            this->ui_ADisconnectTriggered();
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("mtbusb", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
         }
     );
@@ -199,7 +199,7 @@ void MainWindow::connectingMtbUsbReceived(const QJsonObject&) {
             this->connectingModulesReceived(content);
         },
         [this](unsigned errorCode, QString errorMessage) {
-            this->ui_ADisconnectTriggered(false);
+            this->ui_ADisconnectTriggered();
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("modules", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
         }
     );
@@ -219,7 +219,7 @@ void MainWindow::connectingModulesReceived(const QJsonObject&) {
             QApplication::restoreOverrideCursor();
         },
         [this](unsigned errorCode, QString errorMessage) {
-            this->ui_ADisconnectTriggered(false);
+            this->ui_ADisconnectTriggered();
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_subscribe", errorCode, errorMessage)+"\n"+tr("Closing connection..."));
         }
     );
@@ -236,7 +236,7 @@ void MainWindow::clientDisconnected() {
     QApplication::restoreOverrideCursor();
 }
 
-void MainWindow::ui_AConnectTriggered(bool) {
+void MainWindow::ui_AConnectTriggered() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     this->ui.a_connect->setEnabled(false);
     this->ui.a_disconnect->setEnabled(false);
@@ -255,7 +255,7 @@ void MainWindow::ui_AConnectTriggered(bool) {
     }
 }
 
-void MainWindow::ui_ADisconnectTriggered(bool) {
+void MainWindow::ui_ADisconnectTriggered() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     this->ui.a_connect->setEnabled(false);
     this->ui.a_disconnect->setEnabled(false);
@@ -411,7 +411,7 @@ void MainWindow::clientReceivedModules(const QJsonObject& modules) {
     }
 }
 
-void MainWindow::ui_AModulesRefreshTriggered(bool) {
+void MainWindow::ui_AModulesRefreshTriggered() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     this->ui_twModulesClear();
 
@@ -429,7 +429,7 @@ void MainWindow::ui_AModulesRefreshTriggered(bool) {
     );
 }
 
-void MainWindow::ui_AMtbUsbSettingsTriggered(bool) {
+void MainWindow::ui_AMtbUsbSettingsTriggered() {
     this->m_mtbUsbWindow.open();
 }
 
@@ -439,7 +439,7 @@ void MainWindow::ui_twModulesClear() {
         ref = nullptr;
 }
 
-void MainWindow::ui_ALogTriggered(bool) {
+void MainWindow::ui_ALogTriggered() {
     this->m_logWindow.show();
 }
 
@@ -460,7 +460,7 @@ QString daemonSupportedVersionsStr() {
     return result + DAEMON_SUPPORTED_VERSIONS[DAEMON_SUPPORTED_VERSIONS.count()-1];
 }
 
-void MainWindow::ui_ADaemonSaveConfigTriggered(bool) {
+void MainWindow::ui_ADaemonSaveConfigTriggered() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
     this->m_client.sendNoExc(
