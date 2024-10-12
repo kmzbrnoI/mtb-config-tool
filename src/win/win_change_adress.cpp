@@ -10,7 +10,7 @@ ChangeAddressDialog::ChangeAddressDialog(QWidget *parent) :
     this->setFixedSize(this->width(), this->height());
     this->setWindowFlags(Qt::Tool);
 
-    QObject::connect(this->ui.rb_readdress_mode, SIGNAL(toggled(bool)), this, SLOT(ui_rbChanged()));
+    QObject::connect(this->ui.rb_readdress_mode, SIGNAL(toggled(bool)), this, SLOT(ui_rbToggled()));
     QObject::connect(this->ui.rb_specific, SIGNAL(toggled(bool)), this, SLOT(ui_rbToggled()));
     QObject::connect(ui.bb_main, SIGNAL(clicked(QAbstractButton*)), this, SLOT(ui_bClicked(QAbstractButton*)));
 }
