@@ -35,6 +35,7 @@ set(PROJECT_SOURCES
     src/win/modules/win_moduleadd.h src/win/modules/win_moduleadd.cpp
     src/win/modules/win_config.h src/win/modules/win_config.cpp
     src/win/modules/win_mtbuniconfig.h src/win/modules/win_mtbuniconfig.cpp
+    src/win/win_diag.h src/win/win_diag.cpp
     ui/mainwindow.ui
     ui/settingsdialog.ui
     ui/logdialog.ui
@@ -42,6 +43,7 @@ set(PROJECT_SOURCES
     ui/modules/moduleadd.ui
     ui/modules/mtbuniconfig.ui
     ui/changeaddress.ui
+    ui/diag.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

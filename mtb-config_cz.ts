@@ -75,6 +75,75 @@
     </message>
 </context>
 <context>
+    <name>DiagDialog</name>
+    <message>
+        <location filename="ui/diag.ui" line="14"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="116"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="29"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="117"/>
+        <source>Period [s]:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="39"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="118"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="46"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="119"/>
+        <source>Last update:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="56"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="120"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="64"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="124"/>
+        <source>DV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="69"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="123"/>
+        <source>Property</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="74"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="122"/>
+        <source>Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="82"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="125"/>
+        <source>Autorefresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="99"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="126"/>
+        <source>Log to file:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/diag.ui" line="106"/>
+        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="127"/>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LogDialog</name>
     <message>
         <location filename="ui/logdialog.ui" line="14"/>
