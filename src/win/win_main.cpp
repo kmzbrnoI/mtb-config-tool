@@ -125,6 +125,9 @@ void MainWindow::retranslate() {
     for (auto& windowPtr : this->m_configWindows)
         if (windowPtr)
             windowPtr->retranslate();
+    for (auto& windowPtr : this->m_diagWindows)
+        if (windowPtr)
+            windowPtr->retranslate();
 }
 
 void MainWindow::clientJsonReceived(const QJsonObject& json) {
@@ -308,6 +311,9 @@ void MainWindow::connectedUpdate() {
 
         for (auto& window : this->m_configWindows)
             window.reset();
+
+        for (auto& window : this->m_diagWindows)
+            window.reset();
     }
 
     this->ui.a_mtbusb_settings->setEnabled(this->m_mtbUsbConnected);
@@ -454,6 +460,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     this->m_logWindow.close();
     this->m_mtbUsbWindow.close();
     for (auto& window : this->m_configWindows)
+        window.reset();
+    for (auto& window : this->m_diagWindows)
         window.reset();
     QMainWindow::closeEvent(event);
 }
@@ -631,7 +639,18 @@ void MainWindow::fwUpgraded(const QJsonObject& json) {
 }
 
 void MainWindow::ui_AModuleDiagnostics() {
+    try {
+        const QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
+        if (currentLine == nullptr)
+            throw QStrException("currentLine == nullptr");
+        unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
 
+        if (!this->m_diagWindows[addr])
+            this->m_diagWindows[addr] = std::make_unique<DiagDialog>();
+        this->m_diagWindows[addr]->moduleOpen(this->m_modules[addr]);
+    } catch (const QStrException& e) {
+        QMessageBox::critical(this, "Error", "Cannot open diag window: "+e.str());
+    }
 }
 
 QJsonObject MainWindow::loadFwHex(const QString& filename) {
@@ -682,8 +701,10 @@ void MainWindow::checkModuleTypeChanged(const QJsonObject& module) {
         bool visible = this->m_configWindows[address]->isVisible();
         this->m_configWindows[address].reset();
         if (visible)
-            QMessageBox::warning(this, tr("Warning"), tr("Type of module ")+QString::number(address)+tr(" changed, configuration window closed."));
+            QMessageBox::warning(this, tr("Warning"), tr("Type of module ")+QString::number(address)+tr(" changed, module window closed."));
     }
+
+    // TODO: this->m_diagWindows[address].reset();
 }
 
 void MainWindow::ui_AClearErrorSb() {
@@ -711,8 +732,9 @@ void MainWindow::moduleDeleted(uint8_t addr) {
         this->m_tw_lines[addr] = nullptr;
     }
 
-    if ((this->m_configWindows[addr]) && (this->m_configWindows[addr]->isVisible())) {
-        QMessageBox::warning(this, tr("Warning"), tr("Module being edited was deleted on the server!\nModule ")+QString::number(addr));
+    if (((this->m_configWindows[addr]) && (this->m_configWindows[addr]->isVisible())) ||
+        ((this->m_diagWindows[addr]) && (this->m_diagWindows[addr]->isVisible()))) {
+        QMessageBox::warning(this, tr("Warning"), tr("Module with open window was deleted on the server!\nModule ")+QString::number(addr));
     }
 }
 

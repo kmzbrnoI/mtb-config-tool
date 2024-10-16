@@ -2,21 +2,21 @@
 #define WIN_DIAG_H
 
 #include <QDialog>
-
-namespace Ui {
-class DiagDialog;
-}
+#include "ui_diag.h"
 
 class DiagDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit DiagDialog(QWidget *parent = nullptr);
-    ~DiagDialog();
+    DiagDialog(QWidget *parent = nullptr);
+
+    void retranslate();
+    void moduleOpen(const QJsonObject& module);
 
 private:
-    Ui::DiagDialog *ui;
+    Ui::DiagDialog ui;
+
 };
 
 #endif // WIN_DIAG_H

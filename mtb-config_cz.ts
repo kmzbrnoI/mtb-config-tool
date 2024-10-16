@@ -83,61 +83,61 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="29"/>
+        <location filename="ui/diag.ui" line="22"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="117"/>
         <source>Period [s]:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="39"/>
+        <location filename="ui/diag.ui" line="32"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="118"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="46"/>
+        <location filename="ui/diag.ui" line="39"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="119"/>
         <source>Last update:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="56"/>
+        <location filename="ui/diag.ui" line="49"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="120"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="64"/>
+        <location filename="ui/diag.ui" line="57"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="124"/>
         <source>DV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="69"/>
+        <location filename="ui/diag.ui" line="62"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="123"/>
         <source>Property</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="74"/>
+        <location filename="ui/diag.ui" line="67"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="122"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="82"/>
+        <location filename="ui/diag.ui" line="75"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="125"/>
         <source>Autorefresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="99"/>
+        <location filename="ui/diag.ui" line="92"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="126"/>
         <source>Log to file:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/diag.ui" line="106"/>
+        <location filename="ui/diag.ui" line="99"/>
         <location filename="build/mtb-config_autogen/include/ui_diag.h" line="127"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
@@ -292,28 +292,28 @@
     <message>
         <location filename="ui/mainwindow.ui" line="119"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="249"/>
-        <location filename="src/win/win_main.cpp" line="158"/>
-        <location filename="src/win/win_main.cpp" line="183"/>
-        <location filename="src/win/win_main.cpp" line="196"/>
-        <location filename="src/win/win_main.cpp" line="210"/>
-        <location filename="src/win/win_main.cpp" line="230"/>
-        <location filename="src/win/win_main.cpp" line="434"/>
-        <location filename="src/win/win_main.cpp" line="482"/>
-        <location filename="src/win/win_main.cpp" line="546"/>
-        <location filename="src/win/win_main.cpp" line="565"/>
-        <location filename="src/win/win_main.cpp" line="594"/>
-        <location filename="src/win/win_main.cpp" line="597"/>
-        <location filename="src/win/win_main.cpp" line="610"/>
-        <location filename="src/win/win_main.cpp" line="628"/>
-        <location filename="src/win/win_main.cpp" line="744"/>
+        <location filename="src/win/win_main.cpp" line="161"/>
+        <location filename="src/win/win_main.cpp" line="186"/>
+        <location filename="src/win/win_main.cpp" line="199"/>
+        <location filename="src/win/win_main.cpp" line="213"/>
+        <location filename="src/win/win_main.cpp" line="233"/>
+        <location filename="src/win/win_main.cpp" line="440"/>
+        <location filename="src/win/win_main.cpp" line="490"/>
+        <location filename="src/win/win_main.cpp" line="554"/>
+        <location filename="src/win/win_main.cpp" line="573"/>
+        <location filename="src/win/win_main.cpp" line="602"/>
+        <location filename="src/win/win_main.cpp" line="605"/>
+        <location filename="src/win/win_main.cpp" line="618"/>
+        <location filename="src/win/win_main.cpp" line="636"/>
+        <location filename="src/win/win_main.cpp" line="766"/>
         <source>Error</source>
         <translation>Porucha</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="124"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="248"/>
-        <location filename="src/win/win_main.cpp" line="685"/>
-        <location filename="src/win/win_main.cpp" line="715"/>
+        <location filename="src/win/win_main.cpp" line="704"/>
+        <location filename="src/win/win_main.cpp" line="737"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
@@ -500,229 +500,229 @@
         <translation>Vytvořil Jan Horáček 2024</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="159"/>
+        <location filename="src/win/win_main.cpp" line="162"/>
         <source>Are you using MTB Daemon &lt; v1.5? Upgrade!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="173"/>
+        <location filename="src/win/win_main.cpp" line="176"/>
         <source>Unsupported MTB Daemon received version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="174"/>
+        <location filename="src/win/win_main.cpp" line="177"/>
         <source>Supported versions: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="174"/>
+        <location filename="src/win/win_main.cpp" line="177"/>
         <source>Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="238"/>
+        <location filename="src/win/win_main.cpp" line="241"/>
         <source>Unable to connect to </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="250"/>
+        <location filename="src/win/win_main.cpp" line="253"/>
         <source>Connecting to MTB Daemon </source>
         <oldsource>Connecting to MTB Daemon...</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="292"/>
+        <location filename="src/win/win_main.cpp" line="295"/>
         <source>Connected to MTB Daemon </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="292"/>
+        <location filename="src/win/win_main.cpp" line="295"/>
         <source>Disconnected from MTB Daemon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="343"/>
+        <location filename="src/win/win_main.cpp" line="349"/>
         <source> (deprecated)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="346"/>
+        <location filename="src/win/win_main.cpp" line="352"/>
         <source>ERROR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="347"/>
+        <location filename="src/win/win_main.cpp" line="353"/>
         <source>WARN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="380"/>
+        <location filename="src/win/win_main.cpp" line="386"/>
         <source>MTB-USB connected: type: </source>
         <oldsource>MTB-USB connected, type: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="381"/>
+        <location filename="src/win/win_main.cpp" line="387"/>
         <source>MtbBus speed: </source>
         <oldsource>speed: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="382"/>
+        <location filename="src/win/win_main.cpp" line="388"/>
         <source>FW: v</source>
         <oldsource>FW: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="383"/>
+        <location filename="src/win/win_main.cpp" line="389"/>
         <source>protocol: v</source>
         <oldsource>protocol version: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="386"/>
+        <location filename="src/win/win_main.cpp" line="392"/>
         <source>No MTB-USB connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="430"/>
+        <location filename="src/win/win_main.cpp" line="436"/>
         <source>List of modules updated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="430"/>
+        <location filename="src/win/win_main.cpp" line="436"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="478"/>
+        <location filename="src/win/win_main.cpp" line="486"/>
         <source>MTB Daemon&apos;s configuration saved to the server&apos;s configuration file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="478"/>
+        <location filename="src/win/win_main.cpp" line="486"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="515"/>
+        <location filename="src/win/win_main.cpp" line="523"/>
         <source>Unknown module type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="515"/>
+        <location filename="src/win/win_main.cpp" line="523"/>
         <source>Unknown module type code </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="515"/>
+        <location filename="src/win/win_main.cpp" line="523"/>
         <source>, no configuration window available!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="532"/>
+        <location filename="src/win/win_main.cpp" line="540"/>
         <source>Really reboot module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="542"/>
-        <location filename="src/win/win_main.cpp" line="625"/>
-        <location filename="src/win/win_main.cpp" line="740"/>
+        <location filename="src/win/win_main.cpp" line="550"/>
+        <location filename="src/win/win_main.cpp" line="633"/>
+        <location filename="src/win/win_main.cpp" line="762"/>
         <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="542"/>
+        <location filename="src/win/win_main.cpp" line="550"/>
         <source>Module successfully rebooted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="578"/>
+        <location filename="src/win/win_main.cpp" line="586"/>
         <source>Choose firmware hex file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="580"/>
+        <location filename="src/win/win_main.cpp" line="588"/>
         <source>Hex file (*.hex)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="594"/>
+        <location filename="src/win/win_main.cpp" line="602"/>
         <source>Unable to load hex file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="597"/>
+        <location filename="src/win/win_main.cpp" line="605"/>
         <source>Unable to load hex file - general exception</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="625"/>
+        <location filename="src/win/win_main.cpp" line="633"/>
         <source>Firmware of module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="625"/>
+        <location filename="src/win/win_main.cpp" line="633"/>
         <source> successfully upgraded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="641"/>
+        <location filename="src/win/win_main.cpp" line="660"/>
         <source>Cannot read file </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="649"/>
+        <location filename="src/win/win_main.cpp" line="668"/>
         <source>Some line in input file does not start with &apos;:&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="653"/>
+        <location filename="src/win/win_main.cpp" line="672"/>
         <source>Type !ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="657"/>
+        <location filename="src/win/win_main.cpp" line="676"/>
         <source>Addr !ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="662"/>
+        <location filename="src/win/win_main.cpp" line="681"/>
         <source>Offset !ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="685"/>
+        <location filename="src/win/win_main.cpp" line="704"/>
         <source>Type of module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="685"/>
-        <source> changed, configuration window closed.</source>
+        <location filename="src/win/win_main.cpp" line="704"/>
+        <source> changed, module window closed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="715"/>
-        <source>Module being edited was deleted on the server!
+        <location filename="src/win/win_main.cpp" line="737"/>
+        <source>Module with open window was deleted on the server!
 Module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="729"/>
+        <location filename="src/win/win_main.cpp" line="751"/>
         <source>Really delete module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="740"/>
+        <location filename="src/win/win_main.cpp" line="762"/>
         <source>Module successfully deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="238"/>
-        <location filename="src/win/win_main.cpp" line="256"/>
-        <location filename="src/win/win_main.cpp" line="260"/>
-        <location filename="src/win/win_main.cpp" line="275"/>
-        <location filename="src/win/win_main.cpp" line="279"/>
+        <location filename="src/win/win_main.cpp" line="241"/>
+        <location filename="src/win/win_main.cpp" line="259"/>
+        <location filename="src/win/win_main.cpp" line="263"/>
+        <location filename="src/win/win_main.cpp" line="278"/>
+        <location filename="src/win/win_main.cpp" line="282"/>
         <source>Error!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -760,27 +760,27 @@ Module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="159"/>
-        <location filename="src/win/win_main.cpp" line="183"/>
-        <location filename="src/win/win_main.cpp" line="196"/>
-        <location filename="src/win/win_main.cpp" line="210"/>
-        <location filename="src/win/win_main.cpp" line="230"/>
+        <location filename="src/win/win_main.cpp" line="162"/>
+        <location filename="src/win/win_main.cpp" line="186"/>
+        <location filename="src/win/win_main.cpp" line="199"/>
+        <location filename="src/win/win_main.cpp" line="213"/>
+        <location filename="src/win/win_main.cpp" line="233"/>
         <source>Closing connection...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="183"/>
+        <location filename="src/win/win_main.cpp" line="186"/>
         <source>Invalid received MTB Daemon version!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="260"/>
-        <location filename="src/win/win_main.cpp" line="279"/>
+        <location filename="src/win/win_main.cpp" line="263"/>
+        <location filename="src/win/win_main.cpp" line="282"/>
         <source>Unknown exception!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="269"/>
+        <location filename="src/win/win_main.cpp" line="272"/>
         <source>Disconnecting from MTB Daemon...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1144,7 +1144,7 @@ Module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_main.h" line="25"/>
+        <location filename="src/win/win_main.h" line="26"/>
         <source>YES</source>
         <translation type="unfinished"></translation>
     </message>

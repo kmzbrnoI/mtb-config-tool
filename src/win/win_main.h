@@ -16,6 +16,7 @@
 #include "win_config.h"
 #include "win_moduleadd.h"
 #include "win_change_adress.h"
+#include "win_diag.h"
 
 constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
@@ -61,6 +62,7 @@ private:
     std::array<QTreeWidgetItem*, MTBBUS_ADDR_COUNT> m_tw_lines; // [0] is not valid
     std::array<QJsonObject, MTBBUS_ADDR_COUNT> m_modules;
     std::array<std::unique_ptr<MtbModuleConfigDialog>, MTBBUS_ADDR_COUNT> m_configWindows;
+    std::array<std::unique_ptr<DiagDialog>, MTBBUS_ADDR_COUNT> m_diagWindows;
     std::optional<DaemonVersion> m_daemonVersion;
     bool m_mtbUsbConnected = false;
     std::optional<MtbUsbStatus> m_mtbUsbStatus;
