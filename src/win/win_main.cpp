@@ -25,6 +25,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     this->ui_setupModulesContextMenu();
 
     QObject::connect(ui.tw_modules, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(ui_twCustomContextMenu(const QPoint&)));
+    QObject::connect(ui.tw_modules, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(ui_twItemDblClicked(QTreeWidgetItem*, int)));
 
     QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_MAboutTriggered()));
     QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_AOptionsTriggered()));
@@ -506,6 +507,13 @@ void MainWindow::ui_twModulesSelectionChanged() {
     this->ui.a_module_fw_upgrade->setEnabled(selected);
     this->ui.a_module_delete->setEnabled(selected);
     this->ui.a_module_diagnostics->setEnabled(selected);
+}
+
+void MainWindow::ui_twItemDblClicked(QTreeWidgetItem* item, int column) {
+    (void)column;
+    (void)item;
+    if (this->ui.tw_modules->currentItem() != nullptr)
+        this->ui_AModuleConfigure();
 }
 
 void MainWindow::ui_AModuleConfigure() {

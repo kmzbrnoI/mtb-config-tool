@@ -117,6 +117,7 @@ private slots:
     void ui_AClearErrorSb();
 
     void ui_twModulesSelectionChanged();
+    void ui_twItemDblClicked(QTreeWidgetItem*, int column);
     void ui_AModuleConfigure();
     void ui_AModuleReboot();
     void ui_AModuleBeacon();
