@@ -10,7 +10,7 @@
 using DVDescriptor = std::function<QString(const QJsonObject&)>;
 
 struct DVDef {
-    unsigned dvi;
+    uint8_t dvi;
     QString dvName;
     DVDescriptor repr;
 
@@ -35,6 +35,9 @@ private:
 
     void twFill();
     void dvsFill(QTreeWidget&, const QVector<DVDef>&);
+    void refresh();
+    void refreshDV(unsigned line, const DVDef&);
+    void diagReceived(QTreeWidgetItem&, const QJsonObject&, const DVDef&);
 
 private slots:
     void ui_bRefreshHandle();
