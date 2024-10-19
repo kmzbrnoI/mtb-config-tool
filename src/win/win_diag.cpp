@@ -130,12 +130,11 @@ void DiagDialog::refreshDV(unsigned line, const DVDef& dv) {
                 this->diagReceived(*item, content, dv);
         },
         [this, line](unsigned errorCode, QString errorMessage) {
-            (void)errorCode;
-            (void)errorMessage;
             QTreeWidgetItem* item = this->ui.tw_dvs->topLevelItem(line);
             if (item != nullptr) {
                 setBacground(*item, QC_LIGHT_RED);
                 item->setText(TWDVColumn::cUpdated, QTime::currentTime().toString("hh:mm:ss"));
+                item->setText(TWDVColumn::cValue, errorMessage + " ("+QString::number(errorCode)+")");
             }
         }
     );

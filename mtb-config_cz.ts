@@ -153,12 +153,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_diag.cpp" line="178"/>
+        <location filename="src/win/win_diag.cpp" line="177"/>
         <source>Log filename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_diag.cpp" line="180"/>
+        <location filename="src/win/win_diag.cpp" line="179"/>
         <source>Log file (*.log)</source>
         <translation type="unfinished"></translation>
     </message>
