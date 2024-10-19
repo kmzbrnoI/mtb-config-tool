@@ -143,22 +143,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_diag.cpp" line="61"/>
+        <location filename="src/win/win_diag.cpp" line="83"/>
         <source>Module Diagnostic – module </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_diag.cpp" line="79"/>
+        <location filename="src/win/win_diag.cpp" line="102"/>
         <source>never</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_diag.cpp" line="155"/>
+        <location filename="src/win/win_diag.cpp" line="178"/>
         <source>Log filename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/win/win_diag.cpp" line="157"/>
+        <location filename="src/win/win_diag.cpp" line="180"/>
         <source>Log file (*.log)</source>
         <translation type="unfinished"></translation>
     </message>
