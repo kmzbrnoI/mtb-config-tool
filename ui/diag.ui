@@ -54,6 +54,11 @@
       <widget class="QTreeWidget" name="tw_dvs">
        <column>
         <property name="text">
+         <string>Update</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
          <string>DV</string>
         </property>
        </column>

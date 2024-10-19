@@ -27,7 +27,7 @@ QString reprId(const QJsonObject &json) {
 
 QString reprSingleValue(const QJsonObject &json) {
     const QStringList& keys = json.keys();
-    return (keys.count() == 1) ? json[keys[0]].toVariant().toString() : "?";
+    return (keys.count() == 1) ? json[keys[0]].toVariant().toString() : reprId(json);
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -67,10 +67,11 @@ void DiagDialog::twFill() {
 void DiagDialog::dvsFill(QTreeWidget& tw, const QVector<DVDef>& dvs) {
     for (const DVDef& dvDef : dvs) {
         QTreeWidgetItem* newItem = new QTreeWidgetItem(&tw);
-        newItem->setText(0, QString::number(dvDef.dvi));
-        newItem->setText(1, tr("never"));
-        newItem->setText(2, dvDef.dvName);
-        newItem->setText(3, "?");
+        newItem->setCheckState(TWDVColumn::cUpdate, Qt::Checked);
+        newItem->setText(TWDVColumn::cDVI, QString::number(dvDef.dvi));
+        newItem->setText(TWDVColumn::cUpdated, tr("never"));
+        newItem->setText(TWDVColumn::cName, dvDef.dvName);
+        newItem->setText(TWDVColumn::cValue, "?");
         tw.addTopLevelItem(newItem);
     }
 
@@ -80,9 +81,9 @@ void DiagDialog::dvsFill(QTreeWidget& tw, const QVector<DVDef>& dvs) {
 
 void DiagDialog::refresh() {
     for (int i = 0; i < dvsCommon.size(); i++) {
-        if (i >= this->ui.tw_dvs->topLevelItemCount())
-            return;
-        this->refreshDV(i, dvsCommon[i]);
+        QTreeWidgetItem* item = this->ui.tw_dvs->topLevelItem(i);
+        if ((item != nullptr) && (item->checkState(TWDVColumn::cUpdate)))
+            this->refreshDV(i, dvsCommon[i]);
     }
 }
 
@@ -104,7 +105,7 @@ void DiagDialog::refreshDV(unsigned line, const DVDef& dv) {
             QTreeWidgetItem* item = this->ui.tw_dvs->topLevelItem(line);
             if (item != nullptr) {
                 setBacground(*item, QC_LIGHT_RED);
-                item->setText(1, QTime::currentTime().toString("hh:mm:ss"));
+                item->setText(TWDVColumn::cUpdated, QTime::currentTime().toString("hh:mm:ss"));
             }
         }
     );
@@ -112,6 +113,6 @@ void DiagDialog::refreshDV(unsigned line, const DVDef& dv) {
 
 void DiagDialog::diagReceived(QTreeWidgetItem& item, const QJsonObject& json, const DVDef& dvdef) {
     setBacground(item, QColor(0xFF, 0xFF, 0xFF));
-    item.setText(1, QTime::currentTime().toString("hh:mm:ss"));
-    item.setText(3, dvdef.repr(json["DVvalue"].toObject()));
+    item.setText(TWDVColumn::cUpdated, QTime::currentTime().toString("hh:mm:ss"));
+    item.setText(TWDVColumn::cValue, dvdef.repr(json["DVvalue"].toObject()));
 }

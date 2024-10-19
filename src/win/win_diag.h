@@ -39,6 +39,14 @@ private:
     void refreshDV(unsigned line, const DVDef&);
     void diagReceived(QTreeWidgetItem&, const QJsonObject&, const DVDef&);
 
+    enum TWDVColumn {
+        cUpdate = 0,
+        cDVI = 1,
+        cUpdated = 2,
+        cName = 3,
+        cValue = 4,
+    };
+
 private slots:
     void ui_bRefreshHandle();
 
