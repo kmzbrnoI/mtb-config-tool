@@ -36,7 +36,11 @@ DiagDialog::DiagDialog(QWidget *parent) :
     QDialog(parent) {
     this->ui.setupUi(this);
 
-    QObject::connect(ui.b_refresh, SIGNAL(released()), this, SLOT(ui_bRefreshHandle()));
+    QObject::connect(this->ui.b_refresh, SIGNAL(released()), this, SLOT(ui_bRefreshHandle()));
+    QObject::connect(this->ui.chb_autorefresh, SIGNAL(stateChanged(int)), this, SLOT(ui_chbAutorefreshStateChanged()));
+    QObject::connect(this->ui.sb_period, SIGNAL(valueChanged(int)), this, SLOT(ui_sbPeriodValueChanged()));
+    QObject::connect(&this->tUpdate, SIGNAL(timeout()), this, SLOT(tUpdateTimeout()));
+    QObject::connect(this, SIGNAL(finished(int)), this, SLOT(ui_onFinished(int)));
 }
 
 DiagDialog::~DiagDialog() {
@@ -115,4 +119,27 @@ void DiagDialog::diagReceived(QTreeWidgetItem& item, const QJsonObject& json, co
     setBacground(item, QColor(0xFF, 0xFF, 0xFF));
     item.setText(TWDVColumn::cUpdated, QTime::currentTime().toString("hh:mm:ss"));
     item.setText(TWDVColumn::cValue, dvdef.repr(json["DVvalue"].toObject()));
+}
+
+void DiagDialog::tUpdateTimeout() {
+    this->refresh();
+}
+
+void DiagDialog::ui_chbAutorefreshStateChanged() {
+    if (this->ui.chb_autorefresh->checkState() == Qt::CheckState::Checked) {
+        this->refresh();
+        this->tUpdate.start(1000*this->ui.sb_period->value());
+    } else {
+        this->tUpdate.stop();
+    }
+}
+
+void DiagDialog::ui_onFinished(int result) {
+    (void)result;
+    this->tUpdate.stop();
+    this->ui.chb_autorefresh->setCheckState(Qt::CheckState::Unchecked);
+}
+
+void DiagDialog::ui_sbPeriodValueChanged() {
+    this->tUpdate.setInterval(1000*this->ui.sb_period->value());
 }

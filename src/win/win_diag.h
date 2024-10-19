@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <functional>
 #include <QVector>
+#include <QTimer>
 #include "ui_diag.h"
 #include "common.h"
 
@@ -32,6 +33,7 @@ private:
     Ui::DiagDialog ui;
     uint8_t moduleAddress;
     MtbModuleType moduleType;
+    QTimer tUpdate;
 
     void twFill();
     void dvsFill(QTreeWidget&, const QVector<DVDef>&);
@@ -49,6 +51,10 @@ private:
 
 private slots:
     void ui_bRefreshHandle();
+    void tUpdateTimeout();
+    void ui_chbAutorefreshStateChanged();
+    void ui_onFinished(int result);
+    void ui_sbPeriodValueChanged();
 
 };
 
