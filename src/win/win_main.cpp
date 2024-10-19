@@ -31,6 +31,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_AOptionsTriggered()));
     QObject::connect(ui.a_connect, SIGNAL(triggered(bool)), this, SLOT(ui_AConnectTriggered()));
     QObject::connect(ui.a_disconnect, SIGNAL(triggered(bool)), this, SLOT(ui_ADisconnectTriggered()));
+    QObject::connect(ui.a_mtb_daemon_save, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonSaveConfigTriggered()));
     QObject::connect(ui.a_mtbusb_settings, SIGNAL(triggered(bool)), this, SLOT(ui_AMtbUsbSettingsTriggered()));
     QObject::connect(ui.a_daemon_connection_settings, SIGNAL(triggered(bool)), this, SLOT(ui_ADaemonConnectSettingsTriggered()));
     QObject::connect(ui.a_modules_refresh, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesRefreshTriggered()));
