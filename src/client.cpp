@@ -25,10 +25,10 @@ DaemonClient::DaemonClient(QObject *parent) : QObject(parent) {
 #endif
 }
 
-void DaemonClient::connect(const QHostAddress &addr, quint16 port, bool keepAlive) {
+void DaemonClient::connect(const QString &host, quint16 port, bool keepAlive) {
     //log("Connecting to MTB daemon server: "+addr.toString()+":"+QString::number(port)+" ...", LogLevel::Info);
     this->connecting = true;
-    this->m_socket.connectToHost(addr, port);
+    this->m_socket.connectToHost(host, port);
     if (keepAlive)
         this->m_tKeepAlive.start(CLIENT_KEEP_ALIVE_SEND_PERIOD_MS);
     this->m_tSent.start(CLIENT_SENT_POLL_PERIOD_MS);

@@ -58,7 +58,7 @@ public:
     static DaemonClient* instance;
 
     DaemonClient(QObject *parent = nullptr);
-    void connect(const QHostAddress&, quint16 port, bool keepAlive=true);
+    void connect(const QString&, quint16 port, bool keepAlive=true);
     void disconnect();
     void send(QJsonObject, ResponseOkEvent&&, ResponseErrorEvent&&);
     void sendNoExc(const QJsonObject&, ResponseOkEvent&&, ResponseErrorEvent&&);

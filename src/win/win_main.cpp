@@ -254,7 +254,7 @@ void MainWindow::ui_AConnectTriggered() {
     this->m_sb_connection.setText(tr("Connecting to MTB Daemon ")+this->daemonHostPort()+" ...");
 
     try {
-        this->m_client.connect(QHostAddress(s["mtb-daemon"]["host"].toString()), s["mtb-daemon"]["port"].toInt());
+        this->m_client.connect(s["mtb-daemon"]["host"].toString(), s["mtb-daemon"]["port"].toInt());
     } catch (const QStrException& e) {
         QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, e.str(), tr("Error!"));
