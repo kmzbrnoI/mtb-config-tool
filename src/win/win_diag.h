@@ -55,6 +55,8 @@ private slots:
     void ui_chbAutorefreshStateChanged();
     void ui_onFinished(int result);
     void ui_sbPeriodValueChanged();
+    void ui_bBrowseHandle();
+    void ui_chbLogFileStateChanged();
 
 };
 
