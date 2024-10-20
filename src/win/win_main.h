@@ -22,8 +22,9 @@ constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
 QString daemonSupportedVersionsStr();
 
-const QString TEXT_BEACON_OFF = "-";
-const QString TEXT_BEACON_ON = QObject::tr("YES");
+// Use #define instead of const so QObject::tr is applied in each use
+#define TEXT_BEACON_OFF "-"
+#define TEXT_BEACON_ON QObject::tr("YES")
 
 enum TwModulesColumns {
     twAddrDec,
@@ -103,6 +104,7 @@ private:
     void moduleDeleted(uint8_t addr);
 
     void ui_updateModule(const QJsonObject&);
+    void ui_updateAllModulesFromMModules();
     unsigned ui_twModulesInsertIndex(unsigned addr);
     void ui_twModulesClear();
     void ui_setupModulesContextMenu();

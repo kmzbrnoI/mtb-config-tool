@@ -130,6 +130,7 @@ void MainWindow::retranslate() {
             windowPtr->retranslate();
 
     this->ui_fillModulesContextMenu();
+    this->ui_updateAllModulesFromMModules();
 }
 
 void MainWindow::clientJsonReceived(const QJsonObject& json) {
@@ -367,6 +368,12 @@ void MainWindow::ui_updateModule(const QJsonObject& module) {
         setBacground(*item, QC_LIGHT_GRAY);
     else
         setBacground(*item, QC_LIGHT_GREEN);
+}
+
+void MainWindow::ui_updateAllModulesFromMModules() {
+    for (const QJsonObject& module : this->m_modules)
+        if (module.contains("address"))
+            this->ui_updateModule(module);
 }
 
 unsigned MainWindow::ui_twModulesInsertIndex(unsigned addr) {

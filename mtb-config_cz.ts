@@ -312,28 +312,28 @@
     <message>
         <location filename="ui/mainwindow.ui" line="119"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="249"/>
-        <location filename="src/win/win_main.cpp" line="163"/>
-        <location filename="src/win/win_main.cpp" line="188"/>
-        <location filename="src/win/win_main.cpp" line="201"/>
-        <location filename="src/win/win_main.cpp" line="215"/>
-        <location filename="src/win/win_main.cpp" line="235"/>
-        <location filename="src/win/win_main.cpp" line="442"/>
-        <location filename="src/win/win_main.cpp" line="492"/>
-        <location filename="src/win/win_main.cpp" line="563"/>
-        <location filename="src/win/win_main.cpp" line="582"/>
-        <location filename="src/win/win_main.cpp" line="611"/>
-        <location filename="src/win/win_main.cpp" line="614"/>
-        <location filename="src/win/win_main.cpp" line="627"/>
-        <location filename="src/win/win_main.cpp" line="645"/>
-        <location filename="src/win/win_main.cpp" line="775"/>
+        <location filename="src/win/win_main.cpp" line="164"/>
+        <location filename="src/win/win_main.cpp" line="189"/>
+        <location filename="src/win/win_main.cpp" line="202"/>
+        <location filename="src/win/win_main.cpp" line="216"/>
+        <location filename="src/win/win_main.cpp" line="236"/>
+        <location filename="src/win/win_main.cpp" line="448"/>
+        <location filename="src/win/win_main.cpp" line="498"/>
+        <location filename="src/win/win_main.cpp" line="569"/>
+        <location filename="src/win/win_main.cpp" line="588"/>
+        <location filename="src/win/win_main.cpp" line="617"/>
+        <location filename="src/win/win_main.cpp" line="620"/>
+        <location filename="src/win/win_main.cpp" line="633"/>
+        <location filename="src/win/win_main.cpp" line="651"/>
+        <location filename="src/win/win_main.cpp" line="781"/>
         <source>Error</source>
         <translation>Porucha</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="124"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="248"/>
-        <location filename="src/win/win_main.cpp" line="713"/>
-        <location filename="src/win/win_main.cpp" line="746"/>
+        <location filename="src/win/win_main.cpp" line="719"/>
+        <location filename="src/win/win_main.cpp" line="752"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
@@ -521,229 +521,229 @@
         <translation>Vytvořil Jan Horáček 2024</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="164"/>
+        <location filename="src/win/win_main.cpp" line="165"/>
         <source>Are you using MTB Daemon &lt; v1.5? Upgrade!</source>
         <translation>Používáte MTB Daemon starší než v1.5? Aktualizujte MTB Daemon!</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="178"/>
+        <location filename="src/win/win_main.cpp" line="179"/>
         <source>Unsupported MTB Daemon received version: </source>
         <translation>Nepodporovaná verze MTB Daemona: </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="179"/>
+        <location filename="src/win/win_main.cpp" line="180"/>
         <source>Supported versions: </source>
         <translation>Podporované verze: </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="179"/>
+        <location filename="src/win/win_main.cpp" line="180"/>
         <source>Continue?</source>
         <translation>Pokračovat?</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="243"/>
+        <location filename="src/win/win_main.cpp" line="244"/>
         <source>Unable to connect to </source>
         <translation>Nelze se připojit k </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="255"/>
+        <location filename="src/win/win_main.cpp" line="256"/>
         <source>Connecting to MTB Daemon </source>
         <oldsource>Connecting to MTB Daemon...</oldsource>
         <translation>Připojuji se k MTB Daemonu </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="297"/>
+        <location filename="src/win/win_main.cpp" line="298"/>
         <source>Connected to MTB Daemon </source>
         <translation>Připojeno k MTB Daemonu </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="297"/>
+        <location filename="src/win/win_main.cpp" line="298"/>
         <source>Disconnected from MTB Daemon</source>
         <translation>Odpojeno od MTB Daemonu</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="351"/>
+        <location filename="src/win/win_main.cpp" line="352"/>
         <source> (deprecated)</source>
         <translation> (zastaralý)</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="354"/>
+        <location filename="src/win/win_main.cpp" line="355"/>
         <source>ERROR</source>
         <translation>CHYBA</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="355"/>
+        <location filename="src/win/win_main.cpp" line="356"/>
         <source>WARN</source>
         <translation>VAROVÁNÍ</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="388"/>
+        <location filename="src/win/win_main.cpp" line="394"/>
         <source>MTB-USB connected: type: </source>
         <oldsource>MTB-USB connected, type: </oldsource>
         <translation>Typ MTB-USB: </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="389"/>
+        <location filename="src/win/win_main.cpp" line="395"/>
         <source>MtbBus speed: </source>
         <oldsource>speed: </oldsource>
         <translation>Rychlost MtbBus: </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="390"/>
+        <location filename="src/win/win_main.cpp" line="396"/>
         <source>FW: v</source>
         <oldsource>FW: </oldsource>
         <translation>FW: v</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="391"/>
+        <location filename="src/win/win_main.cpp" line="397"/>
         <source>protocol: v</source>
         <oldsource>protocol version: </oldsource>
         <translation>protokol: v</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="394"/>
+        <location filename="src/win/win_main.cpp" line="400"/>
         <source>No MTB-USB connected</source>
         <translation>Odpojeno od MTB-USB</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="438"/>
+        <location filename="src/win/win_main.cpp" line="444"/>
         <source>List of modules updated.</source>
         <translation>Tabulka modulů aktualizována.</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="438"/>
+        <location filename="src/win/win_main.cpp" line="444"/>
         <source>Info</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="488"/>
+        <location filename="src/win/win_main.cpp" line="494"/>
         <source>MTB Daemon&apos;s configuration saved to the server&apos;s configuration file.</source>
         <translation>Konfigurace MTB Daemona uložena do konfiguračního souboru serveru.</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="488"/>
+        <location filename="src/win/win_main.cpp" line="494"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="532"/>
+        <location filename="src/win/win_main.cpp" line="538"/>
         <source>Unknown module type</source>
         <translation>Neznámý typ modulu</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="532"/>
+        <location filename="src/win/win_main.cpp" line="538"/>
         <source>Unknown module type code </source>
         <translation>Neznámý typ modulu </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="532"/>
+        <location filename="src/win/win_main.cpp" line="538"/>
         <source>, no configuration window available!</source>
         <translation>, není dostupné žádné konfigurační okno modulu!</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="549"/>
+        <location filename="src/win/win_main.cpp" line="555"/>
         <source>Really reboot module </source>
         <translation>Opravdu restartovat modul </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="559"/>
-        <location filename="src/win/win_main.cpp" line="642"/>
-        <location filename="src/win/win_main.cpp" line="771"/>
+        <location filename="src/win/win_main.cpp" line="565"/>
+        <location filename="src/win/win_main.cpp" line="648"/>
+        <location filename="src/win/win_main.cpp" line="777"/>
         <source>Finished</source>
         <translation>Dokončeno</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="559"/>
+        <location filename="src/win/win_main.cpp" line="565"/>
         <source>Module successfully rebooted</source>
         <translation>Modul úspešně restartován</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="595"/>
+        <location filename="src/win/win_main.cpp" line="601"/>
         <source>Choose firmware hex file</source>
         <translation>Vyberte hex souboru firmwaru</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="597"/>
+        <location filename="src/win/win_main.cpp" line="603"/>
         <source>Hex file (*.hex)</source>
         <translation>Hex soubor (*.hex)</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="611"/>
+        <location filename="src/win/win_main.cpp" line="617"/>
         <source>Unable to load hex file</source>
         <translation>Nepodařilo se načíst hex soubor</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="614"/>
+        <location filename="src/win/win_main.cpp" line="620"/>
         <source>Unable to load hex file - general exception</source>
         <translation>Nepodařilo se načíst hex soubor - obecná výjimka</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="642"/>
+        <location filename="src/win/win_main.cpp" line="648"/>
         <source>Firmware of module </source>
         <translation>Firmware modulu </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="642"/>
+        <location filename="src/win/win_main.cpp" line="648"/>
         <source> successfully upgraded.</source>
         <translation> úspšně aktualizován.</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="669"/>
+        <location filename="src/win/win_main.cpp" line="675"/>
         <source>Cannot read file </source>
         <translation>Nelze přečíst soubor </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="677"/>
+        <location filename="src/win/win_main.cpp" line="683"/>
         <source>Some line in input file does not start with &apos;:&apos;</source>
         <translation>Nějaký řádek v souboru nezačíná znakem &apos;;&apos;</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="681"/>
+        <location filename="src/win/win_main.cpp" line="687"/>
         <source>Type !ok</source>
         <translation>Typ !ok</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="685"/>
+        <location filename="src/win/win_main.cpp" line="691"/>
         <source>Addr !ok</source>
         <translation>Adresa !ok</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="690"/>
+        <location filename="src/win/win_main.cpp" line="696"/>
         <source>Offset !ok</source>
         <translation>Offset !ok</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="713"/>
+        <location filename="src/win/win_main.cpp" line="719"/>
         <source>Type of module </source>
         <translation>Typ modulu </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="713"/>
+        <location filename="src/win/win_main.cpp" line="719"/>
         <source> changed, module window closed.</source>
         <translation> se změnil, uzavřeno okno modulu.</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="746"/>
+        <location filename="src/win/win_main.cpp" line="752"/>
         <source>Module with open window was deleted on the server!
 Module </source>
         <translation>Modul s otevřeným oknem byl na serveru smazán\nModul </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="760"/>
+        <location filename="src/win/win_main.cpp" line="766"/>
         <source>Really delete module </source>
         <translation>Opravdu smazat modul </translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="771"/>
+        <location filename="src/win/win_main.cpp" line="777"/>
         <source>Module successfully deleted.</source>
         <translation>Modul úspěšně odstraněn.</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="243"/>
-        <location filename="src/win/win_main.cpp" line="261"/>
-        <location filename="src/win/win_main.cpp" line="265"/>
-        <location filename="src/win/win_main.cpp" line="280"/>
-        <location filename="src/win/win_main.cpp" line="284"/>
+        <location filename="src/win/win_main.cpp" line="244"/>
+        <location filename="src/win/win_main.cpp" line="262"/>
+        <location filename="src/win/win_main.cpp" line="266"/>
+        <location filename="src/win/win_main.cpp" line="281"/>
+        <location filename="src/win/win_main.cpp" line="285"/>
         <source>Error!</source>
         <translation>Chyba!</translation>
     </message>
@@ -776,27 +776,27 @@ Module </source>
         <translation>Diagnostika</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="164"/>
-        <location filename="src/win/win_main.cpp" line="188"/>
-        <location filename="src/win/win_main.cpp" line="201"/>
-        <location filename="src/win/win_main.cpp" line="215"/>
-        <location filename="src/win/win_main.cpp" line="235"/>
+        <location filename="src/win/win_main.cpp" line="165"/>
+        <location filename="src/win/win_main.cpp" line="189"/>
+        <location filename="src/win/win_main.cpp" line="202"/>
+        <location filename="src/win/win_main.cpp" line="216"/>
+        <location filename="src/win/win_main.cpp" line="236"/>
         <source>Closing connection...</source>
         <translation>Uzavírám spojení...</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="188"/>
+        <location filename="src/win/win_main.cpp" line="189"/>
         <source>Invalid received MTB Daemon version!</source>
         <translation>Neplatná verze MTB Daemona!</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="265"/>
-        <location filename="src/win/win_main.cpp" line="284"/>
+        <location filename="src/win/win_main.cpp" line="266"/>
+        <location filename="src/win/win_main.cpp" line="285"/>
         <source>Unknown exception!</source>
         <translation>Neznámá výjimka!</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="274"/>
+        <location filename="src/win/win_main.cpp" line="275"/>
         <source>Disconnecting from MTB Daemon...</source>
         <translation>Odpojuji se od MTB Daemona...</translation>
     </message>
@@ -1160,7 +1160,7 @@ Module </source>
         <translation>Neplatný json!</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.h" line="26"/>
+        <location filename="src/win/win_main.h" line="27"/>
         <source>YES</source>
         <translation>ANO</translation>
     </message>
