@@ -55,47 +55,45 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
 }
 
 void MainWindow::ui_setupModulesContextMenu() {
-    {
-        QAction *aConfigure = new QAction(tr("Configure"), this);
-        connect(aConfigure, SIGNAL(triggered()), this, SLOT(ui_AModuleConfigure()));
-        this->twModulesContextMenu.addAction(aConfigure);
-    }
+    this->twModulesActions.aConfigure = new QAction(this);
+    connect(this->twModulesActions.aConfigure, SIGNAL(triggered()), this, SLOT(ui_AModuleConfigure()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aConfigure);
 
-    {
-        QAction *aReboot = new QAction(tr("Reboot"), this);
-        connect(aReboot, SIGNAL(triggered()), this, SLOT(ui_AModuleReboot()));
-        this->twModulesContextMenu.addAction(aReboot);
-    }
+    this->twModulesActions.aReboot = new QAction(this);
+    connect(this->twModulesActions.aReboot, SIGNAL(triggered()), this, SLOT(ui_AModuleReboot()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aReboot);
 
-    {
-        QAction *aBeacon = new QAction(tr("Beacon of/off"), this);
-        connect(aBeacon, SIGNAL(triggered()), this, SLOT(ui_AModuleBeacon()));
-        this->twModulesContextMenu.addAction(aBeacon);
-    }
+    this->twModulesActions.aBeacon = new QAction(this);
+    connect(this->twModulesActions.aBeacon, SIGNAL(triggered()), this, SLOT(ui_AModuleBeacon()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aBeacon);
 
-    {
-        QAction *aFwUpgrade = new QAction(tr("Firmware upgrade"), this);
-        connect(aFwUpgrade, SIGNAL(triggered()), this, SLOT(ui_AModuleFwUpgrade()));
-        this->twModulesContextMenu.addAction(aFwUpgrade);
-    }
+    this->twModulesActions.aFwUpgrade = new QAction(this);
+    connect(this->twModulesActions.aFwUpgrade, SIGNAL(triggered()), this, SLOT(ui_AModuleFwUpgrade()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aFwUpgrade);
 
-    {
-        QAction *aDelete = new QAction(tr("Delete"), this);
-        connect(aDelete, SIGNAL(triggered()), this, SLOT(ui_AModuleDelete()));
-        this->twModulesContextMenu.addAction(aDelete);
-    }
+    this->twModulesActions.aDelete = new QAction(this);
+    connect(this->twModulesActions.aDelete, SIGNAL(triggered()), this, SLOT(ui_AModuleDelete()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aDelete);
 
-    {
-        QAction *aDiagnostics = new QAction(tr("Diagnostics"), this);
-        connect(aDiagnostics, SIGNAL(triggered()), this, SLOT(ui_AModuleDiagnostics()));
-        this->twModulesContextMenu.addAction(aDiagnostics);
-    }
+    this->twModulesActions.aDiagnostics = new QAction(this);
+    connect(this->twModulesActions.aDiagnostics, SIGNAL(triggered()), this, SLOT(ui_AModuleDiagnostics()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aDiagnostics);
 
-    {
-        QAction *aChangeAddr = new QAction(tr("Change address"), this);
-        connect(aChangeAddr, SIGNAL(triggered()), this, SLOT(ui_AModuleChangeAddr()));
-        this->twModulesContextMenu.addAction(aChangeAddr);
-    }
+    this->twModulesActions.aChangeAddr = new QAction(this);
+    connect(this->twModulesActions.aChangeAddr, SIGNAL(triggered()), this, SLOT(ui_AModuleChangeAddr()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aChangeAddr);
+
+    this->ui_fillModulesContextMenu();
+}
+
+void MainWindow::ui_fillModulesContextMenu() {
+    this->twModulesActions.aConfigure->setText(tr("Configure"));
+    this->twModulesActions.aReboot->setText(tr("Reboot"));
+    this->twModulesActions.aBeacon->setText(tr("Beacon on/off"));
+    this->twModulesActions.aFwUpgrade->setText(tr("Firmware upgrade"));
+    this->twModulesActions.aDelete->setText(tr("Delete"));
+    this->twModulesActions.aDiagnostics->setText(tr("Diagnostics"));
+    this->twModulesActions.aChangeAddr->setText(tr("Change address"));
 }
 
 void MainWindow::ui_MAboutTriggered() {
@@ -130,6 +128,8 @@ void MainWindow::retranslate() {
     for (auto& windowPtr : this->m_diagWindows)
         if (windowPtr)
             windowPtr->retranslate();
+
+    this->ui_fillModulesContextMenu();
 }
 
 void MainWindow::clientJsonReceived(const QJsonObject& json) {

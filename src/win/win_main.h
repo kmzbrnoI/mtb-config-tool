@@ -78,6 +78,16 @@ private:
     QLabel m_sb_error;
     QMenu twModulesContextMenu;
 
+    struct {
+        QAction* aConfigure;
+        QAction* aReboot;
+        QAction* aBeacon;
+        QAction* aFwUpgrade;
+        QAction* aDelete;
+        QAction* aDiagnostics;
+        QAction* aChangeAddr;
+    } twModulesActions;
+
     void connectedUpdate();
     QString daemonHostPort() const;
 
@@ -96,6 +106,7 @@ private:
     unsigned ui_twModulesInsertIndex(unsigned addr);
     void ui_twModulesClear();
     void ui_setupModulesContextMenu();
+    void ui_fillModulesContextMenu();
 
     void closeEvent(QCloseEvent *event) override;
     static QJsonObject loadFwHex(const QString& filename);

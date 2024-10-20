@@ -256,8 +256,8 @@
         <location filename="ui/mainwindow.ui" line="23"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="203"/>
         <location filename="src/win/win_main.cpp" line="16"/>
-        <location filename="src/win/win_main.cpp" line="104"/>
-        <location filename="src/win/win_main.cpp" line="105"/>
+        <location filename="src/win/win_main.cpp" line="102"/>
+        <location filename="src/win/win_main.cpp" line="103"/>
         <source>MTB Configuration Tool</source>
         <translation>MTB konfigurační nástroj</translation>
     </message>
@@ -485,6 +485,7 @@
     <message>
         <location filename="ui/mainwindow.ui" line="305"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="239"/>
+        <location filename="src/win/win_main.cpp" line="92"/>
         <source>Beacon on/off</source>
         <translation>Maják zap/vyp</translation>
     </message>
@@ -503,19 +504,19 @@
     <message>
         <location filename="ui/mainwindow.ui" line="345"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="244"/>
-        <location filename="src/win/win_main.cpp" line="83"/>
+        <location filename="src/win/win_main.cpp" line="94"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="353"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="245"/>
-        <location filename="src/win/win_main.cpp" line="95"/>
+        <location filename="src/win/win_main.cpp" line="96"/>
         <source>Change address</source>
         <translation>Změnit adresu</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="107"/>
+        <location filename="src/win/win_main.cpp" line="105"/>
         <source>Created by Jan Horáček 2024</source>
         <translation>Vytvořil Jan Horáček 2024</translation>
     </message>
@@ -749,33 +750,28 @@ Module </source>
     <message>
         <location filename="ui/mainwindow.ui" line="289"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="237"/>
-        <location filename="src/win/win_main.cpp" line="59"/>
+        <location filename="src/win/win_main.cpp" line="90"/>
         <source>Configure</source>
         <translation>Konfigurovat</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="297"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="238"/>
-        <location filename="src/win/win_main.cpp" line="65"/>
+        <location filename="src/win/win_main.cpp" line="91"/>
         <source>Reboot</source>
         <translation>Restartovat</translation>
     </message>
     <message>
-        <location filename="src/win/win_main.cpp" line="71"/>
-        <source>Beacon of/off</source>
-        <translation>Maják zap/vyp</translation>
-    </message>
-    <message>
         <location filename="ui/mainwindow.ui" line="313"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="240"/>
-        <location filename="src/win/win_main.cpp" line="77"/>
+        <location filename="src/win/win_main.cpp" line="93"/>
         <source>Firmware upgrade</source>
         <translation>Aktualizovat firmware</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="321"/>
         <location filename="build/mtb-config_autogen/include/ui_mainwindow.h" line="241"/>
-        <location filename="src/win/win_main.cpp" line="89"/>
+        <location filename="src/win/win_main.cpp" line="95"/>
         <source>Diagnostics</source>
         <translation>Diagnostika</translation>
     </message>
