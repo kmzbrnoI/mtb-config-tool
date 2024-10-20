@@ -13,8 +13,6 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     : QMainWindow(parent), s(s), m_settingsWindow(s), m_mtbUsbWindow(this->m_mtbUsbStatus) {
     MainWindow::instance = this;
     ui.setupUi(this);
-    this->setWindowTitle(QString(tr("MTB Configuration Tool")+" v%1.%2").\
-                         arg(MTB_CONFIG_VERSION_MAJOR).arg(MTB_CONFIG_VERSION_MINOR));
 
     this->m_sb_error.setStyleSheet("color: red; font-weight: bold;");
     this->ui.sb_main->addWidget(&this->m_sb_connection);
@@ -131,6 +129,8 @@ void MainWindow::retranslate() {
 
     this->ui_fillModulesContextMenu();
     this->ui_updateAllModulesFromMModules();
+    this->setWindowTitle(QString(tr("MTB Configuration Tool")+" v%1.%2").\
+                         arg(MTB_CONFIG_VERSION_MAJOR).arg(MTB_CONFIG_VERSION_MINOR));
 }
 
 void MainWindow::clientJsonReceived(const QJsonObject& json) {
