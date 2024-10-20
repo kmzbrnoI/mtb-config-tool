@@ -2,25 +2,28 @@
 #include "settings.h"
 #include <QApplication>
 #include <QTranslator>
+#include <QLibraryInfo>
 #include <memory>
+#include <optional>
+#include <array>
 #include "main.h"
 
-std::unique_ptr<QTranslator> cz_translator;
+std::vector<std::unique_ptr<QTranslator>> cz_translators;
 std::unique_ptr<MainWindow> main_window;
+
+std::unique_ptr<QTranslator> load_translation(const QString& filename, const QString& directory = QString());
+
+///////////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    {
-        // Load CZ translator
-        const QString cz_trans_path = ":/qm/mtb-config_cz";
-        cz_translator = std::make_unique<QTranslator>();
-        bool success = cz_translator->load(cz_trans_path);
-        if (!success) {
-            qCritical() << "Unable to load translation " << cz_trans_path << "!" << Qt::endl;
+    cz_translators.push_back(load_translation(":/qm/mtb-config_cz"));
+    cz_translators.push_back(load_translation("qtbase_cs", QLibraryInfo::path(QLibraryInfo::TranslationsPath))); // messageBox buttons etc. translations
+
+    for (const auto& ptr : cz_translators)
+        if (!ptr)
             return 1;
-        }
-    }
 
     Settings settings;
     settings.load(CONFIG_FILENAME);
@@ -36,19 +39,34 @@ int main(int argc, char *argv[]) {
     int result = a.exec();
 
     main_window.release();
-    cz_translator.release();
+    cz_translators.clear();
 
     return result;
 }
 
+///////////////////////////////////////////////////////////////////////////////////
+
+std::unique_ptr<QTranslator> load_translation(const QString& filename, const QString& directory) {
+    std::unique_ptr<QTranslator> trans = std::make_unique<QTranslator>();
+    bool success = trans->load(filename, directory);
+    if (!success) {
+        qCritical() << "Unable to load translation " << directory << filename << "!" << Qt::endl;
+        return {};
+    }
+    return trans;
+}
+
 void translate_app_cz() {
-    qApp->removeTranslator(cz_translator.get());
-    if (!qApp->installTranslator(cz_translator.get()))
-        qCritical() << "Unable to install translator cz_translator!" << Qt::endl;
+    for (std::unique_ptr<QTranslator>& trans : cz_translators) {
+        qApp->removeTranslator(trans.get());
+        if (!qApp->installTranslator(trans.get()))
+            qCritical() << "Unable to install translator " << trans->filePath() << "!" << Qt::endl;
+    }
     main_window->retranslate();
 }
 
 void translate_app_en() {
-    qApp->removeTranslator(cz_translator.get());
+    for (std::unique_ptr<QTranslator>& trans : cz_translators)
+        qApp->removeTranslator(trans.get());
     main_window->retranslate();
 }
