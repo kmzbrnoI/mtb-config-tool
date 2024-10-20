@@ -77,10 +77,8 @@
 <context>
     <name>DiagDialog</name>
     <message>
-        <location filename="ui/diag.ui" line="14"/>
-        <location filename="build/mtb-config_autogen/include/ui_diag.h" line="103"/>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation type="vanished">Dialog</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="85"/>
@@ -804,9 +802,8 @@ Module </source>
 <context>
     <name>ModuleAddDialog</name>
     <message>
-        <location filename="build/mtb-config_autogen/include/ui_moduleadddialog.h" line="45"/>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation type="vanished">Dialog</translation>
     </message>
     <message>
         <location filename="ui/modules/moduleadd.ui" line="14"/>
@@ -902,10 +899,8 @@ Module </source>
 <context>
     <name>MtbUniConfigWindow</name>
     <message>
-        <location filename="ui/modules/mtbuniconfig.ui" line="14"/>
-        <location filename="build/mtb-config_autogen/include/ui_mtbuniconfig.h" line="93"/>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation type="vanished">Dialog</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbuniconfig.ui" line="42"/>
@@ -1025,6 +1020,14 @@ Module </source>
         <source>Module successfully created.</source>
         <translation>Modul úspěšně vytvořen.</translation>
     </message>
+    <message>
+        <source>Apply</source>
+        <translation type="vanished">Použít</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">Storno</translation>
+    </message>
 </context>
 <context>
     <name>MtbUsbDialog</name>
@@ -1131,6 +1134,10 @@ Module </source>
         <location filename="src/win/win_mtbusb.cpp" line="64"/>
         <source>Speed successfully set.</source>
         <translation>Rychlost úspěšně nastavena.</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="vanished">Použít</translation>
     </message>
 </context>
 <context>
