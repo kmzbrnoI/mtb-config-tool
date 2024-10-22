@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
     cz_translators.push_back(load_translation(":/i18n/mtb-config_cz"));
-    cz_translators.push_back(load_translation("qtbase_cs", QLibraryInfo::path(QLibraryInfo::TranslationsPath))); // messageBox buttons etc. translations
+    cz_translators.push_back(load_translation("qt_cs", QLibraryInfo::path(QLibraryInfo::TranslationsPath))); // messageBox buttons etc. translations
 
     for (const auto& ptr : cz_translators)
         if (!ptr)
