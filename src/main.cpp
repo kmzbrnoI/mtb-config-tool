@@ -3,9 +3,9 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QLibraryInfo>
+#include <QMessageBox>
+#include <QDir>
 #include <memory>
-#include <optional>
-#include <array>
 #include "main.h"
 
 std::vector<std::unique_ptr<QTranslator>> cz_translators;
@@ -50,7 +50,7 @@ std::unique_ptr<QTranslator> load_translation(const QString& filename, const QSt
     std::unique_ptr<QTranslator> trans = std::make_unique<QTranslator>();
     bool success = trans->load(filename, directory);
     if (!success) {
-        qCritical() << "Unable to load translation " << directory << filename << "!" << Qt::endl;
+        QMessageBox::critical(nullptr, "Error", "Unable to load translation " + directory + QDir::separator() + filename);
         return {};
     }
     return trans;
@@ -60,7 +60,7 @@ void translate_app_cz() {
     for (std::unique_ptr<QTranslator>& trans : cz_translators) {
         qApp->removeTranslator(trans.get());
         if (!qApp->installTranslator(trans.get()))
-            qCritical() << "Unable to install translator " << trans->filePath() << "!" << Qt::endl;
+            QMessageBox::critical(nullptr, "Error", "Unable to install translator " + trans->filePath() + "!");
     }
     main_window->retranslate();
 }
