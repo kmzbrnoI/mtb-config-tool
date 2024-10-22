@@ -17,8 +17,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network LinguistT
 
 qt_standard_project_setup(I18N_TRANSLATED_LANGUAGES cz)
 
-qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} mtb-config_cz.ts)
-
 set(PROJECT_SOURCES
     src/main.h src/main.cpp
     src/q-str-exception.h
@@ -59,14 +57,7 @@ else()
     )
 endif()
 
-qt_add_translations(mtb-config)
-
-# Add generated qm files to the resources
-qt_add_resources(mtb-config "qm"
-    PREFIX "/qm"
-    BASE ${CMAKE_CURRENT_BINARY_DIR}
-    FILES ${QM_FILES}
-)
+qt_add_translations(mtb-config TS_FILES mtb-config_cz.ts)
 
 target_link_libraries(mtb-config PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(mtb-config PRIVATE Qt${QT_VERSION_MAJOR}::Network)
