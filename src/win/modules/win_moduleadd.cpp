@@ -10,13 +10,11 @@ ModuleAddDialog::ModuleAddDialog(QWidget *parent) :
     this->setFixedSize(this->width(), this->height());
     this->setWindowFlags(Qt::Tool);
 
-    m_types = {
-        {*this->ui.rb_univ2, MtbModuleType::Univ2noIr},
-        {*this->ui.rb_univ2ir, MtbModuleType::Univ2ir},
-        {*this->ui.rb_univ4, MtbModuleType::Univ42},
-        {*this->ui.rb_unis, MtbModuleType::Unis10},
-        {*this->ui.rb_rc, MtbModuleType::Rc},
-    };
+    m_types.emplace_back(*this->ui.rb_univ2, MtbModuleType::Univ2noIr);
+    m_types.emplace_back(*this->ui.rb_univ2ir, MtbModuleType::Univ2ir);
+    m_types.emplace_back(*this->ui.rb_univ4, MtbModuleType::Univ42);
+    m_types.emplace_back(*this->ui.rb_unis, MtbModuleType::Unis10);
+    m_types.emplace_back(*this->ui.rb_rc, MtbModuleType::Rc);
 }
 
 void ModuleAddDialog::add() {

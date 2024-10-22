@@ -17,7 +17,7 @@ public:
 
 private:
     Ui::ModuleAddDialog ui;
-    QVector<std::pair<QRadioButton&, MtbModuleType>> m_types;
+    std::vector<std::pair<QRadioButton&, MtbModuleType>> m_types;
 
     void accept() override;
     std::optional<MtbModuleType> typeSelected() const;
