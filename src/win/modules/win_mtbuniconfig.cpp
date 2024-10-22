@@ -21,13 +21,19 @@ MtbUniConfigWindow::MtbUniConfigWindow(QWidget *parent) :
 }
 
 void MtbUniConfigWindow::createGuiInputs() {
+    QLabel* lType = new QLabel(this->ui.gb_inputs);
+    lType->setText(tr("Type:"));
+    this->ui.gl_inputs->addWidget(lType, 0, 1);
+
+    QLabel* lDelay = new QLabel(this->ui.gb_inputs);
+    lDelay->setText(tr("Delay:"));
+    this->ui.gl_inputs->addWidget(lDelay, 0, 2);
+
     for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
         QLabel& name = this->m_guiInputs[i].name;
         name.setText(QString::number(i));
         name.setStyleSheet("font-weight: bold");
-
-        this->m_guiInputs[i].typeLabel.setText(tr("Type:"));
-        this->m_guiInputs[i].delayLabel.setText(tr("Delay:"));
+        name.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
 
         {
             QComboBox& type = this->m_guiInputs[i].type;
@@ -40,22 +46,26 @@ void MtbUniConfigWindow::createGuiInputs() {
                             "0.8 s", "0.9 s", "1.0 s", "1.1 s", "1.2 s", "1.3 s", "1.4 s", "1.5 s"});
         }
 
-        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].name, i, 0);
-        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].typeLabel, i, 1);
-        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].type, i, 2);
-        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].delayLabel, i, 3);
-        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].delay, i, 4);
+        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].name, i+1, 0);
+        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].type, i+1, 1);
+        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].delay, i+1, 2);
     }
 }
 
 void MtbUniConfigWindow::createGuiOutputs() {
+    QLabel* lType = new QLabel(this->ui.gb_inputs);
+    lType->setText(tr("Type:"));
+    this->ui.gl_outputs->addWidget(lType, 0, 1);
+
+    QLabel* lSafeState = new QLabel(this->ui.gb_inputs);
+    lSafeState->setText(tr("Default:"));
+    this->ui.gl_outputs->addWidget(lSafeState, 0, 2);
+
     for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
         QLabel& name = this->m_guiOutputs[i].name;
         name.setText(QString::number(i));
         name.setStyleSheet("font-weight: bold");
-
-        this->m_guiOutputs[i].typeLabel.setText(tr("Type:"));
-        this->m_guiOutputs[i].safeStateLabel.setText(tr("Default:"));
+        name.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
 
         {
             QComboBox& type = this->m_guiOutputs[i].type;
@@ -67,11 +77,9 @@ void MtbUniConfigWindow::createGuiOutputs() {
             delay.addItems({tr("off"), tr("on")});
         }
 
-        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].name, i, 0);
-        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].typeLabel, i, 1);
-        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].type, i, 2);
-        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].safeStateLabel, i, 3);
-        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].safeState, i, 4);
+        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].name, i+1, 0);
+        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].type, i+1, 1);
+        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].safeState, i+1, 2);
 
         QObject::connect(&this->m_guiOutputs[i].type, SIGNAL(currentIndexChanged(int)), this, SLOT(ui_cbOutputTypeCurrentIndexChanged(int)));
     }

@@ -11,9 +11,7 @@
 
 struct UniGuiInput {
     QLabel name;
-    QLabel typeLabel;
     QComboBox type;
-    QLabel delayLabel;
     QComboBox delay;
 };
 
