@@ -1,3 +1,2 @@
-// the configured options and settings for Tutorial
 #define MTB_CONFIG_VERSION_MAJOR @mtb-config_VERSION_MAJOR@
 #define MTB_CONFIG_VERSION_MINOR @mtb-config_VERSION_MINOR@
