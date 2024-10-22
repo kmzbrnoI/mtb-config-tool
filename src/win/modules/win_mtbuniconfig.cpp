@@ -8,9 +8,9 @@ MtbUniConfigWindow::MtbUniConfigWindow(QWidget *parent) :
     MtbModuleConfigDialog(parent) {
     this->ui.setupUi(this);
     this->setFixedSize(this->width(), this->height());
-    //this->setWindowFlags(Qt::Tool);
     this->createGuiInputs();
     this->createGuiOutputs();
+    this->retranslate();
 
     QPushButton *b = this->ui.bb_main->button(QDialogButtonBox::Apply);
     if (b)
@@ -21,13 +21,8 @@ MtbUniConfigWindow::MtbUniConfigWindow(QWidget *parent) :
 }
 
 void MtbUniConfigWindow::createGuiInputs() {
-    QLabel* lType = new QLabel(this->ui.gb_inputs);
-    lType->setText(tr("Type:"));
-    this->ui.gl_inputs->addWidget(lType, 0, 1);
-
-    QLabel* lDelay = new QLabel(this->ui.gb_inputs);
-    lDelay->setText(tr("Delay:"));
-    this->ui.gl_inputs->addWidget(lDelay, 0, 2);
+    this->ui.gl_inputs->addWidget(&this->lInType, 0, 1);
+    this->ui.gl_inputs->addWidget(&this->lInDelay, 0, 2);
 
     for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
         QLabel& name = this->m_guiInputs[i].name;
@@ -53,13 +48,8 @@ void MtbUniConfigWindow::createGuiInputs() {
 }
 
 void MtbUniConfigWindow::createGuiOutputs() {
-    QLabel* lType = new QLabel(this->ui.gb_inputs);
-    lType->setText(tr("Type:"));
-    this->ui.gl_outputs->addWidget(lType, 0, 1);
-
-    QLabel* lSafeState = new QLabel(this->ui.gb_inputs);
-    lSafeState->setText(tr("Default:"));
-    this->ui.gl_outputs->addWidget(lSafeState, 0, 2);
+    this->ui.gl_outputs->addWidget(&this->lOutType, 0, 1);
+    this->ui.gl_outputs->addWidget(&this->lOutSafeState, 0, 2);
 
     for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
         QLabel& name = this->m_guiOutputs[i].name;
@@ -309,4 +299,8 @@ void MtbUniConfigWindow::apply() {
 
 void MtbUniConfigWindow::retranslate() {
     this->ui.retranslateUi(this);
+    this->lInType.setText(tr("Type:"));
+    this->lInDelay.setText(tr("Delay:"));
+    this->lOutType.setText(tr("Type:"));
+    this->lOutSafeState.setText(tr("Default:"));
 }

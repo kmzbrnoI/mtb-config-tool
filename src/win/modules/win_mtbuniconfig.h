@@ -39,6 +39,10 @@ private:
     std::array<UniGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
     std::array<UniGuiOutput, UNI_INPUTS_COUNT> m_guiOutputs;
     bool updateInProgress = false;
+    QLabel lInType;
+    QLabel lInDelay;
+    QLabel lOutType;
+    QLabel lOutSafeState;
 
     void createGuiInputs();
     void createGuiOutputs();

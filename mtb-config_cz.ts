@@ -925,96 +925,96 @@ Module </source>
         <translation>Obnovit</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="25"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="57"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="302"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="304"/>
         <source>Type:</source>
         <translation>Typ:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="29"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="303"/>
         <source>Delay:</source>
         <translation>Zpoždění:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="61"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="305"/>
         <source>Default:</source>
         <translation>Výchozí:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="77"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="179"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="67"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="169"/>
         <source>off</source>
         <translation>vyp</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="77"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="180"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="67"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="170"/>
         <source>on</source>
         <translation>zap</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="134"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="124"/>
         <source>Configuration of module </source>
         <translation>Konfigurace modulu </translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="158"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="148"/>
         <source>New module </source>
         <translation>Nový modul </translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="173"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="232"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="238"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="243"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="250"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="255"/>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="305"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="163"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="222"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="228"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="233"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="240"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="245"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="295"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="173"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="163"/>
         <source>JSON&#xa0;parse error:</source>
         <translation>Chyba parsování JSONu:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="232"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="222"/>
         <source>Fill in module name!</source>
         <translation>Vyplňte jméno modulu!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="238"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="228"/>
         <source>Fill in all input types!</source>
         <translation>Vyberte typy všech vstupů!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="243"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="233"/>
         <source>Fill in all input delays!</source>
         <translation>Vyberte všechna zpoždění vstupů!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="250"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="240"/>
         <source>Fill in all output types!</source>
         <translation>Vyberte všechny typy výstupů!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="255"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="245"/>
         <source>Fill in all output safe states!</source>
         <translation>Vyberte všechny bezpečné stavy výstupů!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="300"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="290"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="300"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="290"/>
         <source>Configuration successfully set.</source>
         <translation>Konfigurace úspěšně odeslána.</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="300"/>
+        <location filename="src/win/modules/win_mtbuniconfig.cpp" line="290"/>
         <source>Module successfully created.</source>
         <translation>Modul úspěšně vytvořen.</translation>
     </message>
