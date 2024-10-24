@@ -938,7 +938,7 @@ Module </source>
     <message>
         <location filename="src/win/modules/win_mtbuniconfig.cpp" line="306"/>
         <source>Default:</source>
-        <translation>Výchozí:</translation>
+        <translation>Základní stav:</translation>
     </message>
     <message>
         <location filename="src/win/modules/win_mtbuniconfig.cpp" line="67"/>
