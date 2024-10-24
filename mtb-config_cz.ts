@@ -64,9 +64,9 @@
     </message>
     <message>
         <location filename="src/client.cpp" line="203"/>
-        <source>request error: </source>
-        <oldsource>reqest error: </oldsource>
-        <translation>Chyba v požadavku: </translation>
+        <source>error: </source>
+        <oldsource>request error: </oldsource>
+        <translation>chyba: </translation>
     </message>
     <message>
         <location filename="src/client.cpp" line="203"/>
@@ -853,24 +853,24 @@ Module </source>
         <translation>Adreas modulu:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_moduleadd.cpp" line="36"/>
-        <location filename="src/win/modules/win_moduleadd.cpp" line="53"/>
-        <location filename="src/win/modules/win_moduleadd.cpp" line="58"/>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="34"/>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="51"/>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="56"/>
         <source>Cannot add module!</source>
         <translation>Nelze přidat modul!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_moduleadd.cpp" line="36"/>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="34"/>
         <source>Select a module type!</source>
         <translation>Vyberte typ modulu!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_moduleadd.cpp" line="53"/>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="51"/>
         <source>Module configuration dialog is not available!</source>
         <translation>Konfigurační okno modulu není dostupné!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_moduleadd.cpp" line="58"/>
+        <location filename="src/win/modules/win_moduleadd.cpp" line="56"/>
         <source>Internal error: missing configDialog pointer!</source>
         <translation>Vnitřní chyba: chybějící configDialog ukazatel!</translation>
     </message>

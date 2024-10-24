@@ -17,6 +17,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network LinguistT
 
 qt_standard_project_setup(I18N_TRANSLATED_LANGUAGES cz)
 
+#qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} mtb-config_cz.ts)
+
 set(PROJECT_SOURCES
     src/main.h src/main.cpp
     src/q-str-exception.h
