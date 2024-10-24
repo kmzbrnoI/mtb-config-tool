@@ -63,8 +63,9 @@ void MtbUniConfigWindow::createGuiOutputs() {
         }
 
         {
-            QComboBox& delay = this->m_guiOutputs[i].safeState;
-            delay.addItems({tr("off"), tr("on")});
+            QComboBox& safeState = this->m_guiOutputs[i].safeState;
+            safeState.addItems({tr("off"), tr("on")});
+            safeState.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         }
 
         this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].name, i+1, 0);
