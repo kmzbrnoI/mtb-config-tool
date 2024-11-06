@@ -7,16 +7,7 @@
 #include <QTimer>
 #include "ui_diag.h"
 #include "common.h"
-
-using DVDescriptor = std::function<QString(const QJsonObject&)>;
-
-struct DVDef {
-    uint8_t dvi;
-    QString dvName;
-    DVDescriptor repr;
-
-    //DVDef(unsigned dvi, const QString& dvName, DVDescriptor repr) : dvi(dvi), dvName(dvName), repr(repr) {}
-};
+#include "dvs.h"
 
 class DiagDialog : public QDialog
 {

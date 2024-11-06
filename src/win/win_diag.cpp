@@ -5,53 +5,6 @@
 #include "win_diag.h"
 #include "client.h"
 
-QString reprId(const QJsonObject&);
-QString reprSingleValue(const QJsonObject&);
-QString reprMcuVoltage(const QJsonObject&);
-QString reprTime(const QJsonObject&);
-
-QVector<DVDef> dvsCommon {
-    {0, "diag. version", reprSingleValue},
-    {1, "state", reprId},
-    {2, "uptime", reprTime},
-    {10, "errors", reprId},
-    {11, "warnings", reprId},
-    {12, "mcu voltage", reprMcuVoltage},
-    {13, "mcu temperature", reprId},
-    {16, "mtbbus received messages", reprSingleValue},
-    {17, "mtbbus received messages with invalid crc", reprSingleValue},
-    {18, "mtbbus sent messages", reprSingleValue},
-    {19, "mtbbus unsent messages", reprSingleValue},
-};
-
-QString reprId(const QJsonObject &json) {
-    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
-}
-
-QString reprSingleValue(const QJsonObject &json) {
-    const QStringList& keys = json.keys();
-    return (keys.count() == 1) ? json[keys[0]].toVariant().toString() : reprId(json);
-}
-
-QString reprMcuVoltage(const QJsonObject &json) {
-    double value = json["mcu_voltage"].toDouble();
-    double min = json["mcu_voltage_min"].toDouble();
-    double max = json["mcu_voltage_max"].toDouble();
-    int raw = json["mcu_voltage_raw"].toInt();
-
-    return QString::number(min, 'g', 3) + "V – " + QString::number(value, 'g', 3) + "V – " + QString::number(max, 'g', 3) +
-            "V (" + QString::number(raw) + ")";
-}
-
-QString reprTime(const QJsonObject &json) {
-    const QStringList& keys = json.keys();
-    if (keys.count() == 1) {
-        unsigned seconds = json[keys[0]].toInt();
-        return QTime(0,0,0).addSecs(seconds).toString("hh:mm:ss") + " ("+QString::number(seconds)+")";
-    } else {
-        return reprId(json);
-    }
-}
 
 /////////////////////////////////////////////////////////////////////////////////
 

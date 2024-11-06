@@ -31,6 +31,7 @@ set(PROJECT_SOURCES
     src/win/win_mtbusb.h src/win/win_mtbusb.cpp
     src/common.h src/common.cpp
     src/qjsonsafe.h src/qjsonsafe.cpp
+    src/dvs.h src/dvs.cpp
     src/win/win_change_adress.h src/win/win_change_adress.cpp
     src/win/modules/win_moduleadd.h src/win/modules/win_moduleadd.cpp
     src/win/modules/win_config.h src/win/modules/win_config.cpp
