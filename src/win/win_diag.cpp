@@ -32,6 +32,7 @@ void DiagDialog::retranslate() {
 void DiagDialog::moduleOpen(const QJsonObject& module) {
     this->moduleAddress = QJsonSafe::safeUInt(module["address"]);
     this->moduleType = static_cast<MtbModuleType>(QJsonSafe::safeUInt(module["type_code"]));
+    this->m_dvs = DVs::instance->dvs(this->moduleType);
     this->twFill();
     this->setWindowTitle(tr("Module Diagnostic – module ")+QString::number(this->moduleAddress));
     this->refresh();
@@ -44,7 +45,7 @@ void DiagDialog::ui_bRefreshHandle() {
 
 void DiagDialog::twFill() {
     this->ui.tw_dvs->clear();
-    this->dvsFill(*this->ui.tw_dvs, dvsCommon);
+    this->dvsFill(*this->ui.tw_dvs, this->m_dvs);
 }
 
 void DiagDialog::dvsFill(QTreeWidget& tw, const QVector<DVDef>& dvs) {
@@ -63,10 +64,10 @@ void DiagDialog::dvsFill(QTreeWidget& tw, const QVector<DVDef>& dvs) {
 }
 
 void DiagDialog::refresh() {
-    for (int i = 0; i < dvsCommon.size(); i++) {
+    for (int i = 0; i < this->m_dvs.size(); i++) {
         QTreeWidgetItem* item = this->ui.tw_dvs->topLevelItem(i);
         if ((item != nullptr) && (item->checkState(TWDVColumn::cUpdate)))
-            this->refreshDV(i, dvsCommon[i]);
+            this->refreshDV(i, this->m_dvs.at(i));
     }
 }
 

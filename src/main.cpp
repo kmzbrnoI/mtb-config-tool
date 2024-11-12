@@ -7,6 +7,7 @@
 #include <QDir>
 #include <memory>
 #include "main.h"
+#include "dvs.h"
 
 std::vector<std::unique_ptr<QTranslator>> cz_translators;
 std::unique_ptr<MainWindow> main_window;
@@ -25,6 +26,7 @@ int main(int argc, char *argv[]) {
         if (!ptr)
             return 1;
 
+    DVs dvs;
     Settings settings;
     settings.load(CONFIG_FILENAME);
 

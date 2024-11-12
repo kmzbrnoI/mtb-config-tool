@@ -51,6 +51,7 @@ bool is(const Source &x) {
 
 constexpr unsigned UNI_INPUTS_COUNT = 16;
 constexpr unsigned UNI_OUTPUTS_COUNT = 16;
+constexpr unsigned RC_INPUTS_COUNT = 8;
 
 const std::array<QString, 17> SComSignalCodes {
     "Stůj/posun zakázán",

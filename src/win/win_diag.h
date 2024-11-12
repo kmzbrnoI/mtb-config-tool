@@ -25,6 +25,7 @@ private:
     uint8_t moduleAddress;
     MtbModuleType moduleType;
     QTimer tUpdate;
+    QVector<DVDef> m_dvs;
 
     void twFill();
     void dvsFill(QTreeWidget&, const QVector<DVDef>&);
