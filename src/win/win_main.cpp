@@ -531,12 +531,16 @@ void MainWindow::ui_AModuleConfigure() {
             throw QStrException("currentLine == nullptr");
         unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
         const unsigned typeCode = QJsonSafe::safeUInt(this->m_modules[addr]["type_code"]);
+        const MtbModuleType type = static_cast<MtbModuleType>(typeCode);
 
         if ((typeCode&0xF0) == 0x10) { // MTB-UNI and variants
             if (!this->m_configWindows[addr])
                 this->m_configWindows[addr] = std::make_unique<MtbUniConfigWindow>();
+        } else if (type == MtbModuleType::Rc) {
+            QMessageBox::warning(this, tr("No config"), tr("This module has no configuration."));
+            return;
         } else {
-            QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code ")+QString::number(typeCode)+tr(", no configuration window available!"));
+            QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code: ")+QString::number(typeCode)+tr(", no configuration window available!"));
             return;
         }
 
