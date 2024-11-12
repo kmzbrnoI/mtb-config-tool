@@ -25,6 +25,9 @@
      </item>
      <item row="5" column="0" colspan="6">
       <widget class="QTreeWidget" name="tw_dvs">
+       <property name="selectionMode">
+        <enum>QAbstractItemView::ContiguousSelection</enum>
+       </property>
        <column>
         <property name="text">
          <string>Update</string>

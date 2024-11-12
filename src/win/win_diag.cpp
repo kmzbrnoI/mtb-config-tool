@@ -17,6 +17,7 @@ DiagDialog::DiagDialog(QWidget *parent) :
     QObject::connect(this->ui.sb_period, SIGNAL(valueChanged(int)), this, SLOT(ui_sbPeriodValueChanged()));
     QObject::connect(this->ui.b_browse, SIGNAL(released()), this, SLOT(ui_bBrowseHandle()));
     QObject::connect(this->ui.chb_log_file, SIGNAL(stateChanged(int)), this, SLOT(ui_chbLogFileStateChanged()));
+    QObject::connect(this->ui.tw_dvs, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(ui_twDVsItemChanged(QTreeWidgetItem*,int)));
     QObject::connect(&this->tUpdate, SIGNAL(timeout()), this, SLOT(tUpdateTimeout()));
     QObject::connect(this, SIGNAL(finished(int)), this, SLOT(ui_onFinished(int)));
 }
@@ -141,4 +142,14 @@ void DiagDialog::ui_chbLogFileStateChanged() {
     bool checked = (this->ui.chb_log_file->checkState() == Qt::CheckState::Checked);
     this->ui.le_log_filename->setEnabled(!checked);
     this->ui.b_browse->setEnabled(!checked);
+}
+
+void DiagDialog::ui_twDVsItemChanged(QTreeWidgetItem *item, int column) {
+    if (column == TWDVColumn::cUpdate) {
+        for (int i = 0; i < this->ui.tw_dvs->topLevelItemCount(); i++) {
+            QTreeWidgetItem* it = this->ui.tw_dvs->topLevelItem(i);
+            if ((it->isSelected()) && (it != item))
+                it->setCheckState(TWDVColumn::cUpdate, item->checkState(TWDVColumn::cUpdate));
+        }
+    }
 }

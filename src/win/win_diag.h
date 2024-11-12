@@ -49,6 +49,7 @@ private slots:
     void ui_sbPeriodValueChanged();
     void ui_bBrowseHandle();
     void ui_chbLogFileStateChanged();
+    void ui_twDVsItemChanged(QTreeWidgetItem *item, int column);
 
 };
 
