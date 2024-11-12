@@ -288,6 +288,9 @@
    <property name="text">
     <string>Configure</string>
    </property>
+   <property name="shortcut">
+    <string>Return</string>
+   </property>
   </action>
   <action name="a_module_reboot">
    <property name="enabled">
@@ -295,6 +298,9 @@
    </property>
    <property name="text">
     <string>Reboot</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
   <action name="a_module_beacon">
@@ -304,6 +310,9 @@
    <property name="text">
     <string>Beacon on/off</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
   </action>
   <action name="a_module_fw_upgrade">
    <property name="enabled">
@@ -312,6 +321,9 @@
    <property name="text">
     <string>Firmware upgrade</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
   </action>
   <action name="a_module_diagnostics">
    <property name="enabled">
@@ -319,6 +331,9 @@
    </property>
    <property name="text">
     <string>Diagnostics</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="a_clear_error_sb">
@@ -336,6 +351,9 @@
    <property name="text">
     <string>Add new module</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="a_module_delete">
    <property name="enabled">
@@ -343,6 +361,9 @@
    </property>
    <property name="text">
     <string>Delete</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
    </property>
   </action>
   <action name="a_module_change_addr">
