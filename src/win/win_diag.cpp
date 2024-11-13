@@ -104,7 +104,7 @@ void DiagDialog::refreshDV(unsigned line, const DVDef& dv) {
 void DiagDialog::diagReceived(QTreeWidgetItem& item, const QJsonObject& json, const DVDef& dvdef) {
     this->m_remaining.remove(dvdef.dvi);
     setBacground(item, QColor(0xFF, 0xFF, 0xFF));
-    item.setText(TWDVColumn::cUpdated, QTime::currentTime().toString("hh:mm:ss"));
+    item.setText(TWDVColumn::cUpdated, QTime::currentTime().toString("hh:mm:ss.zzz"));
     item.setText(TWDVColumn::cValue, dvdef.repr(json["DVvalue"].toObject()));
 
     if (this->m_remaining.empty()) {
