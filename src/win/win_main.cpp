@@ -337,7 +337,7 @@ void MainWindow::ui_updateModule(const QJsonObject& module) {
         return;
 
     if (m_tw_lines[address] == nullptr) {
-        auto newItem = new QTreeWidgetItem(this->ui.tw_modules);
+        auto newItem = new QTreeWidgetItem();
         this->ui.tw_modules->insertTopLevelItem(this->ui_twModulesInsertIndex(address), newItem);
         m_tw_lines[address] = newItem;
     }
