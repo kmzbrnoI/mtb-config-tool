@@ -70,7 +70,11 @@
       </widget>
      </item>
      <item row="4" column="1" colspan="4">
-      <widget class="QLineEdit" name="le_log_filename"/>
+      <widget class="QLineEdit" name="le_log_filename">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </item>
      <item row="3" column="5">
       <widget class="QSpinBox" name="sb_period">

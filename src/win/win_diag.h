@@ -5,6 +5,7 @@
 #include <functional>
 #include <QVector>
 #include <QTimer>
+#include <QSet>
 #include "ui_diag.h"
 #include "common.h"
 #include "dvs.h"
@@ -26,12 +27,16 @@ private:
     MtbModuleType moduleType;
     QTimer tUpdate;
     QVector<DVDef> m_dvs;
+    QSet<uint8_t> m_remaining; // dvs remaining to be read
 
     void twFill();
     void dvsFill(QTreeWidget&, const QVector<DVDef>&);
     void refresh();
     void refreshDV(unsigned line, const DVDef&);
     void diagReceived(QTreeWidgetItem&, const QJsonObject&, const DVDef&);
+
+    void logWriteHeader(const QString& filename) const;
+    void logWriteTable(const QString& filename) const;
 
     enum TWDVColumn {
         cUpdate = 0,
