@@ -132,7 +132,7 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
 
     // Outputs
     const QJsonArray& outputs = QJsonSafe::safeArray(config["outputsSafe"], UNIS_OUTPUTS_COUNT+(2*UNIS_SERVOS_COUNT));
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) { // TODO: what to do with outputsSafe[16-27]?
         const QJsonObject& output = QJsonSafe::safeObject(outputs[i]);
         const QString& type = QJsonSafe::safeString(output["type"]);
         const unsigned value = QJsonSafe::safeUInt(output["value"]);
@@ -141,6 +141,19 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
         this->m_guiOutputs[i].type.setCurrentText(type);
         MtbUnisConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, value, type);
         this->updateInProgress = false;
+    }
+
+    // Servos
+    {
+        unsigned enabledMask = QJsonSafe::safeUInt(config["servoEnabledMask"]);
+        const QJsonArray& positions = QJsonSafe::safeArray(config["servoPosition"], 2*UNIS_SERVOS_COUNT);
+        const QJsonArray& speeds = QJsonSafe::safeArray(config["servoSpeed"], UNIS_SERVOS_COUNT);
+        for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
+            this->m_guiServos[i].enabled.setChecked(static_cast<bool>(enabledMask & (1<<i)));
+            this->m_guiServos[i].posPlus.setValue(QJsonSafe::safeUInt(positions[2*i]));
+            this->m_guiServos[i].posMinus.setValue(QJsonSafe::safeUInt(positions[2*i+1]));
+            this->m_guiServos[i].speed.setValue(QJsonSafe::safeUInt(speeds[i]));
+        }
     }
 
     this->ui.b_refresh->setEnabled(true);
@@ -266,10 +279,29 @@ void MtbUnisConfigWindow::apply() {
         output["value"] = MtbUnisConfigWindow::outputCbToValue(outputType, this->m_guiOutputs[i].safeState.currentIndex());
         outputsSafe.append(output);
     }
+    for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) { // TODO temporary
+        QJsonObject _default = {{"type", "plain"}, {"value", 0}};
+        outputsSafe.append(_default);
+        outputsSafe.append(_default);
+    }
+
+    unsigned servoEnabledMask = 0;
+    QJsonArray servoPosition;
+    QJsonArray servoSpeed;
+    for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
+        if (this->m_guiServos[i].enabled.isChecked())
+            servoEnabledMask |= (1 << i);
+        servoPosition.append(this->m_guiServos[i].posPlus.value());
+        servoPosition.append(this->m_guiServos[i].posMinus.value());
+        servoSpeed.append(this->m_guiServos[i].speed.value());
+    }
 
     QJsonObject config{
         {"inputsDelay", inputsDelay},
         {"outputsSafe", outputsSafe},
+        {"servoEnabledMask", static_cast<int>(servoEnabledMask)},
+        {"servoPosition", servoPosition},
+        {"servoSpeed", servoSpeed},
     };
 
     QJsonObject newModule{
