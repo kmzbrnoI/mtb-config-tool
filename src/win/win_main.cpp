@@ -4,8 +4,9 @@
 #include <QFileInfo>
 #include "win_main.h"
 #include "version.h"
-#include "win_mtbuniconfig.h"
 #include "qjsonsafe.h"
+#include "win_mtbuniconfig.h"
+#include "win_mtbunisconfig.h"
 
 MainWindow* MainWindow::instance = nullptr;
 
@@ -536,6 +537,9 @@ void MainWindow::ui_AModuleConfigure() {
         if ((typeCode&0xF0) == 0x10) { // MTB-UNI and variants
             if (!this->m_configWindows[addr])
                 this->m_configWindows[addr] = std::make_unique<MtbUniConfigWindow>();
+        } else if (type == MtbModuleType::Unis10) {
+            if (!this->m_configWindows[addr])
+                this->m_configWindows[addr] = std::make_unique<MtbUnisConfigWindow>();
         } else if (type == MtbModuleType::Rc) {
             QMessageBox::warning(this, tr("No config"), tr("This module has no configuration."));
             return;
@@ -710,10 +714,13 @@ QJsonObject MainWindow::loadFwHex(const QString& filename) {
 void MainWindow::checkModuleTypeChanged(const QJsonObject& module) {
     const uint8_t address = QJsonSafe::safeUInt(module["address"]);
     const unsigned typeCode = QJsonSafe::safeUInt(module["type_code"]);
+    const MtbModuleType type = static_cast<MtbModuleType>(typeCode);
 
     bool changed = false;
     if (this->m_configWindows[address]) {
         if (((typeCode&0xF0) == 0x10) && (!is<MtbUniConfigWindow>(*this->m_configWindows[address]))) // MTB-UNI and variants
+            changed = true;
+        if ((type == MtbModuleType::Unis10) && (!is<MtbUnisConfigWindow>(*this->m_configWindows[address]))) // MTB-UNIS
             changed = true;
     }
 

@@ -11,7 +11,6 @@
 
 struct UnisGuiInput {
     QLabel name;
-    QComboBox type;
     QComboBox delay;
 };
 
@@ -36,17 +35,15 @@ public:
 
 private:
     Ui::MtbUnisConfigWindow ui;
-    std::array<UnisGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
-    std::array<UnisGuiOutput, UNI_INPUTS_COUNT> m_guiOutputs;
+    std::array<UnisGuiInput, UNIS_INPUTS_COUNT> m_guiInputs;
+    std::array<UnisGuiOutput, UNIS_OUTPUTS_COUNT> m_guiOutputs;
     bool updateInProgress = false;
-    QLabel lInType;
     QLabel lInDelay;
     QLabel lOutType;
     QLabel lOutSafeState;
 
     void createGuiInputs();
     void createGuiOutputs();
-    void updateUiType(MtbModuleType);
     void jsonParseError(const QString& err);
     void apply();
 

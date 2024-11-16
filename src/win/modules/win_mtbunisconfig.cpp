@@ -21,19 +21,13 @@ MtbUnisConfigWindow::MtbUnisConfigWindow(QWidget *parent) :
 }
 
 void MtbUnisConfigWindow::createGuiInputs() {
-    this->ui.gl_inputs->addWidget(&this->lInType, 0, 1);
-    this->ui.gl_inputs->addWidget(&this->lInDelay, 0, 2);
+    this->ui.gl_inputs->addWidget(&this->lInDelay, 0, 1);
 
-    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
         QLabel& name = this->m_guiInputs[i].name;
         name.setText(QString::number(i));
         name.setStyleSheet("font-weight: bold");
         name.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-
-        {
-            QComboBox& type = this->m_guiInputs[i].type;
-            type.addItems({"plain", "ir"});
-        }
 
         {
             QComboBox& delay = this->m_guiInputs[i].delay;
@@ -42,8 +36,7 @@ void MtbUnisConfigWindow::createGuiInputs() {
         }
 
         this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].name, i+1, 0);
-        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].type, i+1, 1);
-        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].delay, i+1, 2);
+        this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].delay, i+1, 1);
     }
 }
 
@@ -51,7 +44,7 @@ void MtbUnisConfigWindow::createGuiOutputs() {
     this->ui.gl_outputs->addWidget(&this->lOutType, 0, 1);
     this->ui.gl_outputs->addWidget(&this->lOutSafeState, 0, 2);
 
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         QLabel& name = this->m_guiOutputs[i].name;
         name.setText(QString::number(i));
         name.setStyleSheet("font-weight: bold");
@@ -86,31 +79,21 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
     this->address = QJsonSafe::safeUInt(module["address"]);
     this->ui.le_name->setText(QJsonSafe::safeString(module["name"]));
     this->type = static_cast<MtbModuleType>(QJsonSafe::safeUInt(module["type_code"]));
-    this->updateUiType(this->type);
 
     const QString& typeStr = QJsonSafe::safeString(module["type"]);
     const QJsonObject& uni = QJsonSafe::safeObject(module[typeStr]);
     const QJsonObject& config = QJsonSafe::safeObject(uni["config"]);
 
     // Inputs
-
-    if (this->type == MtbModuleType::Univ2ir) {
-        const QJsonArray& irs = QJsonSafe::safeArray(config["irs"], UNI_INPUTS_COUNT);
-        for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++)
-            this->m_guiInputs[i].type.setCurrentIndex(QJsonSafe::safeBool(irs[i]));
-    }
-
-    const QJsonArray& inputsDelay = QJsonSafe::safeArray(config["inputsDelay"], UNI_INPUTS_COUNT);
-    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
+    const QJsonArray& inputsDelay = QJsonSafe::safeArray(config["inputsDelay"], UNIS_INPUTS_COUNT);
+    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
         unsigned delay = static_cast<int>(QJsonSafe::safeDouble(inputsDelay[i].toDouble()) * 10);
         this->m_guiInputs[i].delay.setCurrentIndex(delay);
     }
 
-
     // Outputs
-
-    const QJsonArray& outputs = QJsonSafe::safeArray(config["outputsSafe"], UNI_OUTPUTS_COUNT);
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+    const QJsonArray& outputs = QJsonSafe::safeArray(config["outputsSafe"], UNIS_OUTPUTS_COUNT);
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         const QJsonObject& output = QJsonSafe::safeObject(outputs[i]);
         const QString& type = QJsonSafe::safeString(output["type"]);
         const unsigned value = QJsonSafe::safeUInt(output["value"]);
@@ -132,15 +115,11 @@ void MtbUnisConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     this->type = type;
     this->address = addr;
 
-    this->updateUiType(type);
-
     this->ui.le_name->setText("");
-    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
-        this->m_guiInputs[i].type.setCurrentIndex(0);
+    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++)
         this->m_guiInputs[i].delay.setCurrentIndex(0);
-    }
 
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         this->m_guiOutputs[i].type.setCurrentText(0);
         MtbUnisConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, 0, "plain");
     }
@@ -150,14 +129,6 @@ void MtbUnisConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     this->ui.le_name->setFocus();
     this->updateInProgress = false;
     this->exec();
-}
-
-void MtbUnisConfigWindow::updateUiType(MtbModuleType type) {
-    for (UnisGuiInput& in : this->m_guiInputs) {
-        in.type.setEnabled(type == MtbModuleType::Univ2ir);
-        if (type != MtbModuleType::Univ2ir)
-            in.type.setCurrentIndex(0);
-    }
 }
 
 void MtbUnisConfigWindow::jsonParseError(const QString& err) {
@@ -205,7 +176,7 @@ int MtbUnisConfigWindow::outputCbToValue(const QString& type, unsigned index) {
 void MtbUnisConfigWindow::ui_cbOutputTypeCurrentIndexChanged(int) {
     if (updateInProgress)
         return;
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         if (sender() == &this->m_guiOutputs[i].type) {
             MtbUnisConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, 0, this->m_guiOutputs[i].type.currentText());
         }
@@ -224,19 +195,14 @@ void MtbUnisConfigWindow::apply() {
         return;
     }
 
-    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
-        if (this->m_guiInputs[i].type.currentIndex() < 0) {
-            QMessageBox::warning(this, tr("Error"), tr("Fill in all input types!"));
-            return;
-        }
-
+    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
         if (this->m_guiInputs[i].delay.currentIndex() < 0) {
             QMessageBox::warning(this, tr("Error"), tr("Fill in all input delays!"));
             return;
         }
     }
 
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         if (this->m_guiOutputs[i].type.currentIndex() < 0) {
             QMessageBox::warning(this, tr("Error"), tr("Fill in all output types!"));
             return;
@@ -250,11 +216,11 @@ void MtbUnisConfigWindow::apply() {
 
 
     QJsonArray inputsDelay;
-    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++)
+    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++)
         inputsDelay.append(static_cast<double>(this->m_guiInputs[i].delay.currentIndex())/10);
 
     QJsonArray outputsSafe;
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         QJsonObject output;
         const QString& outputType = this->m_guiOutputs[i].type.currentText();
         output["type"] = outputType;
@@ -266,13 +232,6 @@ void MtbUnisConfigWindow::apply() {
         {"inputsDelay", inputsDelay},
         {"outputsSafe", outputsSafe},
     };
-
-    if (this->type == MtbModuleType::Univ2ir) {
-        QJsonArray irs;
-        for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++)
-            irs.append(this->m_guiInputs[i].type.currentIndex() == 1);
-        config["irs"] = irs;
-    }
 
     QJsonObject newModule{
         {"command", "module_set_config"},
@@ -300,7 +259,6 @@ void MtbUnisConfigWindow::apply() {
 
 void MtbUnisConfigWindow::retranslate() {
     this->ui.retranslateUi(this);
-    this->lInType.setText(tr("Type:"));
     this->lInDelay.setText(tr("Delay:"));
     this->lOutType.setText(tr("Type:"));
     this->lOutSafeState.setText(tr("Default:"));

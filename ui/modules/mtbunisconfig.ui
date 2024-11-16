@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>471</width>
+    <width>682</width>
     <height>618</height>
    </rect>
   </property>
@@ -60,7 +60,7 @@
     <rect>
      <x>10</x>
      <y>40</y>
-     <width>171</width>
+     <width>111</width>
      <height>531</height>
     </rect>
    </property>
@@ -78,7 +78,7 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>151</width>
+      <width>91</width>
       <height>491</height>
      </rect>
     </property>
@@ -88,7 +88,7 @@
   <widget class="QGroupBox" name="gb_outputs">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>130</x>
      <y>40</y>
      <width>271</width>
      <height>531</height>
@@ -121,6 +121,36 @@
    <property name="text">
     <string>Refresh</string>
    </property>
+  </widget>
+  <widget class="QGroupBox" name="gb_servos">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>40</y>
+     <width>261</width>
+     <height>531</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="title">
+    <string>Inputs</string>
+   </property>
+   <widget class="QWidget" name="gridLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>241</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gl_servos"/>
+   </widget>
   </widget>
  </widget>
  <resources/>

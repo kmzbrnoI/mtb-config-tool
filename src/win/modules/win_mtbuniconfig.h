@@ -37,7 +37,7 @@ public:
 private:
     Ui::MtbUniConfigWindow ui;
     std::array<UniGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
-    std::array<UniGuiOutput, UNI_INPUTS_COUNT> m_guiOutputs;
+    std::array<UniGuiOutput, UNI_OUTPUTS_COUNT> m_guiOutputs;
     bool updateInProgress = false;
     QLabel lInType;
     QLabel lInDelay;
