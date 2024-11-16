@@ -36,6 +36,7 @@ set(PROJECT_SOURCES
     src/win/modules/win_moduleadd.h src/win/modules/win_moduleadd.cpp
     src/win/modules/win_config.h src/win/modules/win_config.cpp
     src/win/modules/win_mtbuniconfig.h src/win/modules/win_mtbuniconfig.cpp
+    src/win/modules/win_mtbunisconfig.h src/win/modules/win_mtbunisconfig.cpp
     src/win/win_diag.h src/win/win_diag.cpp
     ui/mainwindow.ui
     ui/settingsdialog.ui
@@ -43,6 +44,7 @@ set(PROJECT_SOURCES
     ui/mtbusbdialog.ui
     ui/modules/moduleadd.ui
     ui/modules/mtbuniconfig.ui
+    ui/modules/mtbunisconfig.ui
     ui/changeaddress.ui
     ui/diag.ui
 )
