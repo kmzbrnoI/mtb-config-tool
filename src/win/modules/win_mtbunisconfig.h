@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QCheckBox>
+#include <QSpinBox>
 #include "win_config.h"
 #include "ui_mtbunisconfig.h"
 #include "common.h"
@@ -16,10 +17,16 @@ struct UnisGuiInput {
 
 struct UnisGuiOutput {
     QLabel name;
-    QLabel typeLabel;
     QComboBox type;
-    QLabel safeStateLabel;
     QComboBox safeState;
+};
+
+struct UnisGuiServo {
+    QLabel name;
+    QCheckBox enabled;
+    QSpinBox posPlus;
+    QSpinBox posMinus;
+    QSpinBox speed;
 };
 
 class MtbUnisConfigWindow : public MtbModuleConfigDialog {
@@ -37,13 +44,19 @@ private:
     Ui::MtbUnisConfigWindow ui;
     std::array<UnisGuiInput, UNIS_INPUTS_COUNT> m_guiInputs;
     std::array<UnisGuiOutput, UNIS_OUTPUTS_COUNT> m_guiOutputs;
+    std::array<UnisGuiServo, UNIS_SERVOS_COUNT> m_guiServos;
     bool updateInProgress = false;
     QLabel lInDelay;
     QLabel lOutType;
     QLabel lOutSafeState;
+    QLabel lServoEnabled;
+    QLabel lServoPlus;
+    QLabel lServoMinus;
+    QLabel lServoSpeed;
 
     void createGuiInputs();
     void createGuiOutputs();
+    void createGuiServos();
     void jsonParseError(const QString& err);
     void apply();
 

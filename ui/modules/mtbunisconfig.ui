@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>682</width>
-    <height>618</height>
+    <width>411</width>
+    <height>859</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="bb_main">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>580</y>
+     <x>200</x>
+     <y>820</y>
      <width>201</width>
      <height>32</height>
     </rect>
@@ -47,7 +47,7 @@
     <rect>
      <x>110</x>
      <y>10</y>
-     <width>351</width>
+     <width>291</width>
      <height>25</height>
     </rect>
    </property>
@@ -113,7 +113,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>580</y>
+     <y>820</y>
      <width>80</width>
      <height>25</height>
     </rect>
@@ -125,10 +125,10 @@
   <widget class="QGroupBox" name="gb_servos">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>40</y>
-     <width>261</width>
-     <height>531</height>
+     <x>10</x>
+     <y>580</y>
+     <width>391</width>
+     <height>231</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -138,15 +138,15 @@
     </sizepolicy>
    </property>
    <property name="title">
-    <string>Inputs</string>
+    <string>Servos</string>
    </property>
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>241</width>
-      <height>491</height>
+      <width>371</width>
+      <height>191</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gl_servos"/>

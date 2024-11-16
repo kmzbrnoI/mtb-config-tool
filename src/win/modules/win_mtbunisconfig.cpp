@@ -10,6 +10,7 @@ MtbUnisConfigWindow::MtbUnisConfigWindow(QWidget *parent) :
     this->setFixedSize(this->width(), this->height());
     this->createGuiInputs();
     this->createGuiOutputs();
+    this->createGuiServos();
     this->retranslate();
 
     QPushButton *b = this->ui.bb_main->button(QDialogButtonBox::Apply);
@@ -69,6 +70,44 @@ void MtbUnisConfigWindow::createGuiOutputs() {
     }
 }
 
+void MtbUnisConfigWindow::createGuiServos() {
+    this->ui.gl_servos->addWidget(&this->lServoEnabled, 0, 1);
+    this->ui.gl_servos->addWidget(&this->lServoPlus, 0, 2);
+    this->ui.gl_servos->addWidget(&this->lServoMinus, 0, 3);
+    this->ui.gl_servos->addWidget(&this->lServoSpeed, 0, 4);
+
+    for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
+        QLabel& name = this->m_guiServos[i].name;
+        name.setText(QString::number(i+1));
+        name.setStyleSheet("font-weight: bold");
+        name.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+
+        {
+            QSpinBox& posPlus = this->m_guiServos[i].posPlus;
+            posPlus.setMinimum(0);
+            posPlus.setMaximum(255);
+        }
+
+        {
+            QSpinBox& posMinus = this->m_guiServos[i].posMinus;
+            posMinus.setMinimum(0);
+            posMinus.setMaximum(255);
+        }
+
+        {
+            QSpinBox& speed = this->m_guiServos[i].speed;
+            speed.setMinimum(0);
+            speed.setMaximum(255);
+        }
+
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].name, i+1, 0);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].enabled, i+1, 1);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].posPlus, i+1, 2);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].posMinus, i+1, 3);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].speed, i+1, 4);
+    }
+}
+
 void MtbUnisConfigWindow::editModule(const QJsonObject& module) {
     this->creatingNewModule = false;
     this->update(module);
@@ -92,7 +131,7 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
     }
 
     // Outputs
-    const QJsonArray& outputs = QJsonSafe::safeArray(config["outputsSafe"], UNIS_OUTPUTS_COUNT);
+    const QJsonArray& outputs = QJsonSafe::safeArray(config["outputsSafe"], UNIS_OUTPUTS_COUNT+(2*UNIS_SERVOS_COUNT));
     for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         const QJsonObject& output = QJsonSafe::safeObject(outputs[i]);
         const QString& type = QJsonSafe::safeString(output["type"]);
@@ -262,4 +301,8 @@ void MtbUnisConfigWindow::retranslate() {
     this->lInDelay.setText(tr("Delay:"));
     this->lOutType.setText(tr("Type:"));
     this->lOutSafeState.setText(tr("Default:"));
+    this->lServoEnabled.setText(tr("Enabled:"));
+    this->lServoPlus.setText(tr("Pos. + [0-255]:"));
+    this->lServoMinus.setText(tr("Pos. - [0-255]:"));
+    this->lServoSpeed.setText(tr("Speed [0-255]:"));
 }

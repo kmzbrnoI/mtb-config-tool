@@ -17,9 +17,7 @@ struct UniGuiInput {
 
 struct UniGuiOutput {
     QLabel name;
-    QLabel typeLabel;
     QComboBox type;
-    QLabel safeStateLabel;
     QComboBox safeState;
 };
 
