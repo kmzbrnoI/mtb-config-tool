@@ -2,6 +2,7 @@
 #include "win_moduleadd.h"
 #include "win_config.h"
 #include "win_mtbuniconfig.h"
+#include "win_mtbunisconfig.h"
 
 ModuleAddDialog::ModuleAddDialog(QWidget *parent) :
     QDialog(parent)
@@ -45,6 +46,9 @@ void ModuleAddDialog::accept() {
     case MtbModuleType::Univ40:
     case MtbModuleType::Univ42:
         configDialog = std::make_unique<MtbUniConfigWindow>();
+        break;
+    case MtbModuleType::Unis10:
+        configDialog = std::make_unique<MtbUnisConfigWindow>();
         break;
     default:
         QMessageBox::warning(this, tr("Cannot add module!"), tr("Module configuration dialog is not available!"));
