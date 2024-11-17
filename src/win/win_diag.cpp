@@ -107,7 +107,7 @@ void DiagDialog::diagReceived(QTreeWidgetItem& item, const QJsonObject& json, co
     item.setText(TWDVColumn::cUpdated, QTime::currentTime().toString("hh:mm:ss.zzz"));
     item.setText(TWDVColumn::cValue, dvdef.repr(json["DVvalue"].toObject()));
 
-    if (this->m_remaining.empty()) {
+    if ((this->m_remaining.empty()) && (this->ui.chb_log_file->isChecked())) {
         try {
             this->logWriteTable(this->ui.le_log_filename->text());
             this->ui.chb_log_file->setStyleSheet("color: black;");
