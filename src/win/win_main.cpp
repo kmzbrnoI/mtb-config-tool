@@ -100,8 +100,8 @@ void MainWindow::ui_MAboutTriggered() {
         this,
         tr("MTB Configuration Tool"),
         QString(tr("MTB Configuration Tool")+
-                "\nv%1.%2\n"+
-                tr("Created by Jan Horáček 2024")).arg(MTB_CONFIG_TOOL_VERSION_MAJOR).arg(MTB_CONFIG_TOOL_VERSION_MINOR),
+                "\nv%1\n"+
+                tr("Created by Jan Horáček 2024")).arg(MTB_CONFIG_TOOL_VERSION),
         QMessageBox::Ok
     );
 }

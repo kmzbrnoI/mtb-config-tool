@@ -1,20 +1,24 @@
+#include "version.h"
+
 IDI_ICON1               ICON    DISCARDABLE     "resources/mtb-config-tool.ico"
 
 
 1 VERSIONINFO
-    FILEVERSION    0,0,0,0
-    PRODUCTVERSION 0,0,0,0
+    FILEVERSION    MTB_CONFIG_TOOL_VERSION_MAJOR,MTB_CONFIG_TOOL_VERSION_MINOR,0,0
+    PRODUCTVERSION MTB_CONFIG_TOOL_VERSION_MAJOR,MTB_CONFIG_TOOL_VERSION_MINOR,0,0
 {
     BLOCK "StringFileInfo"
     {
         BLOCK "000004B0"
         {
-            VALUE "CompanyName",        "\0"
-            VALUE "FileDescription",    "MTB Config Tool\0"
-            VALUE "FileVersion",        "git\0"
-            VALUE "OriginalFilename",   "mtb-config-tool.exe\0"
-            VALUE "ProductName",        "MTB Config Tool\0"
-            VALUE "ProductVersion",     "git\0"
+            VALUE "CompanyName",        "Jan Horacek"
+            VALUE "FileDescription",    "MTB Config Tool"
+            VALUE "FileVersion",        MTB_CONFIG_TOOL_VERSION
+            VALUE "OriginalFilename",   "mtb-config-tool.exe"
+            VALUE "ProductName",        "MTB Config Tool"
+            VALUE "ProductVersion",     MTB_CONFIG_TOOL_VERSION
+            VALUE "InternalName",       "mtb-config-tool"
+            VALUE "LegalCopyright",     "Jan Horacek"
         }
     }
     BLOCK "VarFileInfo"
