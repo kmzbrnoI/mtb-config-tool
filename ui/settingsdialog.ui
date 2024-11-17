@@ -2,9 +2,6 @@
 <ui version="4.0">
  <class>SettingsDialog</class>
  <widget class="QDialog" name="SettingsDialog">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -21,9 +18,6 @@
   </property>
   <property name="windowTitle">
    <string>Settings</string>
-  </property>
-  <property name="modal">
-   <bool>true</bool>
   </property>
   <widget class="QDialogButtonBox" name="bb_main">
    <property name="enabled">

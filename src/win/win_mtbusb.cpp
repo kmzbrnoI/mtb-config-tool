@@ -7,7 +7,6 @@ MtbUsbWindow::MtbUsbWindow(const std::optional<MtbUsbStatus> &mtbusb, QWidget *p
 {
     ui.setupUi(this);
     this->setFixedSize(this->width(), this->height());
-    this->setWindowFlags(Qt::Tool);
 
     QObject::connect(ui.b_update, SIGNAL(released()), this, SLOT(ui_bUpdateHandle()));
     QObject::connect(ui.bb_main, SIGNAL(clicked(QAbstractButton*)), this, SLOT(ui_bClicked(QAbstractButton*)));
@@ -15,7 +14,7 @@ MtbUsbWindow::MtbUsbWindow(const std::optional<MtbUsbStatus> &mtbusb, QWidget *p
 
 void MtbUsbWindow::open() {
     this->update();
-    this->show();
+    this->exec();
 }
 
 void MtbUsbWindow::ui_bUpdateHandle() {

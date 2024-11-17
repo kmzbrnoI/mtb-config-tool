@@ -8,7 +8,6 @@ ModuleAddDialog::ModuleAddDialog(QWidget *parent) :
 {
     this->ui.setupUi(this);
     this->setFixedSize(this->width(), this->height());
-    this->setWindowFlags(Qt::Tool);
 
     m_types.emplace_back(*this->ui.rb_univ2, MtbModuleType::Univ2noIr);
     m_types.emplace_back(*this->ui.rb_univ2ir, MtbModuleType::Univ2ir);
@@ -19,7 +18,7 @@ ModuleAddDialog::ModuleAddDialog(QWidget *parent) :
 
 void ModuleAddDialog::add() {
     this->ui.sb_address->setFocus();
-    this->show();
+    this->exec();
 }
 
 std::optional<MtbModuleType> ModuleAddDialog::typeSelected() const {

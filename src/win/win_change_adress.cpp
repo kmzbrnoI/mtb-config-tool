@@ -8,7 +8,6 @@ ChangeAddressDialog::ChangeAddressDialog(QWidget *parent) :
 {
     this->ui.setupUi(this);
     this->setFixedSize(this->width(), this->height());
-    this->setWindowFlags(Qt::Tool);
 
     QObject::connect(this->ui.rb_readdress_mode, SIGNAL(toggled(bool)), this, SLOT(ui_rbToggled()));
     QObject::connect(this->ui.rb_specific, SIGNAL(toggled(bool)), this, SLOT(ui_rbToggled()));
@@ -19,13 +18,13 @@ void ChangeAddressDialog::openFromModule(uint8_t module) {
     this->ui.rb_specific->setChecked(true);
     this->ui.sb_origin_addr->setEnabled(true);
     this->ui.sb_origin_addr->setValue(module);
-    this->show();
+    this->exec();
 }
 
 void ChangeAddressDialog::openGeneral() {
     this->ui.rb_readdress_mode->setChecked(true);
     this->ui.sb_origin_addr->setEnabled(false);
-    this->show();
+    this->exec();
 }
 
 void ChangeAddressDialog::ui_rbToggled() {

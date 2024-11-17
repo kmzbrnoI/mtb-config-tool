@@ -6,7 +6,6 @@ SettingsWindow::SettingsWindow(Settings& s, QWidget *parent)
     : QDialog{parent}, s(s) {
     ui.setupUi(this);
     this->setFixedSize(this->width(), this->height());
-    this->setWindowFlags(Qt::Tool);
 }
 
 void SettingsWindow::open() {
@@ -14,7 +13,7 @@ void SettingsWindow::open() {
     this->ui.le_mtb_daemon_host->setText(this->s["mtb-daemon"]["host"].toString());
     this->ui.se_mtb_daemon_port->setValue(this->s["mtb-daemon"]["port"].toInt());
 
-    this->show();
+    this->exec();
 }
 
 void SettingsWindow::accept() {
