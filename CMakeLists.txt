@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(mtb-config VERSION 0.1 LANGUAGES CXX)
+project(mtb-config-tool VERSION 0.1 LANGUAGES CXX)
 configure_file(src/version.h.in version.h)
 
 set(CMAKE_AUTOUIC ON)
@@ -50,24 +50,26 @@ set(PROJECT_SOURCES
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(mtb-config
+    qt_add_executable(mtb-config-tool
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         ${QM_FILES}
+        ${APP_ICON_RESOURCE_WIN}
     )
 else()
-    add_executable(mtb-config
+    add_executable(mtb-config-tool
         ${PROJECT_SOURCES}
         ${QM_FILES}
+        ${APP_ICON_RESOURCE_WIN}
     )
 endif()
 
-qt_add_translations(mtb-config TS_FILES mtb-config_cz.ts)
+qt_add_translations(mtb-config-tool TS_FILES mtb-config_cz.ts)
 
-target_link_libraries(mtb-config PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(mtb-config PRIVATE Qt${QT_VERSION_MAJOR}::Network)
+target_link_libraries(mtb-config-tool PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(mtb-config-tool PRIVATE Qt${QT_VERSION_MAJOR}::Network)
 
-set_target_properties(mtb-config PROPERTIES
+set_target_properties(mtb-config-tool PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -76,18 +78,18 @@ set_target_properties(mtb-config PROPERTIES
 )
 
 # Because of version.h
-target_include_directories(mtb-config PUBLIC
+target_include_directories(mtb-config-tool PUBLIC
     "${PROJECT_BINARY_DIR}"
     src
     src/win
     src/win/modules
 )
 
-install(TARGETS mtb-config
+install(TARGETS mtb-config-tool
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(mtb-config)
+    qt_finalize_executable(mtb-config-tool)
 endif()

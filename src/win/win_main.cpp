@@ -101,7 +101,7 @@ void MainWindow::ui_MAboutTriggered() {
         tr("MTB Configuration Tool"),
         QString(tr("MTB Configuration Tool")+
                 "\nv%1.%2\n"+
-                tr("Created by Jan Horáček 2024")).arg(MTB_CONFIG_VERSION_MAJOR).arg(MTB_CONFIG_VERSION_MINOR),
+                tr("Created by Jan Horáček 2024")).arg(MTB_CONFIG_TOOL_VERSION_MAJOR).arg(MTB_CONFIG_TOOL_VERSION_MINOR),
         QMessageBox::Ok
     );
 }
@@ -131,7 +131,7 @@ void MainWindow::retranslate() {
     this->ui_fillModulesContextMenu();
     this->ui_updateAllModulesFromMModules();
     this->setWindowTitle(QString(tr("MTB Configuration Tool")+" v%1.%2").\
-                         arg(MTB_CONFIG_VERSION_MAJOR).arg(MTB_CONFIG_VERSION_MINOR));
+                         arg(MTB_CONFIG_TOOL_VERSION_MAJOR).arg(MTB_CONFIG_TOOL_VERSION_MINOR));
 }
 
 void MainWindow::clientJsonReceived(const QJsonObject& json) {
