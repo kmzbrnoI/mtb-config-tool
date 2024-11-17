@@ -299,9 +299,6 @@
    <property name="text">
     <string>Reboot</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+R</string>
-   </property>
   </action>
   <action name="a_module_beacon">
    <property name="enabled">
