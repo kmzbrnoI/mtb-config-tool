@@ -913,7 +913,7 @@ Module </source>
         <location filename="ui/modules/moduleadd.ui" line="120"/>
         <location filename="build/mtb-config_autogen/include/ui_moduleadd.h" line="90"/>
         <source>Module address:</source>
-        <translation>Adreas modulu:</translation>
+        <translation>Adresa modulu:</translation>
     </message>
     <message>
         <location filename="src/win/modules/win_moduleadd.cpp" line="34"/>
