@@ -141,6 +141,14 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>b_clear</tabstop>
+  <tabstop>chb_log_keep_alive</tabstop>
+  <tabstop>chb_log_io</tabstop>
+  <tabstop>cb_loglevel</tabstop>
+  <tabstop>tw_log</tabstop>
+  <tabstop>te_message</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

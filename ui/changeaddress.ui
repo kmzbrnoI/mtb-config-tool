@@ -127,6 +127,12 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>rb_specific</tabstop>
+  <tabstop>sb_origin_addr</tabstop>
+  <tabstop>rb_readdress_mode</tabstop>
+  <tabstop>sb_new_address</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

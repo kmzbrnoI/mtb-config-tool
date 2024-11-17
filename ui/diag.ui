@@ -107,6 +107,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>b_refresh</tabstop>
+  <tabstop>chb_autorefresh</tabstop>
+  <tabstop>sb_period</tabstop>
+  <tabstop>chb_log_file</tabstop>
+  <tabstop>le_log_filename</tabstop>
+  <tabstop>b_browse</tabstop>
+  <tabstop>tw_dvs</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
