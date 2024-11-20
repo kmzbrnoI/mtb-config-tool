@@ -83,6 +83,13 @@ void MainWindow::ui_setupModulesContextMenu() {
     this->twModulesContextMenu.addAction(this->twModulesActions.aChangeAddr);
 
     this->ui_fillModulesContextMenu();
+
+    this->ui.tw_modules->resizeColumnToContents(twAddrHex);
+    this->ui.tw_modules->resizeColumnToContents(twAddrDec);
+    this->ui.tw_modules->setColumnWidth(twName, 150);
+    this->ui.tw_modules->resizeColumnToContents(twError);
+    this->ui.tw_modules->resizeColumnToContents(twWarning);
+    this->ui.tw_modules->resizeColumnToContents(twBeacon);
 }
 
 void MainWindow::ui_fillModulesContextMenu() {
