@@ -60,7 +60,7 @@
        <bool>true</bool>
       </attribute>
       <attribute name="headerCascadingSectionResizes">
-       <bool>true</bool>
+       <bool>false</bool>
       </attribute>
       <attribute name="headerMinimumSectionSize">
        <number>50</number>
