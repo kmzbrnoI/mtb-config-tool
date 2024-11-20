@@ -13,7 +13,7 @@ using Config = QMap<QString, QMap<QString, QVariant>>;
 
 const Config DEFAULTS {
     {"common", {
-        {"language", "cz"},
+        {"language", "en"},
     }},
     {"mtb-daemon", {
         {"host", "127.0.0.1"},

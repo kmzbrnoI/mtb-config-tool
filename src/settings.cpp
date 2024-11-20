@@ -1,4 +1,5 @@
 #include "settings.h"
+#include <QLocale>
 
 Settings::Settings() { this->loadDefaults(); }
 
@@ -7,6 +8,9 @@ void Settings::loadDefaults() {
         for (const auto [option, value] : defgrpcontent.asKeyValueRange())
             if (!data[defgrpname].contains(option))
                 data[defgrpname][option] = value;
+
+    if ((!data["common"].contains("language")) && (QLocale::Language() == QLocale::Language::Czech))
+        data["common"]["language"] = "cz";
 }
 
 void Settings::load(const QString &filename, bool loadNonDefaults) {
