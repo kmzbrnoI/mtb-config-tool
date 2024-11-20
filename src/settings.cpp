@@ -4,13 +4,13 @@
 Settings::Settings() { this->loadDefaults(); }
 
 void Settings::loadDefaults() {
+    if ((!data["common"].contains("language")) && (QLocale::system().language() == QLocale::Czech))
+        data["common"]["language"] = "cz";
+
     for (const auto [defgrpname, defgrpcontent] : DEFAULTS.asKeyValueRange())
         for (const auto [option, value] : defgrpcontent.asKeyValueRange())
             if (!data[defgrpname].contains(option))
                 data[defgrpname][option] = value;
-
-    if ((!data["common"].contains("language")) && (QLocale::Language() == QLocale::Language::Czech))
-        data["common"]["language"] = "cz";
 }
 
 void Settings::load(const QString &filename, bool loadNonDefaults) {
