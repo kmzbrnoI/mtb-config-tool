@@ -10,18 +10,18 @@
 #include "ui_mtbunisconfig.h"
 #include "common.h"
 
-struct UnisGuiInput {
+struct UnisConfigGuiInput {
     QLabel name;
     QComboBox delay;
 };
 
-struct UnisGuiOutput {
+struct UnisConfigGuiOutput {
     QLabel name;
     QComboBox type;
     QComboBox safeState;
 };
 
-struct UnisGuiServo {
+struct UnisConfigGuiServo {
     QLabel name;
     QCheckBox enabled;
     QSpinBox posPlus;
@@ -42,9 +42,9 @@ public:
 
 private:
     Ui::MtbUnisConfigWindow ui;
-    std::array<UnisGuiInput, UNIS_INPUTS_COUNT> m_guiInputs;
-    std::array<UnisGuiOutput, UNIS_OUTPUTS_COUNT> m_guiOutputs;
-    std::array<UnisGuiServo, UNIS_SERVOS_COUNT> m_guiServos;
+    std::array<UnisConfigGuiInput, UNIS_INPUTS_COUNT> m_guiInputs;
+    std::array<UnisConfigGuiOutput, UNIS_OUTPUTS_COUNT> m_guiOutputs;
+    std::array<UnisConfigGuiServo, UNIS_SERVOS_COUNT> m_guiServos;
     bool updateInProgress = false;
     QLabel lInDelay;
     QLabel lOutType;

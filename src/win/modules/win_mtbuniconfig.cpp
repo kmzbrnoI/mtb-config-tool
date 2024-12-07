@@ -153,7 +153,7 @@ void MtbUniConfigWindow::newModule(unsigned addr, MtbModuleType type) {
 }
 
 void MtbUniConfigWindow::updateUiType(MtbModuleType type) {
-    for (UniGuiInput& in : this->m_guiInputs) {
+    for (UniConfigGuiInput& in : this->m_guiInputs) {
         in.type.setEnabled(type == MtbModuleType::Univ2ir);
         if (type != MtbModuleType::Univ2ir)
             in.type.setCurrentIndex(0);

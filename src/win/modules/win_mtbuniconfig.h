@@ -9,13 +9,13 @@
 #include "ui_mtbuniconfig.h"
 #include "common.h"
 
-struct UniGuiInput {
+struct UniConfigGuiInput {
     QLabel name;
     QComboBox type;
     QComboBox delay;
 };
 
-struct UniGuiOutput {
+struct UniConfigGuiOutput {
     QLabel name;
     QComboBox type;
     QComboBox safeState;
@@ -34,8 +34,8 @@ public:
 
 private:
     Ui::MtbUniConfigWindow ui;
-    std::array<UniGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
-    std::array<UniGuiOutput, UNI_OUTPUTS_COUNT> m_guiOutputs;
+    std::array<UniConfigGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
+    std::array<UniConfigGuiOutput, UNI_OUTPUTS_COUNT> m_guiOutputs;
     bool updateInProgress = false;
     QLabel lInType;
     QLabel lInDelay;
