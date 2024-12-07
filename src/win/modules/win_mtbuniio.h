@@ -11,14 +11,14 @@
 
 struct UniIOGuiInput {
     QLabel name;
-    QComboBox type;
-    QComboBox delay;
+    QWidget rectState;
+    QLabel textState;
 };
 
 struct UniIOGuiOutput {
     QLabel name;
-    QComboBox type;
-    QComboBox safeState;
+    QWidget rectState;
+    QComboBox cbState;
 };
 
 class MtbUniIOWindow : public MtbModuleIODialog {
@@ -29,32 +29,27 @@ public:
 
     void openModule(const QJsonObject& module) override;
     void moduleChanged(const QJsonObject& module) override;
-    void inputsChanged(const QJsonObject& module) override;
-    void outputsChanged(const QJsonObject& module) override;
+    void inputsChanged(const QJsonObject& module_inputs_changed) override;
+    void outputsChanged(const QJsonObject& module_outputs_changed) override;
     void retranslate() override;
 
 private:
+    static constexpr unsigned RECT_WIDTH = 100;
+    static constexpr unsigned RECT_HEIGHT = 20;
+
     Ui::MtbUniIOWindow ui;
     std::array<UniIOGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
     std::array<UniIOGuiOutput, UNI_OUTPUTS_COUNT> m_guiOutputs;
-    bool updateInProgress = false;
-    QLabel lInType;
-    QLabel lInDelay;
-    QLabel lOutType;
-    QLabel lOutSafeState;
 
+    void update(const QJsonObject& module);
     void createGuiInputs();
     void createGuiOutputs();
-    void updateUiType(MtbModuleType);
     void jsonParseError(const QString& err);
-    void apply();
 
-    static void fillOutputSafeState(QComboBox&, unsigned value, const QString& type);
     static int outputCbToValue(const QString& type, unsigned index);
 
 private slots:
-    void ui_bClicked(QAbstractButton *button);
-    void ui_cbOutputTypeCurrentIndexChanged(int);
+    void ui_cbOutputStateCurrentIndexChanged(int);
 
 };
 

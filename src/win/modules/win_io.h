@@ -19,7 +19,6 @@ public:
 
 protected:
     uint8_t address;
-    MtbModuleType type;
 
 };
 
