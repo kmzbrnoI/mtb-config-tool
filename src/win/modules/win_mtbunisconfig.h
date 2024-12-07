@@ -35,10 +35,10 @@ class MtbUnisConfigWindow : public MtbModuleConfigDialog {
 public:
     MtbUnisConfigWindow(QWidget *parent = nullptr);
 
-    virtual void editModule(const QJsonObject& module) override;
-    virtual void newModule(unsigned addr, MtbModuleType) override;
-    virtual void update(const QJsonObject& module) override;
-    virtual void retranslate() override;
+    void editModule(const QJsonObject& module) override;
+    void newModule(unsigned addr, MtbModuleType) override;
+    void update(const QJsonObject& module) override;
+    void retranslate() override;
 
 private:
     Ui::MtbUnisConfigWindow ui;

@@ -1,41 +1,42 @@
-#ifndef WIN_MTBUNICONFIG_H
-#define WIN_MTBUNICONFIG_H
+#ifndef WIN_MTBUNIIO_H
+#define WIN_MTBUNIIO_H
 
 #include <array>
 #include <QLabel>
 #include <QComboBox>
 #include <QCheckBox>
-#include "win_config.h"
-#include "ui_mtbuniconfig.h"
+#include "win_io.h"
+#include "ui_mtbuniio.h"
 #include "common.h"
 
-struct UniGuiInput {
+struct UniIOGuiInput {
     QLabel name;
     QComboBox type;
     QComboBox delay;
 };
 
-struct UniGuiOutput {
+struct UniIOGuiOutput {
     QLabel name;
     QComboBox type;
     QComboBox safeState;
 };
 
-class MtbUniConfigWindow : public MtbModuleConfigDialog {
+class MtbUniIOWindow : public MtbModuleIODialog {
     Q_OBJECT
 
 public:
-    MtbUniConfigWindow(QWidget *parent = nullptr);
+    MtbUniIOWindow(QWidget *parent = nullptr);
 
-    void editModule(const QJsonObject& module) override;
-    void newModule(unsigned addr, MtbModuleType) override;
-    void update(const QJsonObject& module) override;
+    void openModule(const QJsonObject& module) override;
+    void moduleChanged(const QJsonObject& module) override;
+    void inputsChanged(const QJsonObject& module) override;
+    void outputsChanged(const QJsonObject& module) override;
     void retranslate() override;
 
 private:
-    Ui::MtbUniConfigWindow ui;
-    std::array<UniGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
-    std::array<UniGuiOutput, UNI_OUTPUTS_COUNT> m_guiOutputs;
+    Ui::MtbUniIOWindow ui;
+    std::array<UniIOGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
+    std::array<UniIOGuiOutput, UNI_OUTPUTS_COUNT> m_guiOutputs;
     bool updateInProgress = false;
     QLabel lInType;
     QLabel lInDelay;
