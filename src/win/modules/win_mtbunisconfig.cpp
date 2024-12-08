@@ -198,17 +198,11 @@ void MtbUnisConfigWindow::fillOutputSafeState(QComboBox& cb, unsigned value, con
             cb.addItem(QString::number(i)+" - "+SComSignalCodes[i]);
         cb.setCurrentIndex(value);
     } else if (type == "flicker") {
-        cb.addItem("1 Hz");
-        cb.addItem("2 Hz");
-        cb.addItem("3 Hz");
-        cb.addItem("4 Hz");
-        cb.addItem("5 Hz");
-        cb.addItem("10 Hz");
-        cb.addItem("33/min");
-        cb.addItem("66/min");
+        for (unsigned i = 0; i < UniFlickerPerMin.size(); i++)
+            cb.addItem(UniFlickerPerMin[i].description);
         cb.setCurrentIndex(-1);
         for (unsigned i = 0; i < UniFlickerPerMin.size(); i++)
-            if (value == UniFlickerPerMin[i])
+            if (value == UniFlickerPerMin[i].freq)
                 cb.setCurrentIndex(i);
     } else {
         cb.setCurrentIndex(-1);
@@ -221,7 +215,7 @@ int MtbUnisConfigWindow::outputCbToValue(const QString& type, unsigned index) {
     if (type == "s-com")
         return index;
     if (type == "flicker")
-        return index < UniFlickerPerMin.size() ? UniFlickerPerMin[index] : 0;
+        return index < UniFlickerPerMin.size() ? UniFlickerPerMin[index].freq : 0;
     return 0;
 }
 

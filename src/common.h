@@ -76,6 +76,20 @@ const std::array<QString, 17> SComSignalCodes {
     "Opak. návěsti oček. 40 km/h a 40 km/h",
 };
 
-const std::array<unsigned, 8> UniFlickerPerMin {60, 120, 128, 240, 300, 600, 33, 66};
+struct FlickerDef {
+    unsigned freq;
+    QString description;
+};
+
+const std::array<FlickerDef, 8> UniFlickerPerMin {{
+    {60, "1 Hz"},
+    {120, "2 Hz"},
+    {180, "3 Hz"},
+    {240, "4 Hz"},
+    {300, "5 Hz"},
+    {600, "10 Hz"},
+    {33, "33/min"},
+    {66, "66/min"},
+}};
 
 #endif // COMMON_H
