@@ -26,8 +26,9 @@ void MtbUniIOWindow::createGuiInputs() {
 
         {
             QWidget& rectState = this->m_guiInputs[i].rectState;
-            rectState.setGeometry(0, 0, RECT_WIDTH, RECT_HEIGHT);
+            rectState.setFixedWidth(RECT_WIDTH);
             rectState.setStyleSheet("background-color:gray;");
+            rectState.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
 
         {
@@ -52,8 +53,9 @@ void MtbUniIOWindow::createGuiOutputs() {
 
         {
             QClickableWidget& rectState = this->m_guiOutputs[i].rectState;
-            rectState.setGeometry(0, 0, RECT_WIDTH, RECT_HEIGHT);
+            rectState.setFixedWidth(RECT_WIDTH);
             rectState.setStyleSheet("background-color:gray;");
+            rectState.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
 
         this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].name, i, 0);

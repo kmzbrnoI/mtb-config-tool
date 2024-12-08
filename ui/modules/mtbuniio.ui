@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>171</width>
+     <width>111</width>
      <height>531</height>
     </rect>
    </property>
@@ -36,7 +36,7 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>151</width>
+      <width>91</width>
       <height>491</height>
      </rect>
     </property>
@@ -46,9 +46,9 @@
   <widget class="QGroupBox" name="gb_outputs">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>130</x>
      <y>10</y>
-     <width>271</width>
+     <width>331</width>
      <height>531</height>
     </rect>
    </property>
@@ -60,7 +60,7 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>251</width>
+      <width>311</width>
       <height>491</height>
      </rect>
     </property>

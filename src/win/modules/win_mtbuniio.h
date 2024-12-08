@@ -35,8 +35,7 @@ public:
     void retranslate() override;
 
 private:
-    static constexpr unsigned RECT_WIDTH = 100;
-    static constexpr unsigned RECT_HEIGHT = 20;
+    static constexpr unsigned RECT_WIDTH = 50;
     bool updateInProgress = false;
 
     Ui::MtbUniIOWindow ui;
