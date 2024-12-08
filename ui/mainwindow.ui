@@ -177,6 +177,7 @@
      <string>Module</string>
     </property>
     <addaction name="a_module_configure"/>
+    <addaction name="a_module_io"/>
     <addaction name="a_module_reboot"/>
     <addaction name="a_module_beacon"/>
     <addaction name="a_module_fw_upgrade"/>
@@ -375,6 +376,17 @@
    </property>
    <property name="shortcut">
     <string notr="true"/>
+   </property>
+  </action>
+  <action name="a_module_io">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Inputs/outputs</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
  </widget>

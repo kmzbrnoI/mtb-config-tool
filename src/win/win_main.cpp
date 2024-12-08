@@ -7,6 +7,7 @@
 #include "qjsonsafe.h"
 #include "win_mtbuniconfig.h"
 #include "win_mtbunisconfig.h"
+#include "win_mtbuniio.h"
 
 MainWindow* MainWindow::instance = nullptr;
 
@@ -38,6 +39,7 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
 
     QObject::connect(ui.tw_modules, SIGNAL(itemSelectionChanged()), this, SLOT(ui_twModulesSelectionChanged()));
     QObject::connect(ui.a_module_configure, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleConfigure()));
+    QObject::connect(ui.a_module_io, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleIO()));
     QObject::connect(ui.a_module_reboot, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleReboot()));
     QObject::connect(ui.a_module_fw_upgrade, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleFwUpgrade()));
     QObject::connect(ui.a_module_beacon, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleBeacon()));
@@ -57,6 +59,10 @@ void MainWindow::ui_setupModulesContextMenu() {
     this->twModulesActions.aConfigure = new QAction(this);
     connect(this->twModulesActions.aConfigure, SIGNAL(triggered()), this, SLOT(ui_AModuleConfigure()));
     this->twModulesContextMenu.addAction(this->twModulesActions.aConfigure);
+
+    this->twModulesActions.aIO = new QAction(this);
+    connect(this->twModulesActions.aIO, SIGNAL(triggered()), this, SLOT(ui_AModuleIO()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aIO);
 
     this->twModulesActions.aReboot = new QAction(this);
     connect(this->twModulesActions.aReboot, SIGNAL(triggered()), this, SLOT(ui_AModuleReboot()));
@@ -94,6 +100,7 @@ void MainWindow::ui_setupModulesContextMenu() {
 
 void MainWindow::ui_fillModulesContextMenu() {
     this->twModulesActions.aConfigure->setText(tr("Configure"));
+    this->twModulesActions.aIO->setText(tr("Inputs/outputs"));
     this->twModulesActions.aReboot->setText(tr("Reboot"));
     this->twModulesActions.aBeacon->setText(tr("Beacon on/off"));
     this->twModulesActions.aFwUpgrade->setText(tr("Firmware upgrade"));
@@ -129,6 +136,9 @@ void MainWindow::retranslate() {
     this->m_moduleAddDialog.retranslate();
     this->m_changeAddressDialog.retranslate();
     for (auto& windowPtr : this->m_configWindows)
+        if (windowPtr)
+            windowPtr->retranslate();
+    for (auto& windowPtr : this->m_ioWindows)
         if (windowPtr)
             windowPtr->retranslate();
     for (auto& windowPtr : this->m_diagWindows)
@@ -319,10 +329,10 @@ void MainWindow::connectedUpdate() {
 
         for (auto& module : this->m_modules)
             module = {}; // clear everything
-
         for (auto& window : this->m_configWindows)
             window.reset();
-
+        for (auto& window : this->m_ioWindows)
+            window.reset();
         for (auto& window : this->m_diagWindows)
             window.reset();
     }
@@ -478,6 +488,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     this->m_mtbUsbWindow.close();
     for (auto& window : this->m_configWindows)
         window.reset();
+    for (auto& window : this->m_ioWindows)
+        window.reset();
     for (auto& window : this->m_diagWindows)
         window.reset();
     QMainWindow::closeEvent(event);
@@ -518,6 +530,7 @@ void MainWindow::ui_twCustomContextMenu(const QPoint& pos) {
 void MainWindow::ui_twModulesSelectionChanged() {
     const bool selected = (this->ui.tw_modules->currentItem() != nullptr);
     this->ui.a_module_configure->setEnabled(selected);
+    this->ui.a_module_io->setEnabled(selected);
     this->ui.a_module_reboot->setEnabled(selected);
     this->ui.a_module_beacon->setEnabled(selected);
     this->ui.a_module_fw_upgrade->setEnabled(selected);
@@ -559,6 +572,36 @@ void MainWindow::ui_AModuleConfigure() {
         this->m_configWindows[addr]->editModule(this->m_modules[addr]);
     } catch (const QStrException& e) {
         QMessageBox::critical(this, "Error", "Cannot edit module: "+e.str());
+    }
+}
+
+void MainWindow::ui_AModuleIO() {
+    try {
+        const QTreeWidgetItem* currentLine = this->ui.tw_modules->currentItem();
+        if (currentLine == nullptr)
+            throw QStrException("currentLine == nullptr");
+        unsigned addr = currentLine->text(TwModulesColumns::twAddrDec).toInt();
+        const unsigned typeCode = QJsonSafe::safeUInt(this->m_modules[addr]["type_code"]);
+        const MtbModuleType type = static_cast<MtbModuleType>(typeCode);
+
+        if ((typeCode&0xF0) == 0x10) { // MTB-UNI and variants
+            if (!this->m_ioWindows[addr])
+                this->m_ioWindows[addr] = std::make_unique<MtbUniIOWindow>();
+        } else if (type == MtbModuleType::Unis10) {
+            // TODO
+            //if (!this->m_ioWindows[addr])
+            //    this->m_ioWindows[addr] = std::make_unique<MtbUnisIOWindow>();
+        } else if (type == MtbModuleType::Rc) {
+            // TODO
+        } else {
+            QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code: ")+QString::number(typeCode)+tr(", no IO window available!"));
+            return;
+        }
+
+        // Reopen already active window -> refill up-to-date values
+        this->m_ioWindows[addr]->openModule(this->m_modules[addr]);
+    } catch (const QStrException& e) {
+        QMessageBox::critical(this, "Error", "Cannot open IO window: "+e.str());
     }
 }
 
@@ -732,8 +775,9 @@ void MainWindow::checkModuleTypeChanged(const QJsonObject& module) {
     }
 
     if (changed) {
-        bool visible = this->m_configWindows[address]->isVisible();
+        bool visible = this->m_configWindows[address]->isVisible() || this->m_ioWindows[address]->isVisible();
         this->m_configWindows[address].reset();
+        this->m_ioWindows[address].reset();
         if (visible)
             QMessageBox::warning(this, tr("Warning"), tr("Type of module ")+QString::number(address)+tr(" changed, module window closed."));
     }
@@ -767,6 +811,7 @@ void MainWindow::moduleDeleted(uint8_t addr) {
     }
 
     if (((this->m_configWindows[addr]) && (this->m_configWindows[addr]->isVisible())) ||
+        ((this->m_ioWindows[addr]) && (this->m_ioWindows[addr]->isVisible())) ||
         ((this->m_diagWindows[addr]) && (this->m_diagWindows[addr]->isVisible()))) {
         QMessageBox::warning(this, tr("Warning"), tr("Module with open window was deleted on the server!\nModule ")+QString::number(addr));
     }

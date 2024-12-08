@@ -17,6 +17,7 @@
 #include "win_moduleadd.h"
 #include "win_change_adress.h"
 #include "win_diag.h"
+#include "win_io.h"
 
 constexpr unsigned MTBBUS_ADDR_COUNT = 256;
 const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
@@ -63,6 +64,7 @@ private:
     std::array<QTreeWidgetItem*, MTBBUS_ADDR_COUNT> m_tw_lines; // [0] is not valid
     std::array<QJsonObject, MTBBUS_ADDR_COUNT> m_modules;
     std::array<std::unique_ptr<MtbModuleConfigDialog>, MTBBUS_ADDR_COUNT> m_configWindows;
+    std::array<std::unique_ptr<MtbModuleIODialog>, MTBBUS_ADDR_COUNT> m_ioWindows;
     std::array<std::unique_ptr<DiagDialog>, MTBBUS_ADDR_COUNT> m_diagWindows;
     std::optional<DaemonVersion> m_daemonVersion;
     bool m_mtbUsbConnected = false;
@@ -81,6 +83,7 @@ private:
 
     struct {
         QAction* aConfigure;
+        QAction* aIO;
         QAction* aReboot;
         QAction* aBeacon;
         QAction* aFwUpgrade;
@@ -132,6 +135,7 @@ private slots:
     void ui_twModulesSelectionChanged();
     void ui_twItemDblClicked(QTreeWidgetItem*, int column);
     void ui_AModuleConfigure();
+    void ui_AModuleIO();
     void ui_AModuleReboot();
     void ui_AModuleBeacon();
     void ui_AModuleFwUpgrade();
