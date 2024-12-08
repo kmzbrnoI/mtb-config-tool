@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QJsonObject>
+#include <QStyleOption>
+#include <QPainter>
 
 class MtbModuleIODialog : public QDialog {
     Q_OBJECT
@@ -25,6 +27,31 @@ protected:
 
 protected slots:
     void refresh();
+
+};
+
+
+class QClickableWidget : public QWidget {
+    Q_OBJECT
+
+    void mouseReleaseEvent(QMouseEvent *event) override {
+        QWidget::mouseReleaseEvent(event);
+        emit onClicked();
+    }
+
+public:
+    QClickableWidget(QWidget *parent = nullptr) : QWidget(parent) {}
+
+    void paintEvent(QPaintEvent *paintEvent) override {
+        Q_UNUSED(paintEvent);
+        QStyleOption option;
+        option.initFrom(this);
+        QPainter painter(this);
+        style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, this);
+    }
+
+signals:
+    void onClicked();
 
 };
 

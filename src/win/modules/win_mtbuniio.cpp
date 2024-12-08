@@ -51,7 +51,7 @@ void MtbUniIOWindow::createGuiOutputs() {
         }
 
         {
-            QWidget& rectState = this->m_guiOutputs[i].rectState;
+            QClickableWidget& rectState = this->m_guiOutputs[i].rectState;
             rectState.setGeometry(0, 0, RECT_WIDTH, RECT_HEIGHT);
             rectState.setStyleSheet("background-color:gray;");
         }
@@ -61,6 +61,7 @@ void MtbUniIOWindow::createGuiOutputs() {
         this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].cbState, i, 2);
 
         QObject::connect(&this->m_guiOutputs[i].cbState, SIGNAL(currentIndexChanged(int)), this, SLOT(ui_cbOutputStateCurrentIndexChanged(int)));
+        QObject::connect(&this->m_guiOutputs[i].rectState, SIGNAL(onClicked()), this, SLOT(ui_wOutputClicked()));
     }
 }
 
@@ -201,6 +202,21 @@ void MtbUniIOWindow::ui_cbOutputStateCurrentIndexChanged(int) {
         return;
 
     this->setOutput(output);
+}
+
+void MtbUniIOWindow::ui_wOutputClicked() {
+    int output = -1;
+    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++)
+        if (sender() == &this->m_guiOutputs[i].rectState)
+            output = i;
+    if (output == -1)
+        return;
+
+    if (output >= static_cast<int>(this->m_guiOutputs.size()))
+        return;
+    UniIOGuiOutput& guiOutput = this->m_guiOutputs[output];
+    if (guiOutput.outputType == "plain")
+        guiOutput.cbState.setCurrentIndex((guiOutput.cbState.currentIndex() == 0) ? 1 : 0);
 }
 
 void MtbUniIOWindow::setOutput(unsigned output) {

@@ -17,7 +17,7 @@ struct UniIOGuiInput {
 
 struct UniIOGuiOutput {
     QLabel name;
-    QWidget rectState;
+    QClickableWidget rectState;
     QComboBox cbState;
     QString outputType;
 };
@@ -58,6 +58,7 @@ private:
 
 private slots:
     void ui_cbOutputStateCurrentIndexChanged(int);
+    void ui_wOutputClicked();
 
 };
 
