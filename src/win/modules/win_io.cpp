@@ -19,3 +19,8 @@ void MtbModuleIODialog::sendModuleRequest() {
         }
     );
 }
+
+void MtbModuleIODialog::refresh() {
+    this->disableAll();
+    this->sendModuleRequest();
+}

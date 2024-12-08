@@ -12,12 +12,7 @@ MtbUniIOWindow::MtbUniIOWindow(QWidget *parent) :
     this->createGuiOutputs();
     this->retranslate();
 
-    /*QPushButton *b = this->ui.bb_main->button(QDialogButtonBox::Apply);
-    if (b)
-        b->setDefault(true);
-
     QObject::connect(ui.b_refresh, SIGNAL(released()), this, SLOT(refresh()));
-    QObject::connect(ui.bb_main, SIGNAL(clicked(QAbstractButton*)), this, SLOT(ui_bClicked(QAbstractButton*)));*/
 }
 
 void MtbUniIOWindow::createGuiInputs() {

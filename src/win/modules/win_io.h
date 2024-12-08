@@ -7,6 +7,8 @@
 class MtbModuleIODialog : public QDialog {
     Q_OBJECT
 
+    virtual void disableAll() = 0;
+
 public:
     MtbModuleIODialog(QWidget *parent = nullptr) : QDialog(parent) {}
 
@@ -20,6 +22,9 @@ protected:
     uint8_t address;
 
     void sendModuleRequest();
+
+protected slots:
+    void refresh();
 
 };
 

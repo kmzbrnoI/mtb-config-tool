@@ -593,8 +593,10 @@ void MainWindow::ui_AModuleIO() {
             // TODO
             //if (!this->m_ioWindows[addr])
             //    this->m_ioWindows[addr] = std::make_unique<MtbUnisIOWindow>();
+            return;
         } else if (type == MtbModuleType::Rc) {
             // TODO
+            return;
         } else {
             QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code: ")+QString::number(typeCode)+tr(", no IO window available!"));
             return;
