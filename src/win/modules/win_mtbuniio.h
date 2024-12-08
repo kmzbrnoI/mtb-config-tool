@@ -19,6 +19,7 @@ struct UniIOGuiOutput {
     QLabel name;
     QWidget rectState;
     QComboBox cbState;
+    QString outputType;
 };
 
 class MtbUniIOWindow : public MtbModuleIODialog {
@@ -44,6 +45,10 @@ private:
     void update(const QJsonObject& module);
     void createGuiInputs();
     void createGuiOutputs();
+    void updateOutputType(unsigned outputi, const QString& type);
+    void updateOutput(unsigned outputi, const QJsonObject& output);
+    void updateInputs(const QJsonObject& inputs);
+    void updateOutputs(const QJsonObject& outputs);
     void jsonParseError(const QString& err);
 
     static int outputCbToValue(const QString& type, unsigned index);

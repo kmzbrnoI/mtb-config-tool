@@ -82,11 +82,11 @@ void MtbUniIOWindow::moduleChanged(const QJsonObject& module) {
 }
 
 void MtbUniIOWindow::inputsChanged(const QJsonObject& module_inputs_changed) {
-
+    this->updateInputs(QJsonSafe::safeObject(module_inputs_changed["inputs"]));
 }
 
 void MtbUniIOWindow::outputsChanged(const QJsonObject& module_outputs_changed) {
-
+    this->updateOutputs(QJsonSafe::safeObject(module_outputs_changed["outputs"]));
 }
 
 void MtbUniIOWindow::update(const QJsonObject& module) {
@@ -94,8 +94,11 @@ void MtbUniIOWindow::update(const QJsonObject& module) {
     const QJsonObject& uni = QJsonSafe::safeObject(module[typeStr]);
     const QJsonObject& state = QJsonSafe::safeObject(uni["state"]);
 
-    // Inputs
-    const QJsonObject& inputs = QJsonSafe::safeObject(state["inputs"]);
+    this->updateInputs(QJsonSafe::safeObject(state["inputs"]));
+    this->updateOutputs(QJsonSafe::safeObject(state["outputs"]));
+}
+
+void MtbUniIOWindow::updateInputs(const QJsonObject& inputs) {
     const QJsonArray& inputsFull = QJsonSafe::safeArray(inputs["full"], UNI_INPUTS_COUNT);
 
     for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
@@ -104,28 +107,62 @@ void MtbUniIOWindow::update(const QJsonObject& module) {
         QString color = state ? "green" : "red";
         this->m_guiInputs[i].rectState.setStyleSheet("background-color:"+color);
     }
+}
 
-    // Outputs
-    const QJsonObject& outputs = QJsonSafe::safeObject(state["outputs"]);
-
+void MtbUniIOWindow::updateOutputs(const QJsonObject& outputs) {
     for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
         const QJsonObject& output = QJsonSafe::safeObject(outputs[QString::number(i)]);
-        const QString& type = QJsonSafe::safeString(output["type"]);
-        const unsigned value = QJsonSafe::safeUInt(output["value"]);
+        this->updateOutput(i, output);
+    }
+}
 
-        if (type == "plain") {
-            this->m_guiOutputs[i].cbState.setCurrentIndex(value);
-            const QString color = (value > 0) ? "green" : "red";
-            this->m_guiOutputs[i].rectState.setStyleSheet("background-color:"+color);
-        } else if (type == "s-com") {
-            this->m_guiOutputs[i].cbState.setCurrentIndex(value);
-            this->m_guiOutputs[i].rectState.setStyleSheet("background-color:gray");
-        } else if (type == "flicker") {
+void MtbUniIOWindow::updateOutputType(unsigned outputi, const QString& type) {
+    UniIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
+    guiOutput.outputType = type;
+    guiOutput.cbState.clear();
+    if (type == "plain") {
+        guiOutput.cbState.addItem(tr("off"));
+        guiOutput.cbState.addItem(tr("on"));
+    } else if (type == "s-com") {
+        for (size_t i = 0; i < SComSignalCodes.size(); i++)
+            guiOutput.cbState.addItem(QString::number(i)+" - "+SComSignalCodes[i]);
+    } else if (type == "flicker") {
+        for (const FlickerDef& def : UniFlickerPerMin)
+            guiOutput.cbState.addItem(def.description);
+    }
+}
 
-        } else {
-            this->m_guiOutputs[i].cbState.setCurrentIndex(-1);
-            this->m_guiOutputs[i].rectState.setStyleSheet("background-color:gray");
+void MtbUniIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
+    const QString& newTypeStr = QJsonSafe::safeString(output["type"]);
+    const unsigned value = QJsonSafe::safeUInt(output["value"]);
+    UniIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
+
+    if (newTypeStr != guiOutput.outputType)
+        this->updateOutputType(outputi, newTypeStr);
+
+    // now we're sure that cbState contains items for new type
+
+    if (newTypeStr == "plain") {
+        guiOutput.cbState.setCurrentIndex(value);
+        const QString color = (value > 0) ? "green" : "red";
+        guiOutput.rectState.setStyleSheet("background-color:"+color);
+    } else if (newTypeStr == "s-com") {
+        guiOutput.cbState.setCurrentIndex(value);
+        guiOutput.rectState.setStyleSheet("background-color:gray");
+    } else if (newTypeStr == "flicker") {
+        bool set = false;
+        for (size_t i = 0; i < UniFlickerPerMin.size(); i++) {
+            if (value == UniFlickerPerMin[i].freq) {
+                guiOutput.cbState.setCurrentIndex(i);
+                set = true;
+            }
         }
+        if (!set)
+            guiOutput.cbState.setCurrentIndex(-1);
+        guiOutput.rectState.setStyleSheet("background-color:gray");
+    } else {
+        guiOutput.cbState.setCurrentIndex(-1);
+        guiOutput.rectState.setStyleSheet("background-color:gray");
     }
 }
 
