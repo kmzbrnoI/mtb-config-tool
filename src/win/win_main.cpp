@@ -161,6 +161,10 @@ void MainWindow::clientJsonReceived(const QJsonObject& json) {
             this->clientReceivedModules(QJsonSafe::safeObject(json["modules"]));
         else if (json["command"] == "module_deleted")
             this->clientReceivedModuleDeleted(QJsonSafe::safeObject(json));
+        else if (json["command"] == "module_inputs_changed")
+            this->clientReceivedModuleInputsChanged(QJsonSafe::safeObject(json["module_inputs_changed"]));
+        else if (json["command"] == "module_outputs_changed")
+            this->clientReceivedModuleOutputsChanged(QJsonSafe::safeObject(json["module_outputs_changed"]));
     } catch (const QStrException& e) {
         log("MainWindow::clientJsonReceived exception: "+e.str(), LogLevel::Error);
     } catch (...) {
@@ -428,27 +432,25 @@ void MainWindow::clientReceivedModule(const QJsonObject& json) {
         return;
     }
 
-    const uint8_t address = json["address"].toInt(0);
-    if (address == 0)
-        return;
-
-    this->m_modules[address] = json;
-
-    this->ui_updateModule(json);
-    this->checkModuleTypeChanged(json);
+    this->moduleReceived(json);
 }
 
 void MainWindow::clientReceivedModules(const QJsonObject& modules) {
     this->ui_twModulesClear();
-    for (const QString& addrStr : modules.keys()) {
-        const uint8_t addr = addrStr.toInt(0);
-        if (addr == 0)
-            continue;
-        const QJsonObject& module = QJsonSafe::safeObject(modules[addrStr]);
-        this->m_modules[addr] = module;
-        this->ui_updateModule(module);
-        this->checkModuleTypeChanged(module);
-    }
+    for (const QString& addrStr : modules.keys())
+        this->moduleReceived(QJsonSafe::safeObject(modules[addrStr]));
+}
+
+void MainWindow::moduleReceived(const QJsonObject& module) {
+    unsigned address = QJsonSafe::safeUInt(module["address"]);
+    if (address == 0)
+        return;
+
+    this->m_modules[address] = module;
+    this->ui_updateModule(module);
+    this->checkModuleTypeChanged(module);
+    if ((this->m_ioWindows[address]) && (this->m_ioWindows[address]->isVisible()))
+        this->m_ioWindows[address]->moduleChanged(module);
 }
 
 void MainWindow::ui_AModulesRefreshTriggered() {
@@ -815,6 +817,18 @@ void MainWindow::moduleDeleted(uint8_t addr) {
         ((this->m_diagWindows[addr]) && (this->m_diagWindows[addr]->isVisible()))) {
         QMessageBox::warning(this, tr("Warning"), tr("Module with open window was deleted on the server!\nModule ")+QString::number(addr));
     }
+}
+
+void MainWindow::clientReceivedModuleInputsChanged(const QJsonObject &json) {
+    uint8_t addr = QJsonSafe::safeUInt(json["address"]);
+    if ((this->m_ioWindows[addr]) && (this->m_ioWindows[addr]->isVisible()))
+        this->m_ioWindows[addr]->inputsChanged(json);
+}
+
+void MainWindow::clientReceivedModuleOutputsChanged(const QJsonObject &json) {
+    uint8_t addr = QJsonSafe::safeUInt(json["address"]);
+    if ((this->m_ioWindows[addr]) && (this->m_ioWindows[addr]->isVisible()))
+        this->m_ioWindows[addr]->outputsChanged(json);
 }
 
 void MainWindow::ui_AModuleAdd() {

@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include <QJsonObject>
-#include "common.h"
 
 class MtbModuleIODialog : public QDialog {
     Q_OBJECT
@@ -19,6 +18,8 @@ public:
 
 protected:
     uint8_t address;
+
+    void sendModuleRequest();
 
 };
 

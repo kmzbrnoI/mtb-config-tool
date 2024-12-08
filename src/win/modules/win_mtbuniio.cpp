@@ -71,9 +71,10 @@ void MtbUniIOWindow::createGuiOutputs() {
 
 void MtbUniIOWindow::openModule(const QJsonObject& module) {
     this->address = QJsonSafe::safeUInt(module["address"]);
-    this->update(module);
+    this->disableAll();
     this->setWindowTitle(tr("IO of module ")+QString::number(this->address)+" – "+module["type"].toString());
     this->show();
+    this->sendModuleRequest();
 }
 
 void MtbUniIOWindow::moduleChanged(const QJsonObject& module) {
@@ -92,10 +93,13 @@ void MtbUniIOWindow::outputsChanged(const QJsonObject& module_outputs_changed) {
 void MtbUniIOWindow::update(const QJsonObject& module) {
     const QString& typeStr = QJsonSafe::safeString(module["type"]);
     const QJsonObject& uni = QJsonSafe::safeObject(module[typeStr]);
-    const QJsonObject& state = QJsonSafe::safeObject(uni["state"]);
-
-    this->updateInputs(QJsonSafe::safeObject(state["inputs"]));
-    this->updateOutputs(QJsonSafe::safeObject(state["outputs"]));
+    if (uni.contains("state")) {
+        const QJsonObject& state = QJsonSafe::safeObject(uni["state"]);
+        this->updateInputs(QJsonSafe::safeObject(state["inputs"]));
+        this->updateOutputs(QJsonSafe::safeObject(state["outputs"]));
+    } else {
+        this->disableAll();
+    }
 }
 
 void MtbUniIOWindow::updateInputs(const QJsonObject& inputs) {
@@ -136,6 +140,7 @@ void MtbUniIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
     const QString& newTypeStr = QJsonSafe::safeString(output["type"]);
     const unsigned value = QJsonSafe::safeUInt(output["value"]);
     UniIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
+    guiOutput.cbState.setEnabled(true);
 
     if (newTypeStr != guiOutput.outputType)
         this->updateOutputType(outputi, newTypeStr);
@@ -161,6 +166,18 @@ void MtbUniIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
             guiOutput.cbState.setCurrentIndex(-1);
         guiOutput.rectState.setStyleSheet("background-color:gray");
     } else {
+        guiOutput.cbState.setCurrentIndex(-1);
+        guiOutput.rectState.setStyleSheet("background-color:gray");
+    }
+}
+
+void MtbUniIOWindow::disableAll() {
+    for (UniIOGuiInput& guiInput : this->m_guiInputs) {
+        guiInput.textState.setText("?");
+        guiInput.rectState.setStyleSheet("background-color:gray");
+    }
+    for (UniIOGuiOutput& guiOutput : this->m_guiOutputs) {
+        guiOutput.cbState.setEnabled(false);
         guiOutput.cbState.setCurrentIndex(-1);
         guiOutput.rectState.setStyleSheet("background-color:gray");
     }

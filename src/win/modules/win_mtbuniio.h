@@ -50,6 +50,7 @@ private:
     void updateInputs(const QJsonObject& inputs);
     void updateOutputs(const QJsonObject& outputs);
     void jsonParseError(const QString& err);
+    void disableAll();
 
     static int outputCbToValue(const QString& type, unsigned index);
 

@@ -103,9 +103,12 @@ private:
     void clientReceivedModule(const QJsonObject&);
     void clientReceivedModules(const QJsonObject&);
     void clientReceivedModuleDeleted(const QJsonObject&);
+    void clientReceivedModuleInputsChanged(const QJsonObject&);
+    void clientReceivedModuleOutputsChanged(const QJsonObject&);
 
     void moduleDeleted(uint8_t addr);
 
+    void moduleReceived(const QJsonObject&);
     void ui_updateModule(const QJsonObject&);
     void ui_updateAllModulesFromMModules();
     unsigned ui_twModulesInsertIndex(unsigned addr);

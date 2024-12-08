@@ -38,7 +38,7 @@ set(PROJECT_SOURCES
     src/win/modules/win_mtbuniconfig.h src/win/modules/win_mtbuniconfig.cpp
     src/win/modules/win_mtbunisconfig.h src/win/modules/win_mtbunisconfig.cpp
     src/win/win_diag.h src/win/win_diag.cpp
-    src/win/modules/win_io.h
+    src/win/modules/win_io.h src/win/modules/win_io.cpp
     src/win/modules/win_mtbuniio.h src/win/modules/win_mtbuniio.cpp
     ui/mainwindow.ui
     ui/settingsdialog.ui
