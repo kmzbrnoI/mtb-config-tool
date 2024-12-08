@@ -42,7 +42,7 @@ enum class MtbModuleType {
 
 QString moduleTypeToStr(MtbModuleType type);
 
-void setBacground(QTreeWidgetItem& item, const QBrush& brush);
+void setBackground(QTreeWidgetItem& item, const QBrush& brush);
 
 template <typename Target, typename Source>
 bool is(const Source &x) {

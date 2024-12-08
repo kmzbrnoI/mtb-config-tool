@@ -367,15 +367,15 @@ void MainWindow::ui_updateModule(const QJsonObject& module) {
     const QString& state = module["state"].toString();
 
     if (module["error"].toBool())
-        setBacground(*item, QC_LIGHT_RED);
+        setBackground(*item, QC_LIGHT_RED);
     else if ((module["warning"].toBool()) || ((state != "active") && (state != "inactive")))
-        setBacground(*item, QC_LIGHT_YELLOW);
+        setBackground(*item, QC_LIGHT_YELLOW);
     else if (module["beacon"].toBool())
-        setBacground(*item, QC_LIGHT_BLUE);
+        setBackground(*item, QC_LIGHT_BLUE);
     else if (state == "inactive")
-        setBacground(*item, QC_LIGHT_GRAY);
+        setBackground(*item, QC_LIGHT_GRAY);
     else
-        setBacground(*item, QC_LIGHT_GREEN);
+        setBackground(*item, QC_LIGHT_GREEN);
 }
 
 void MainWindow::ui_updateAllModulesFromMModules() {

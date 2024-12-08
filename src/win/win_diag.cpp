@@ -93,7 +93,7 @@ void DiagDialog::refreshDV(unsigned line, const DVDef& dv) {
         [this, line](unsigned errorCode, QString errorMessage) {
             QTreeWidgetItem* item = this->ui.tw_dvs->topLevelItem(line);
             if (item != nullptr) {
-                setBacground(*item, QC_LIGHT_RED);
+                setBackground(*item, QC_LIGHT_RED);
                 item->setText(TWDVColumn::cUpdated, QTime::currentTime().toString("hh:mm:ss"));
                 item->setText(TWDVColumn::cValue, errorMessage + " ("+QString::number(errorCode)+")");
             }
@@ -103,7 +103,7 @@ void DiagDialog::refreshDV(unsigned line, const DVDef& dv) {
 
 void DiagDialog::diagReceived(QTreeWidgetItem& item, const QJsonObject& json, const DVDef& dvdef) {
     this->m_remaining.remove(dvdef.dvi);
-    setBacground(item, QColor(0xFF, 0xFF, 0xFF));
+    setBackground(item, QColor(0xFF, 0xFF, 0xFF));
     item.setText(TWDVColumn::cUpdated, QTime::currentTime().toString("hh:mm:ss.zzz"));
     item.setText(TWDVColumn::cValue, dvdef.repr(json["DVvalue"].toObject()));
 
