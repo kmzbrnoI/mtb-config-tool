@@ -37,6 +37,7 @@ public:
 private:
     static constexpr unsigned RECT_WIDTH = 100;
     static constexpr unsigned RECT_HEIGHT = 20;
+    bool updateInProgress = false;
 
     Ui::MtbUniIOWindow ui;
     std::array<UniIOGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
@@ -51,6 +52,7 @@ private:
     void updateOutputs(const QJsonObject& outputs);
     void jsonParseError(const QString& err);
     void disableAll();
+    void setOutput(unsigned output);
 
     static int outputCbToValue(const QString& type, unsigned index);
 

@@ -73,6 +73,7 @@ void MtbUniIOWindow::openModule(const QJsonObject& module) {
     this->address = QJsonSafe::safeUInt(module["address"]);
     this->disableAll();
     this->setWindowTitle(tr("IO of module ")+QString::number(this->address)+" – "+module["type"].toString());
+    this->updateInProgress = false;
     this->show();
     this->sendModuleRequest();
 }
@@ -121,6 +122,7 @@ void MtbUniIOWindow::updateOutputs(const QJsonObject& outputs) {
 }
 
 void MtbUniIOWindow::updateOutputType(unsigned outputi, const QString& type) {
+    this->updateInProgress = true;
     UniIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
     guiOutput.outputType = type;
     guiOutput.cbState.clear();
@@ -134,9 +136,11 @@ void MtbUniIOWindow::updateOutputType(unsigned outputi, const QString& type) {
         for (const FlickerDef& def : UniFlickerPerMin)
             guiOutput.cbState.addItem(def.description);
     }
+    this->updateInProgress = false;
 }
 
 void MtbUniIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
+    this->updateInProgress = true;
     const QString& newTypeStr = QJsonSafe::safeString(output["type"]);
     const unsigned value = QJsonSafe::safeUInt(output["value"]);
     UniIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
@@ -169,6 +173,7 @@ void MtbUniIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
         guiOutput.cbState.setCurrentIndex(-1);
         guiOutput.rectState.setStyleSheet("background-color:gray");
     }
+    this->updateInProgress = false;
 }
 
 void MtbUniIOWindow::disableAll() {
@@ -178,7 +183,9 @@ void MtbUniIOWindow::disableAll() {
     }
     for (UniIOGuiOutput& guiOutput : this->m_guiOutputs) {
         guiOutput.cbState.setEnabled(false);
+        this->updateInProgress = true;
         guiOutput.cbState.setCurrentIndex(-1);
+        this->updateInProgress = false;
         guiOutput.rectState.setStyleSheet("background-color:gray");
     }
 }
@@ -188,13 +195,53 @@ void MtbUniIOWindow::jsonParseError(const QString& err) {
 }
 
 void MtbUniIOWindow::ui_cbOutputStateCurrentIndexChanged(int) {
-    /*if (updateInProgress)
+    if (this->updateInProgress)
         return;
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
-        if (sender() == &this->m_guiOutputs[i].type) {
-            MtbUniConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, 0, this->m_guiOutputs[i].type.currentText());
+
+    int output = -1;
+    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++)
+        if (sender() == &this->m_guiOutputs[i].cbState)
+            output = i;
+    if (output == -1)
+        return;
+
+    this->setOutput(output);
+}
+
+void MtbUniIOWindow::setOutput(unsigned output) {
+    if (output >= this->m_guiOutputs.size())
+        return;
+    UniIOGuiOutput& guiOutput = this->m_guiOutputs[output];
+
+    QJsonObject outputJson{{"type", guiOutput.outputType}};
+    if (guiOutput.outputType == "plain") {
+        outputJson["value"] = guiOutput.cbState.currentIndex();
+    } else if (guiOutput.outputType == "s-com") {
+        outputJson["value"] = guiOutput.cbState.currentIndex();
+    } else if (guiOutput.outputType == "flicker") {
+        const unsigned index = guiOutput.cbState.currentIndex();
+        if (index >= UniFlickerPerMin.size())
+            return;
+        outputJson["value"] = static_cast<int>(UniFlickerPerMin[index].freq);
+    } else {
+        return;
+    }
+
+    guiOutput.rectState.setStyleSheet("background-color:yellow");
+
+    DaemonClient::instance->sendNoExc(
+        {
+            {"command", "module_set_outputs"},
+            {"address", this->address},
+            {"outputs", QJsonObject({{QString::number(output), outputJson}})},
+        },
+        [this](const QJsonObject& content) {
+            this->outputsChanged(content);
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("setOutput", errorCode, errorMessage));
         }
-    }*/
+    );
 }
 
 void MtbUniIOWindow::retranslate() {
