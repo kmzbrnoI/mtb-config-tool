@@ -124,15 +124,14 @@ void MtbUniIOWindow::updateOutputType(unsigned outputi, const QString& type) {
     UniIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
     guiOutput.outputType = type;
     guiOutput.cbState.clear();
-    if (type == "plain") {
+    if ((type == "plain") || (type == "flicker")) {
         guiOutput.cbState.addItem(tr("off"));
         guiOutput.cbState.addItem(tr("on"));
+        for (const FlickerDef& def : UniFlickerPerMin)
+            guiOutput.cbState.addItem(tr("flick ")+def.description);
     } else if (type == "s-com") {
         for (size_t i = 0; i < SComSignalCodes.size(); i++)
             guiOutput.cbState.addItem(QString::number(i)+" - "+SComSignalCodes[i]);
-    } else if (type == "flicker") {
-        for (const FlickerDef& def : UniFlickerPerMin)
-            guiOutput.cbState.addItem(def.description);
     }
     this->updateInProgress = false;
 }
@@ -155,21 +154,21 @@ void MtbUniIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
         guiOutput.rectState.setStyleSheet("background-color:"+color);
     } else if (newTypeStr == "s-com") {
         guiOutput.cbState.setCurrentIndex(value);
-        guiOutput.rectState.setStyleSheet("background-color:gray");
+        guiOutput.rectState.setStyleSheet("background-color:blue");
     } else if (newTypeStr == "flicker") {
         bool set = false;
         for (size_t i = 0; i < UniFlickerPerMin.size(); i++) {
             if (value == UniFlickerPerMin[i].freq) {
-                guiOutput.cbState.setCurrentIndex(i);
+                guiOutput.cbState.setCurrentIndex(i+2); // +2 for "off","on"
                 set = true;
             }
         }
         if (!set)
             guiOutput.cbState.setCurrentIndex(-1);
-        guiOutput.rectState.setStyleSheet("background-color:gray");
+        guiOutput.rectState.setStyleSheet("background-color:blue");
     } else {
         guiOutput.cbState.setCurrentIndex(-1);
-        guiOutput.rectState.setStyleSheet("background-color:gray");
+        guiOutput.rectState.setStyleSheet("background-color:blue");
     }
     this->updateInProgress = false;
 }
@@ -219,23 +218,33 @@ void MtbUniIOWindow::ui_wOutputClicked() {
     UniIOGuiOutput& guiOutput = this->m_guiOutputs[output];
     if (guiOutput.outputType == "plain")
         guiOutput.cbState.setCurrentIndex((guiOutput.cbState.currentIndex() == 0) ? 1 : 0);
+    else if (guiOutput.outputType == "flicker")
+        guiOutput.cbState.setCurrentIndex(0);
 }
 
 void MtbUniIOWindow::setOutput(unsigned output) {
     if (output >= this->m_guiOutputs.size())
         return;
     UniIOGuiOutput& guiOutput = this->m_guiOutputs[output];
+    const int cbIndex = guiOutput.cbState.currentIndex();
+    if (cbIndex < 0)
+        return;
 
-    QJsonObject outputJson{{"type", guiOutput.outputType}};
-    if (guiOutput.outputType == "plain") {
-        outputJson["value"] = guiOutput.cbState.currentIndex();
+    QJsonObject outputJson;
+    if ((guiOutput.outputType == "plain") || (guiOutput.outputType == "flicker")) {
+        if (cbIndex < 2) {
+            outputJson["type"] = "plain";
+            outputJson["value"] = cbIndex;
+        } else {
+            const unsigned flickerIndex = cbIndex-2;
+            outputJson["type"] = "flicker";
+            if (flickerIndex >= UniFlickerPerMin.size())
+                return;
+            outputJson["value"] = static_cast<int>(UniFlickerPerMin[flickerIndex].freq);
+        }
     } else if (guiOutput.outputType == "s-com") {
+        outputJson["type"] = "s-com";
         outputJson["value"] = guiOutput.cbState.currentIndex();
-    } else if (guiOutput.outputType == "flicker") {
-        const unsigned index = guiOutput.cbState.currentIndex();
-        if (index >= UniFlickerPerMin.size())
-            return;
-        outputJson["value"] = static_cast<int>(UniFlickerPerMin[index].freq);
     } else {
         return;
     }
