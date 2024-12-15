@@ -49,7 +49,6 @@ private:
     void updateOutput(unsigned outputi, const QJsonObject& output);
     void updateInputs(const QJsonObject& inputs);
     void updateOutputs(const QJsonObject& outputs);
-    void jsonParseError(const QString& err);
     void disableAll() override;
     void setOutput(unsigned output);
 

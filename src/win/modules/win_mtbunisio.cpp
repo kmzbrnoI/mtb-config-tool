@@ -250,10 +250,6 @@ void MtbUnisIOWindow::disableAll() {
     }
 }
 
-void MtbUnisIOWindow::jsonParseError(const QString& err) {
-    QMessageBox::warning(this, tr("Error"), tr("JSON parse error:")+"\n"+err);
-}
-
 void MtbUnisIOWindow::ui_cbOutputStateCurrentIndexChanged(int) {
     if (this->updateInProgress)
         return;
