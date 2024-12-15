@@ -1,5 +1,6 @@
 #include <QJsonArray>
 #include <QMessageBox>
+#include <QTimer>
 #include "win_mtbunisio.h"
 #include "client.h"
 #include "qjsonsafe.h"
@@ -17,7 +18,7 @@ MtbUnisIOWindow::MtbUnisIOWindow(QWidget *parent) :
 }
 
 void MtbUnisIOWindow::createGuiInputs() {
-    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
         {
             QLabel& name = this->m_guiInputs[i].name;
             name.setText(QString::number(i));
@@ -44,7 +45,7 @@ void MtbUnisIOWindow::createGuiInputs() {
 }
 
 void MtbUnisIOWindow::createGuiOutputs() {
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         {
             QLabel& name = this->m_guiOutputs[i].name;
             name.setText(QString::number(i));
@@ -69,7 +70,31 @@ void MtbUnisIOWindow::createGuiOutputs() {
 }
 
 void MtbUnisIOWindow::createGuiServos() {
+    for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
+        {
+            QLabel& name = this->m_guiServos[i].name;
+            name.setText(QString::number(i));
+            name.setStyleSheet("font-weight: bold");
+            name.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        }
 
+        {
+            QPushButton& bPlus = this->m_guiServos[i].bPlus;
+            bPlus.setText("+");
+        }
+
+        {
+            QPushButton& bMinus = this->m_guiServos[i].bMinus;
+            bMinus.setText("-");
+        }
+
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].name, i, 0);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bPlus, i, 1);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bMinus, i, 2);
+
+        QObject::connect(&this->m_guiServos[i].bPlus, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
+        QObject::connect(&this->m_guiServos[i].bMinus, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
+    }
 }
 
 void MtbUnisIOWindow::openModule(const QJsonObject& module) {
@@ -107,9 +132,9 @@ void MtbUnisIOWindow::update(const QJsonObject& module) {
 }
 
 void MtbUnisIOWindow::updateInputs(const QJsonObject& inputs) {
-    const QJsonArray& inputsFull = QJsonSafe::safeArray(inputs["full"], UNI_INPUTS_COUNT);
+    const QJsonArray& inputsFull = QJsonSafe::safeArray(inputs["full"], UNIS_INPUTS_COUNT);
 
-    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
         bool state = static_cast<int>(QJsonSafe::safeBool(inputsFull[i].toBool()));
         this->m_guiInputs[i].textState.setText(QString::number(state));
         QString color = state ? "green" : "red";
@@ -118,9 +143,15 @@ void MtbUnisIOWindow::updateInputs(const QJsonObject& inputs) {
 }
 
 void MtbUnisIOWindow::updateOutputs(const QJsonObject& outputs) {
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         const QJsonObject& output = QJsonSafe::safeObject(outputs[QString::number(i)]);
         this->updateOutput(i, output);
+    }
+    for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
+        if (outputs.contains(QString::number(i))) {
+            this->m_guiServos[i].bPlus.setEnabled(true);
+            this->m_guiServos[i].bMinus.setEnabled(true);
+        }
     }
 }
 
@@ -190,6 +221,10 @@ void MtbUnisIOWindow::disableAll() {
         this->updateInProgress = false;
         guiOutput.rectState.setStyleSheet("background-color:gray");
     }
+    for (UnisIOGuiServo& guiServo : this->m_guiServos) {
+        guiServo.bPlus.setEnabled(false);
+        guiServo.bMinus.setEnabled(false);
+    }
 }
 
 void MtbUnisIOWindow::jsonParseError(const QString& err) {
@@ -201,7 +236,7 @@ void MtbUnisIOWindow::ui_cbOutputStateCurrentIndexChanged(int) {
         return;
 
     int output = -1;
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++)
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++)
         if (sender() == &this->m_guiOutputs[i].cbState)
             output = i;
     if (output == -1)
@@ -212,7 +247,7 @@ void MtbUnisIOWindow::ui_cbOutputStateCurrentIndexChanged(int) {
 
 void MtbUnisIOWindow::ui_wOutputClicked() {
     int output = -1;
-    for (unsigned i = 0; i < UNI_OUTPUTS_COUNT; i++)
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++)
         if (sender() == &this->m_guiOutputs[i].rectState)
             output = i;
     if (output == -1)
@@ -273,4 +308,74 @@ void MtbUnisIOWindow::setOutput(unsigned output) {
 
 void MtbUnisIOWindow::retranslate() {
     this->ui.retranslateUi(this);
+}
+
+void MtbUnisIOWindow::ui_bServoPosClicked() {
+    int servo = -1;
+    ServoPos pos;
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+        if (sender() == &this->m_guiServos[i].bPlus) {
+            servo = i;
+            pos = ServoPos::sPlus;
+        }
+        if (sender() == &this->m_guiServos[i].bMinus) {
+            servo = i;
+            pos = ServoPos::sMinus;
+        }
+    }
+    if (servo != -1)
+        this->servoMove(servo, pos);
+}
+
+void MtbUnisIOWindow::servoMove(unsigned servo, ServoPos pos) {
+    const unsigned output = UNIS_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::sMinus ? 1 : 0);
+
+    this->m_guiServos[servo].bPlus.setEnabled(false);
+    this->m_guiServos[servo].bMinus.setEnabled(false);
+
+    QJsonObject outputJson{
+        {"type", "plain"},
+        {"value", 1},
+    };
+    DaemonClient::instance->sendNoExc(
+        {
+            {"command", "module_set_outputs"},
+            {"address", this->address},
+            {"outputs", QJsonObject({{QString::number(output), outputJson}})},
+        },
+        [this, servo, pos](const QJsonObject&) {
+            QTimer::singleShot(100, [this, servo, pos]() { this->servoOutputActivated(servo, pos); });
+        },
+        [this, servo](unsigned errorCode, QString errorMessage) {
+            this->m_guiServos[servo].bPlus.setEnabled(true);
+            this->m_guiServos[servo].bMinus.setEnabled(true);
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("setOutput", errorCode, errorMessage));
+        }
+    );
+}
+
+void MtbUnisIOWindow::servoOutputActivated(unsigned servo, ServoPos pos) {
+    // Output activated -> deactivate
+    const unsigned output = UNIS_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::sMinus ? 1 : 0);
+
+    QJsonObject outputJson{
+        {"type", "plain"},
+        {"value", 0},
+    };
+    DaemonClient::instance->sendNoExc(
+        {
+            {"command", "module_set_outputs"},
+            {"address", this->address},
+            {"outputs", QJsonObject({{QString::number(output), outputJson}})},
+        },
+        [this, servo](const QJsonObject&) {
+            this->m_guiServos[servo].bPlus.setEnabled(true);
+            this->m_guiServos[servo].bMinus.setEnabled(true);
+        },
+        [this, servo](unsigned errorCode, QString errorMessage) {
+            this->m_guiServos[servo].bPlus.setEnabled(true);
+            this->m_guiServos[servo].bMinus.setEnabled(true);
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("setOutput", errorCode, errorMessage));
+        }
+    );
 }

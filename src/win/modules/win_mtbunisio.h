@@ -28,6 +28,11 @@ struct UnisIOGuiServo {
     QPushButton bMinus;
 };
 
+enum class ServoPos {
+    sPlus = 0,
+    sMinus = 1,
+};
+
 class MtbUnisIOWindow : public MtbModuleIODialog {
     Q_OBJECT
 
@@ -60,12 +65,15 @@ private:
     void jsonParseError(const QString& err);
     void disableAll() override;
     void setOutput(unsigned output);
+    void servoMove(unsigned servo, ServoPos);
+    void servoOutputActivated(unsigned servo, ServoPos);
 
     static int outputCbToValue(const QString& type, unsigned index);
 
 private slots:
     void ui_cbOutputStateCurrentIndexChanged(int);
     void ui_wOutputClicked();
+    void ui_bServoPosClicked();
 
 };
 

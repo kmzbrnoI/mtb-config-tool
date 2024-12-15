@@ -96,7 +96,7 @@
     </sizepolicy>
    </property>
    <property name="title">
-    <string>Inputs</string>
+    <string>Servos</string>
    </property>
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
