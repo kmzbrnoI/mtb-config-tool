@@ -8,6 +8,7 @@
 #include "win_mtbuniconfig.h"
 #include "win_mtbunisconfig.h"
 #include "win_mtbuniio.h"
+#include "win_mtbunisio.h"
 
 MainWindow* MainWindow::instance = nullptr;
 
@@ -590,10 +591,8 @@ void MainWindow::ui_AModuleIO() {
             if (!this->m_ioWindows[addr])
                 this->m_ioWindows[addr] = std::make_unique<MtbUniIOWindow>();
         } else if (type == MtbModuleType::Unis10) {
-            // TODO
-            //if (!this->m_ioWindows[addr])
-            //    this->m_ioWindows[addr] = std::make_unique<MtbUnisIOWindow>();
-            return;
+            if (!this->m_ioWindows[addr])
+                this->m_ioWindows[addr] = std::make_unique<MtbUnisIOWindow>();
         } else if (type == MtbModuleType::Rc) {
             // TODO
             return;

@@ -40,6 +40,7 @@ set(PROJECT_SOURCES
     src/win/win_diag.h src/win/win_diag.cpp
     src/win/modules/win_io.h src/win/modules/win_io.cpp
     src/win/modules/win_mtbuniio.h src/win/modules/win_mtbuniio.cpp
+    src/win/modules/win_mtbunisio.h src/win/modules/win_mtbunisio.cpp
     ui/mainwindow.ui
     ui/settingsdialog.ui
     ui/logdialog.ui
@@ -48,6 +49,7 @@ set(PROJECT_SOURCES
     ui/modules/mtbuniconfig.ui
     ui/modules/mtbunisconfig.ui
     ui/modules/mtbuniio.ui
+    ui/modules/mtbunisio.ui
     ui/changeaddress.ui
     ui/diag.ui
 )
