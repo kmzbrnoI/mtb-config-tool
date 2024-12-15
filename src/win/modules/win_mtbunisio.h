@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QCheckBox>
+#include <QSpinBox>
 #include "win_io.h"
 #include "ui_mtbunisio.h"
 #include "common.h"
@@ -26,6 +27,9 @@ struct UnisIOGuiServo {
     QLabel name;
     QPushButton bPlus;
     QPushButton bMinus;
+    QLabel lManual;
+    QSpinBox sbManual;
+    QPushButton bManual;
 };
 
 enum class ServoPos {
@@ -67,6 +71,7 @@ private:
     void setOutput(unsigned output);
     void servoMove(unsigned servo, ServoPos);
     void servoOutputActivated(unsigned servo, ServoPos);
+    void servoManual(uint8_t servo, uint8_t position);
 
     static int outputCbToValue(const QString& type, unsigned index);
 
@@ -74,6 +79,8 @@ private slots:
     void ui_cbOutputStateCurrentIndexChanged(int);
     void ui_wOutputClicked();
     void ui_bServoPosClicked();
+    void ui_bServoManualClicked();
+    void ui_bServoEndManualClicked();
 
 };
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>471</width>
-    <height>773</height>
+    <height>782</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -71,7 +71,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>740</y>
+     <y>750</y>
      <width>80</width>
      <height>25</height>
     </rect>
@@ -84,7 +84,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>540</y>
+     <y>550</y>
      <width>451</width>
      <height>191</height>
     </rect>
@@ -109,6 +109,19 @@
     </property>
     <layout class="QGridLayout" name="gl_servos"/>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="b_end_manual">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>750</y>
+     <width>171</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>End of manual positioning</string>
+   </property>
   </widget>
  </widget>
  <resources/>

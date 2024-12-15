@@ -15,6 +15,7 @@ MtbUnisIOWindow::MtbUnisIOWindow(QWidget *parent) :
     this->retranslate();
 
     QObject::connect(ui.b_refresh, SIGNAL(released()), this, SLOT(refresh()));
+    QObject::connect(ui.b_end_manual, SIGNAL(released()), this, SLOT(ui_bServoEndManualClicked()));
 }
 
 void MtbUnisIOWindow::createGuiInputs() {
@@ -73,7 +74,7 @@ void MtbUnisIOWindow::createGuiServos() {
     for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
         {
             QLabel& name = this->m_guiServos[i].name;
-            name.setText(QString::number(i));
+            name.setText(QString::number(i+1));
             name.setStyleSheet("font-weight: bold");
             name.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
@@ -81,19 +82,37 @@ void MtbUnisIOWindow::createGuiServos() {
         {
             QPushButton& bPlus = this->m_guiServos[i].bPlus;
             bPlus.setText("+");
+            bPlus.setFixedWidth(RECT_WIDTH);
+            bPlus.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
 
         {
             QPushButton& bMinus = this->m_guiServos[i].bMinus;
             bMinus.setText("-");
+            bMinus.setFixedWidth(RECT_WIDTH);
+            bMinus.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
+
+        this->m_guiServos[i].lManual.setText(tr("Manual position:"));
+
+        {
+            QSpinBox& sbManual = this->m_guiServos[i].sbManual;
+            sbManual.setMinimum(0);
+            sbManual.setMaximum(255);
+        }
+
+        this->m_guiServos[i].bManual.setText(tr("Set manual position"));
 
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].name, i, 0);
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].bPlus, i, 1);
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].bMinus, i, 2);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].lManual, i, 3);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].sbManual, i, 4);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bManual, i, 5);
 
         QObject::connect(&this->m_guiServos[i].bPlus, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
         QObject::connect(&this->m_guiServos[i].bMinus, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
+        QObject::connect(&this->m_guiServos[i].bManual, SIGNAL(released()), this, SLOT(ui_bServoManualClicked()));
     }
 }
 
@@ -151,6 +170,8 @@ void MtbUnisIOWindow::updateOutputs(const QJsonObject& outputs) {
         if (outputs.contains(QString::number(i))) {
             this->m_guiServos[i].bPlus.setEnabled(true);
             this->m_guiServos[i].bMinus.setEnabled(true);
+            this->m_guiServos[i].sbManual.setEnabled(true);
+            this->m_guiServos[i].bManual.setEnabled(true);
         }
     }
 }
@@ -224,6 +245,8 @@ void MtbUnisIOWindow::disableAll() {
     for (UnisIOGuiServo& guiServo : this->m_guiServos) {
         guiServo.bPlus.setEnabled(false);
         guiServo.bMinus.setEnabled(false);
+        guiServo.sbManual.setEnabled(false);
+        guiServo.bManual.setEnabled(false);
     }
 }
 
@@ -376,6 +399,52 @@ void MtbUnisIOWindow::servoOutputActivated(unsigned servo, ServoPos pos) {
             this->m_guiServos[servo].bPlus.setEnabled(true);
             this->m_guiServos[servo].bMinus.setEnabled(true);
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("setOutput", errorCode, errorMessage));
+        }
+    );
+}
+
+void MtbUnisIOWindow::ui_bServoManualClicked() {
+    int servo = -1;
+    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+        if (sender() == &this->m_guiServos[i].bManual)
+            servo = i;
+    }
+    if (servo != -1)
+        this->servoManual(servo, this->m_guiServos[servo].sbManual.value());
+}
+
+void MtbUnisIOWindow::servoManual(uint8_t servo, uint8_t position) {
+    QJsonArray data{3, (servo+1) << 1, position};
+
+    DaemonClient::instance->sendNoExc(
+        {
+            {"command", "module_specific_command"},
+            {"address", this->address},
+            {"data", data},
+        },
+        [this](const QJsonObject&) {
+            QMessageBox::information(this, tr("Information"), tr("Ok."));
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_specific_command", errorCode, errorMessage));
+        }
+    );
+}
+
+void MtbUnisIOWindow::ui_bServoEndManualClicked() {
+    QJsonArray data{3, 0};
+
+    DaemonClient::instance->sendNoExc(
+        {
+            {"command", "module_specific_command"},
+            {"address", this->address},
+            {"data", data},
+        },
+        [this](const QJsonObject&) {
+            QMessageBox::information(this, tr("Information"), tr("Manual positioning successfully ended."));
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_specific_command", errorCode, errorMessage));
         }
     );
 }
