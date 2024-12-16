@@ -35,6 +35,7 @@ void MtbUniIOWindow::createGuiInputs() {
         {
             QLabel& textState = this->m_guiInputs[i].textState;
             textState.setText("?");
+            textState.setAlignment(Qt::AlignCenter);
         }
 
         this->ui.gl_inputs->addWidget(&this->m_guiInputs[i].name, i, 0);
@@ -83,7 +84,11 @@ void MtbUniIOWindow::moduleChanged(const QJsonObject& module) {
 }
 
 void MtbUniIOWindow::inputsChanged(const QJsonObject& module_inputs_changed) {
+    std::array<bool, UNI_INPUTS_COUNT> inputsLastState = this->m_inputsState;
     this->updateInputs(QJsonSafe::safeObject(module_inputs_changed["inputs"]));
+    for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++)
+        if (this->m_inputsState[i] != inputsLastState[i])
+            this->m_guiInputs[i].textState.setStyleSheet("background-color:yellow;");
 }
 
 void MtbUniIOWindow::outputsChanged(const QJsonObject& module_outputs_changed) {
@@ -107,9 +112,11 @@ void MtbUniIOWindow::updateInputs(const QJsonObject& inputs) {
 
     for (unsigned i = 0; i < UNI_INPUTS_COUNT; i++) {
         bool state = static_cast<int>(QJsonSafe::safeBool(inputsFull[i].toBool()));
+        this->m_inputsState[i] = state;
         this->m_guiInputs[i].textState.setText(QString::number(state));
         QString color = state ? "green" : "red";
         this->m_guiInputs[i].rectState.setStyleSheet("background-color:"+color);
+        this->m_guiInputs[i].textState.setStyleSheet("");
     }
 }
 

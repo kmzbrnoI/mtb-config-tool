@@ -39,6 +39,7 @@ private:
     unsigned updateInProgress = 0;
 
     Ui::MtbUniIOWindow ui;
+    std::array<bool, UNI_INPUTS_COUNT> m_inputsState;
     std::array<UniIOGuiInput, UNI_INPUTS_COUNT> m_guiInputs;
     std::array<UniIOGuiOutput, UNI_OUTPUTS_COUNT> m_guiOutputs;
 

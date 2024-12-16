@@ -54,6 +54,7 @@ private:
     unsigned updateInProgress = 0;
 
     Ui::MtbUnisIOWindow ui;
+    std::array<bool, UNIS_INPUTS_COUNT> m_inputsState;
     std::array<UnisIOGuiInput, UNIS_INPUTS_COUNT> m_guiInputs;
     std::array<UnisIOGuiOutput, UNIS_OUTPUTS_COUNT> m_guiOutputs;
     std::array<UnisIOGuiServo, UNIS_SERVOS_COUNT> m_guiServos;
