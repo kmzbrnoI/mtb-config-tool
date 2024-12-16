@@ -4,6 +4,7 @@
 #include "win_mtbunisio.h"
 #include "client.h"
 #include "qjsonsafe.h"
+#include "countingguard.h"
 
 MtbUnisIOWindow::MtbUnisIOWindow(QWidget *parent) :
     MtbModuleIODialog(parent) {
@@ -177,7 +178,7 @@ void MtbUnisIOWindow::updateOutputs(const QJsonObject& outputs) {
 }
 
 void MtbUnisIOWindow::updateOutputType(unsigned outputi, const QString& type) {
-    this->updateInProgress++;
+    CountingGuard updateGuard(this->updateInProgress);
     UnisIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
     guiOutput.outputType = type;
     guiOutput.cbState.clear();
@@ -190,11 +191,10 @@ void MtbUnisIOWindow::updateOutputType(unsigned outputi, const QString& type) {
         for (size_t i = 0; i < SComSignalCodes.size(); i++)
             guiOutput.cbState.addItem(QString::number(i)+" - "+SComSignalCodes[i]);
     }
-    this->updateInProgress--;
 }
 
 void MtbUnisIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
-    this->updateInProgress++;
+    CountingGuard updateGuard(this->updateInProgress);
     const QString& newTypeStr = QJsonSafe::safeString(output["type"]);
     const unsigned value = QJsonSafe::safeUInt(output["value"]);
     UnisIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
@@ -227,7 +227,6 @@ void MtbUnisIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) 
         guiOutput.cbState.setCurrentIndex(-1);
         guiOutput.rectState.setStyleSheet("background-color:blue");
     }
-    this->updateInProgress--;
 }
 
 void MtbUnisIOWindow::disableAll() {
@@ -236,10 +235,9 @@ void MtbUnisIOWindow::disableAll() {
         guiInput.rectState.setStyleSheet("background-color:gray");
     }
     for (UnisIOGuiOutput& guiOutput : this->m_guiOutputs) {
+        CountingGuard updateGuard(this->updateInProgress);
         guiOutput.cbState.setEnabled(false);
-        this->updateInProgress++;
         guiOutput.cbState.setCurrentIndex(-1);
-        this->updateInProgress--;
         guiOutput.rectState.setStyleSheet("background-color:gray");
     }
     for (UnisIOGuiServo& guiServo : this->m_guiServos) {

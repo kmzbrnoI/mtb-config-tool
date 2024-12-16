@@ -3,6 +3,7 @@
 #include "win_mtbuniio.h"
 #include "client.h"
 #include "qjsonsafe.h"
+#include "countingguard.h"
 
 MtbUniIOWindow::MtbUniIOWindow(QWidget *parent) :
     MtbModuleIODialog(parent) {
@@ -120,7 +121,7 @@ void MtbUniIOWindow::updateOutputs(const QJsonObject& outputs) {
 }
 
 void MtbUniIOWindow::updateOutputType(unsigned outputi, const QString& type) {
-    this->updateInProgress++;
+    CountingGuard updateGuard(this->updateInProgress);
     UniIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
     guiOutput.outputType = type;
     guiOutput.cbState.clear();
@@ -133,11 +134,10 @@ void MtbUniIOWindow::updateOutputType(unsigned outputi, const QString& type) {
         for (size_t i = 0; i < SComSignalCodes.size(); i++)
             guiOutput.cbState.addItem(QString::number(i)+" - "+SComSignalCodes[i]);
     }
-    this->updateInProgress--;
 }
 
 void MtbUniIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
-    this->updateInProgress++;
+    CountingGuard updateGuard(this->updateInProgress);
     const QString& newTypeStr = QJsonSafe::safeString(output["type"]);
     const unsigned value = QJsonSafe::safeUInt(output["value"]);
     UniIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
@@ -170,7 +170,6 @@ void MtbUniIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
         guiOutput.cbState.setCurrentIndex(-1);
         guiOutput.rectState.setStyleSheet("background-color:blue");
     }
-    this->updateInProgress--;
 }
 
 void MtbUniIOWindow::disableAll() {
@@ -179,10 +178,9 @@ void MtbUniIOWindow::disableAll() {
         guiInput.rectState.setStyleSheet("background-color:gray");
     }
     for (UniIOGuiOutput& guiOutput : this->m_guiOutputs) {
+        CountingGuard updateGuard(this->updateInProgress);
         guiOutput.cbState.setEnabled(false);
-        this->updateInProgress++;
         guiOutput.cbState.setCurrentIndex(-1);
-        this->updateInProgress--;
         guiOutput.rectState.setStyleSheet("background-color:gray");
     }
 }
