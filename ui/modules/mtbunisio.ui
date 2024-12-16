@@ -79,6 +79,9 @@
    <property name="text">
     <string>Refresh</string>
    </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+R</string>
+   </property>
   </widget>
   <widget class="QGroupBox" name="gb_servos">
    <property name="geometry">
