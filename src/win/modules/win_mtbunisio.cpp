@@ -120,7 +120,7 @@ void MtbUnisIOWindow::openModule(const QJsonObject& module) {
     this->address = QJsonSafe::safeUInt(module["address"]);
     this->disableAll();
     this->setWindowTitle(tr("IO of module ")+QString::number(this->address)+" – "+module["type"].toString());
-    this->updateInProgress = false;
+    this->updateInProgress = 0;
     this->show();
     this->sendModuleRequest();
 }
@@ -177,7 +177,7 @@ void MtbUnisIOWindow::updateOutputs(const QJsonObject& outputs) {
 }
 
 void MtbUnisIOWindow::updateOutputType(unsigned outputi, const QString& type) {
-    this->updateInProgress = true;
+    this->updateInProgress++;
     UnisIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
     guiOutput.outputType = type;
     guiOutput.cbState.clear();
@@ -190,11 +190,11 @@ void MtbUnisIOWindow::updateOutputType(unsigned outputi, const QString& type) {
         for (size_t i = 0; i < SComSignalCodes.size(); i++)
             guiOutput.cbState.addItem(QString::number(i)+" - "+SComSignalCodes[i]);
     }
-    this->updateInProgress = false;
+    this->updateInProgress--;
 }
 
 void MtbUnisIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) {
-    this->updateInProgress = true;
+    this->updateInProgress++;
     const QString& newTypeStr = QJsonSafe::safeString(output["type"]);
     const unsigned value = QJsonSafe::safeUInt(output["value"]);
     UnisIOGuiOutput& guiOutput = this->m_guiOutputs[outputi];
@@ -227,7 +227,7 @@ void MtbUnisIOWindow::updateOutput(unsigned outputi, const QJsonObject& output) 
         guiOutput.cbState.setCurrentIndex(-1);
         guiOutput.rectState.setStyleSheet("background-color:blue");
     }
-    this->updateInProgress = false;
+    this->updateInProgress--;
 }
 
 void MtbUnisIOWindow::disableAll() {
@@ -237,9 +237,9 @@ void MtbUnisIOWindow::disableAll() {
     }
     for (UnisIOGuiOutput& guiOutput : this->m_guiOutputs) {
         guiOutput.cbState.setEnabled(false);
-        this->updateInProgress = true;
+        this->updateInProgress++;
         guiOutput.cbState.setCurrentIndex(-1);
-        this->updateInProgress = false;
+        this->updateInProgress--;
         guiOutput.rectState.setStyleSheet("background-color:gray");
     }
     for (UnisIOGuiServo& guiServo : this->m_guiServos) {
@@ -251,7 +251,7 @@ void MtbUnisIOWindow::disableAll() {
 }
 
 void MtbUnisIOWindow::ui_cbOutputStateCurrentIndexChanged(int) {
-    if (this->updateInProgress)
+    if (this->updateInProgress > 0)
         return;
 
     int output = -1;
@@ -265,6 +265,9 @@ void MtbUnisIOWindow::ui_cbOutputStateCurrentIndexChanged(int) {
 }
 
 void MtbUnisIOWindow::ui_wOutputClicked() {
+    if (this->updateInProgress > 0)
+        return;
+
     int output = -1;
     for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++)
         if (sender() == &this->m_guiOutputs[i].rectState)

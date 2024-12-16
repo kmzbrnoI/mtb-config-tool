@@ -51,7 +51,7 @@ public:
 
 private:
     static constexpr unsigned RECT_WIDTH = 50;
-    bool updateInProgress = false;
+    unsigned updateInProgress = 0;
 
     Ui::MtbUnisIOWindow ui;
     std::array<UnisIOGuiInput, UNIS_INPUTS_COUNT> m_guiInputs;
