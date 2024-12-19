@@ -386,7 +386,7 @@
     <string>Inputs/outputs</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+I</string>
+    <string notr="true">Ctrl+I</string>
    </property>
   </action>
  </widget>
