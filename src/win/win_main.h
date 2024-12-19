@@ -20,7 +20,7 @@
 #include "win_io.h"
 
 constexpr unsigned MTBBUS_ADDR_COUNT = 256;
-const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5"};
+const QVector<QString> DAEMON_SUPPORTED_VERSIONS{"1.5", "1.6"};
 QString daemonSupportedVersionsStr();
 
 // Use #define instead of const so QObject::tr is applied in each use
