@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QStyleOption>
 #include <QPainter>
+#include "client.h"
 
 class MtbModuleIODialog : public QDialog {
     Q_OBJECT
@@ -23,7 +24,7 @@ public:
 protected:
     uint8_t address;
 
-    void sendModuleRequest();
+    void sendModuleRequest(ResponseOkEvent&& onOk = [](const QJsonObject&){});
 
 protected slots:
     void refresh();

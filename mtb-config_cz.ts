@@ -5,31 +5,36 @@
     <name>ChangeAddressDialog</name>
     <message>
         <location filename="ui/changeaddress.ui" line="14"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_changeaddress.h" line="86"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_changeaddress.h" line="86"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_changeaddress.h" line="86"/>
         <source>Change Module Address</source>
         <translation>Změnit adresu modulu</translation>
     </message>
     <message>
         <location filename="ui/changeaddress.ui" line="42"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_changeaddress.h" line="87"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_changeaddress.h" line="87"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_changeaddress.h" line="87"/>
         <source>Change address of a specific module</source>
         <translation>Přeadresovat konkrétní modul</translation>
     </message>
     <message>
         <location filename="ui/changeaddress.ui" line="55"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_changeaddress.h" line="88"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_changeaddress.h" line="88"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_changeaddress.h" line="88"/>
         <source>Set/change address of a module in readress mode</source>
         <translation>Nastavit adresu modulu v režimu změny adresy</translation>
     </message>
     <message>
         <location filename="ui/changeaddress.ui" line="68"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_changeaddress.h" line="89"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_changeaddress.h" line="89"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_changeaddress.h" line="89"/>
         <source>Original module address:</source>
         <translation>Původní modul:</translation>
     </message>
     <message>
         <location filename="ui/changeaddress.ui" line="97"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_changeaddress.h" line="90"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_changeaddress.h" line="90"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_changeaddress.h" line="90"/>
         <source>New address:</source>
         <translation>Nová adresa:</translation>
     </message>
@@ -82,61 +87,71 @@
     </message>
     <message>
         <location filename="ui/diag.ui" line="92"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="121"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="121"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="121"/>
         <source>Period [s]:</source>
         <translation>Perioda [s]:</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="22"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="111"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="111"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="111"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="33"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="117"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="117"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="117"/>
         <source>Update</source>
         <translation>Obnovit</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="38"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="116"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="116"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="116"/>
         <source>DV</source>
         <translation>DV</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="48"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="114"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="114"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="114"/>
         <source>Property</source>
         <translation>Název</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="53"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="113"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="113"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="113"/>
         <source>Value</source>
         <translation>Hodnota</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="43"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="115"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="115"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="115"/>
         <source>Updated</source>
         <translation>Aktualizováno</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="102"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="122"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="122"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="122"/>
         <source>Autorefresh</source>
         <translation>Automatické obnovení</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="61"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="118"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="118"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="118"/>
         <source>Log to file:</source>
         <translation>Logovat do souboru:</translation>
     </message>
     <message>
         <location filename="ui/diag.ui" line="68"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_diag.h" line="119"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_diag.h" line="119"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_diag.h" line="119"/>
         <source>Browse</source>
         <translation>Procházet</translation>
     </message>
@@ -176,85 +191,99 @@
     <name>LogDialog</name>
     <message>
         <location filename="ui/logdialog.ui" line="14"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="125"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="125"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="125"/>
         <source>Log</source>
         <translation>Log</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="116"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="138"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="138"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="138"/>
         <source>Loglevel:</source>
         <translation>Loglevel:</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="46"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="130"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="130"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="130"/>
         <source>Messages</source>
         <translation>Zprávy</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="129"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="139"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="139"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="139"/>
         <source>Clear log</source>
         <translation>Smazat log</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="88"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="136"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="136"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="136"/>
         <source>Time</source>
         <translation>Čas</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="93"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="135"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="135"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="135"/>
         <source>Loglevel</source>
         <translation>Loglevel</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="98"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="134"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="134"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="134"/>
         <source>Message</source>
         <translation>Zpráva</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="26"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="126"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="126"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="126"/>
         <source>None</source>
         <translation>Nic</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="31"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="127"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="127"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="127"/>
         <source>Error</source>
         <translation>Chyby</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="36"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="128"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="128"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="128"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="41"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="129"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="129"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="129"/>
         <source>Info</source>
         <translation>Informace</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="51"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="131"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="131"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="131"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="106"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="137"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="137"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="137"/>
         <source>Log keep-alive</source>
         <translation>Logovat keep-alive</translation>
     </message>
     <message>
         <location filename="ui/logdialog.ui" line="136"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_logdialog.h" line="140"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_logdialog.h" line="140"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_logdialog.h" line="140"/>
         <source>Log module IO changes</source>
         <translation>Logovat změny IO stavů</translation>
     </message>
@@ -270,55 +299,64 @@
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="76"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="290"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="290"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="281"/>
         <source>Address DEC</source>
         <translation>Adresa DEC</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="84"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="289"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="289"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="280"/>
         <source>Address HEX</source>
         <translation>Adresa HEX</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="89"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="288"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="288"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="279"/>
         <source>Address BIN</source>
         <translation>Adresa BIN</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="94"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="287"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="287"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="278"/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="99"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="286"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="286"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="277"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="104"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="285"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="285"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="276"/>
         <source>State</source>
         <translation>Stav</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="109"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="284"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="284"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="275"/>
         <source>Firmware</source>
         <translation></translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="114"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="283"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="283"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="274"/>
         <source>Bootloader</source>
         <translation></translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="119"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="282"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="282"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="273"/>
         <location filename="src/win/win_main.cpp" line="188"/>
         <location filename="src/win/win_main.cpp" line="213"/>
         <location filename="src/win/win_main.cpp" line="226"/>
@@ -338,7 +376,8 @@
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="124"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="281"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="281"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="272"/>
         <location filename="src/win/win_main.cpp" line="786"/>
         <location filename="src/win/win_main.cpp" line="820"/>
         <source>Warning</source>
@@ -346,136 +385,157 @@
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="129"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="280"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="280"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="271"/>
         <source>Beacon</source>
         <translation>Maják</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="147"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="291"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="291"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="282"/>
         <source>MTB Daemon</source>
         <translation></translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="158"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="292"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="292"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="283"/>
         <source>MTB-USB</source>
         <translation></translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="165"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="293"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="293"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="284"/>
         <source>Help</source>
         <translation>Nápověda</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="171"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="294"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="294"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="285"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="177"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="295"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="295"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="286"/>
         <source>Module</source>
         <translation>Modul</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="192"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="296"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="296"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="287"/>
         <source>Window</source>
         <translation>Okno</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="206"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="257"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="260"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="252"/>
         <source>Connect</source>
         <translation>Připojit</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="217"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="258"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="261"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="253"/>
         <source>Disconnect</source>
         <translation>Odpojit</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="225"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="259"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="262"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="254"/>
         <source>Connection Settings</source>
         <translation>Nastavení připojení</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="233"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="260"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="263"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="255"/>
         <source>MTB-USB Settings</source>
         <translation>Nastavení MTB-USB</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="241"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="261"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="264"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="256"/>
         <source>About</source>
         <translation>O programu</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="249"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="262"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="265"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="257"/>
         <source>Options</source>
         <translation>Možnosti</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="260"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="263"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="266"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="258"/>
         <source>Refresh modules list</source>
         <translation>Aktualizovat tabulku modulů</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="268"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="264"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="267"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="259"/>
         <source>Log</source>
         <translation>Log</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="279"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="265"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="268"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="260"/>
         <source>Save MTB&#xa0;Daemon config to file</source>
         <translation>Uložit nastavení MTB Daemona do souboru</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="312"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="268"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="271"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="263"/>
         <location filename="src/win/win_main.cpp" line="107"/>
         <source>Beacon on/off</source>
         <translation>Maják zap/vyp</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="345"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="271"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="274"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="266"/>
         <source>Clear error in status bar</source>
         <translation>Smazat hlášení chyby ve stavovém řádku</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="353"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="272"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="275"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="267"/>
         <source>Add new module</source>
         <translation>Přidat nový modul</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="364"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="273"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="276"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="268"/>
         <location filename="src/win/win_main.cpp" line="109"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="375"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="274"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="277"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="269"/>
         <location filename="src/win/win_main.cpp" line="111"/>
         <source>Change address</source>
         <translation>Změnit adresu</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="386"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="275"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="278"/>
         <location filename="src/win/win_main.cpp" line="105"/>
         <source>Inputs/outputs</source>
         <translation>Vstupy/výstupy</translation>
@@ -735,28 +795,32 @@ Module </source>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="290"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="266"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="269"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="261"/>
         <location filename="src/win/win_main.cpp" line="104"/>
         <source>Configure</source>
         <translation>Konfigurovat</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="301"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="267"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="270"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="262"/>
         <location filename="src/win/win_main.cpp" line="106"/>
         <source>Reboot</source>
         <translation>Restartovat</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="323"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="269"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="272"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="264"/>
         <location filename="src/win/win_main.cpp" line="108"/>
         <source>Firmware upgrade</source>
         <translation>Aktualizovat firmware</translation>
     </message>
     <message>
         <location filename="ui/mainwindow.ui" line="334"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mainwindow.h" line="270"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mainwindow.h" line="273"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mainwindow.h" line="265"/>
         <location filename="src/win/win_main.cpp" line="110"/>
         <source>Diagnostics</source>
         <translation>Diagnostika</translation>
@@ -795,50 +859,58 @@ Module </source>
     </message>
     <message>
         <location filename="ui/modules/moduleadd.ui" line="14"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_moduleadd.h" line="83"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_moduleadd.h" line="83"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_moduleadd.h" line="83"/>
         <source>Add new MTB module</source>
         <translation>Přidat nový MTB modul</translation>
     </message>
     <message>
         <location filename="ui/modules/moduleadd.ui" line="42"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_moduleadd.h" line="84"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_moduleadd.h" line="84"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_moduleadd.h" line="84"/>
         <source>Module type</source>
         <oldsource>Module Type</oldsource>
         <translation>Typ modulu</translation>
     </message>
     <message>
         <location filename="ui/modules/moduleadd.ui" line="54"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_moduleadd.h" line="85"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_moduleadd.h" line="85"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_moduleadd.h" line="85"/>
         <source>MTB-UNI v2</source>
         <translation>MTB-UNI v2</translation>
     </message>
     <message>
         <location filename="ui/modules/moduleadd.ui" line="67"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_moduleadd.h" line="86"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_moduleadd.h" line="86"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_moduleadd.h" line="86"/>
         <source>MTB-UNI v2 IR</source>
         <translation>MTB-UNI v2 IR</translation>
     </message>
     <message>
         <location filename="ui/modules/moduleadd.ui" line="80"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_moduleadd.h" line="87"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_moduleadd.h" line="87"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_moduleadd.h" line="87"/>
         <source>MTB-UNI v4</source>
         <translation>MTB-UNI v4</translation>
     </message>
     <message>
         <location filename="ui/modules/moduleadd.ui" line="93"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_moduleadd.h" line="88"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_moduleadd.h" line="88"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_moduleadd.h" line="88"/>
         <source>MTB-UNIS</source>
         <translation>MTB-UNIS</translation>
     </message>
     <message>
         <location filename="ui/modules/moduleadd.ui" line="106"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_moduleadd.h" line="89"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_moduleadd.h" line="89"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_moduleadd.h" line="89"/>
         <source>MTB-RC</source>
         <translation>MTB-RC</translation>
     </message>
     <message>
         <location filename="ui/modules/moduleadd.ui" line="120"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_moduleadd.h" line="90"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_moduleadd.h" line="90"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_moduleadd.h" line="90"/>
         <source>Module address:</source>
         <translation>Adresa modulu:</translation>
     </message>
@@ -887,16 +959,26 @@ Module </source>
 <context>
     <name>MtbModuleIODialog</name>
     <message>
-        <location filename="src/win/modules/win_io.cpp" line="18"/>
+        <location filename="src/win/modules/win_io.cpp" line="16"/>
         <source>Error</source>
         <translation>Chyba</translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_io.cpp" line="26"/>
+        <source>Info</source>
+        <translation>Informace</translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_io.cpp" line="26"/>
+        <source>Module information successfully updated.</source>
+        <translation>Informace o modulu úspěšně aktualizovány.</translation>
     </message>
 </context>
 <context>
     <name>MtbRCIOWindow</name>
     <message>
         <location filename="ui/modules/mtbrcio.ui" line="26"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbrcio.h" line="54"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbrcio.h" line="54"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
@@ -924,25 +1006,29 @@ Module </source>
     </message>
     <message>
         <location filename="ui/modules/mtbuniconfig.ui" line="42"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="94"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="94"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="94"/>
         <source>Module name:</source>
         <translation>Název modulu:</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbuniconfig.ui" line="74"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="95"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="95"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="95"/>
         <source>Inputs</source>
         <translation>Vstupy</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbuniconfig.ui" line="98"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="96"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="96"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="96"/>
         <source>Outputs</source>
         <translation>Výstupy</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbuniconfig.ui" line="122"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="97"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="97"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbuniconfig.h" line="97"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
@@ -1053,44 +1139,44 @@ Module </source>
     <name>MtbUniIOWindow</name>
     <message>
         <location filename="ui/modules/mtbuniio.ui" line="32"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbuniio.h" line="76"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbuniio.h" line="76"/>
         <source>Inputs</source>
         <translation>Vstupy</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbuniio.ui" line="56"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbuniio.h" line="77"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbuniio.h" line="77"/>
         <source>Outputs</source>
         <translation>Výstupy</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbuniio.ui" line="80"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbuniio.h" line="78"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbuniio.h" line="78"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniio.cpp" line="75"/>
+        <location filename="src/win/modules/win_mtbuniio.cpp" line="80"/>
         <source>IO of module </source>
         <translation>IO modulu </translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniio.cpp" line="136"/>
+        <location filename="src/win/modules/win_mtbuniio.cpp" line="141"/>
         <source>off</source>
         <translation>vyp</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniio.cpp" line="137"/>
+        <location filename="src/win/modules/win_mtbuniio.cpp" line="142"/>
         <source>on</source>
         <translation>zap</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniio.cpp" line="139"/>
+        <location filename="src/win/modules/win_mtbuniio.cpp" line="144"/>
         <source>flick </source>
         <translation>kmitání </translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbuniio.cpp" line="268"/>
+        <location filename="src/win/modules/win_mtbuniio.cpp" line="273"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
@@ -1099,31 +1185,36 @@ Module </source>
     <name>MtbUnisConfigWindow</name>
     <message>
         <location filename="ui/modules/mtbunisconfig.ui" line="42"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="108"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="108"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="108"/>
         <source>Module name:</source>
         <translation>Název modulu:</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisconfig.ui" line="74"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="109"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="109"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="109"/>
         <source>Inputs</source>
         <translation>Vstupy</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisconfig.ui" line="98"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="110"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="110"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="110"/>
         <source>Outputs</source>
         <translation>Výstupy</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisconfig.ui" line="122"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="111"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="111"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="111"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisconfig.ui" line="141"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="112"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="112"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbunisconfig.h" line="112"/>
         <source>Servos</source>
         <translation>Serva</translation>
     </message>
@@ -1239,86 +1330,86 @@ Module </source>
     <name>MtbUnisIOWindow</name>
     <message>
         <location filename="ui/modules/mtbunisio.ui" line="32"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="94"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="94"/>
         <source>Inputs</source>
         <translation>Vstupy</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisio.ui" line="56"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="95"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="95"/>
         <source>Outputs</source>
         <translation>Výstupy</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisio.ui" line="80"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="96"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="96"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisio.ui" line="102"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="97"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="97"/>
         <source>Servos</source>
         <translation>Serva</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisio.ui" line="126"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="98"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="98"/>
         <source>End of manual positioning</source>
         <translation>Ukončit ruční polohování</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="98"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="103"/>
         <source>Manual position:</source>
         <translation>Ruční poloha:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="106"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="111"/>
         <source>Set manual position</source>
         <translation>Nastavit ruční polohu</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="124"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="129"/>
         <source>IO of module </source>
         <translation>IO modulu </translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="193"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="198"/>
         <source>off</source>
         <translation>vyp</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="194"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="199"/>
         <source>on</source>
         <translation>zap</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="196"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="201"/>
         <source>flick </source>
         <translation>kmitání </translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="331"/>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="379"/>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="405"/>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="433"/>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="451"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="336"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="384"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="410"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="438"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="456"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="430"/>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="448"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="435"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="453"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="430"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="435"/>
         <source>Ok.</source>
         <translation>Ok.</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisio.cpp" line="448"/>
+        <location filename="src/win/modules/win_mtbunisio.cpp" line="453"/>
         <source>Manual positioning successfully ended.</source>
         <translation>Ruční polohování úspěšně ukončeno.</translation>
     </message>
@@ -1327,13 +1418,15 @@ Module </source>
     <name>MtbUsbDialog</name>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="14"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="88"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="88"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="88"/>
         <source>MTB-USB</source>
         <translation>MTB-USB</translation>
     </message>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="42"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="89"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="89"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="89"/>
         <source>MTB-USB type:</source>
         <translation>Typ MTB-USB:</translation>
     </message>
@@ -1341,57 +1434,68 @@ Module </source>
         <location filename="ui/mtbusbdialog.ui" line="55"/>
         <location filename="ui/mtbusbdialog.ui" line="107"/>
         <location filename="ui/mtbusbdialog.ui" line="120"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="90"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="94"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="95"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="90"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="94"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="95"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="90"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="94"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="95"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="68"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="91"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="91"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="91"/>
         <source>MTB-USB firmware version:</source>
         <translation>Verze firmwaru MTB-USB:</translation>
     </message>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="81"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="92"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="92"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="92"/>
         <source>MTBbus protocol version:</source>
         <translation>Verze protokolu MTBbus:</translation>
     </message>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="94"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="93"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="93"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="93"/>
         <source>MTBbus speed:</source>
         <translation>Rychlost MTBbus:</translation>
     </message>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="134"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="96"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="96"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="96"/>
         <source>38400 bd/s</source>
         <translation>38400 bd/s</translation>
     </message>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="139"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="97"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="97"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="97"/>
         <source>57600 bd/s</source>
         <translation>57600 bd/s</translation>
     </message>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="144"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="98"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="98"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="98"/>
         <source>115200 bd/s</source>
         <translation>115200 bd/s</translation>
     </message>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="149"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="99"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="99"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="99"/>
         <source>230400 bd/s</source>
         <translation>230400 bd/s</translation>
     </message>
     <message>
         <location filename="ui/mtbusbdialog.ui" line="163"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="101"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="101"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_mtbusbdialog.h" line="101"/>
         <source>Update</source>
         <translation>Aktualizovat</translation>
     </message>
@@ -1470,49 +1574,57 @@ Module </source>
     <name>SettingsDialog</name>
     <message>
         <location filename="ui/settingsdialog.ui" line="20"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="93"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="93"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="93"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="57"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="94"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="94"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="94"/>
         <source>MTB Daemon connection</source>
         <translation>Připojení k MTB Daemonu</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="69"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="95"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="95"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="95"/>
         <source>Host:</source>
         <translation>Host:</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="82"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="96"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="96"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="96"/>
         <source>Port:</source>
         <translation>Port:</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="118"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="97"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="97"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="97"/>
         <source>[Default: 3841]</source>
         <translation>[Výchozí: 3841]</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="133"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="98"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="98"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="98"/>
         <source>English</source>
         <translation>Angličtina</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="138"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="99"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="99"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="99"/>
         <source>Czech</source>
         <translation>Čeština</translation>
     </message>
     <message>
         <location filename="ui/settingsdialog.ui" line="152"/>
-        <location filename="build/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="101"/>
+        <location filename="build-debug/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="101"/>
+        <location filename="build-release/mtb-config-tool_autogen/include/ui_settingsdialog.h" line="101"/>
         <source>Application language:</source>
         <translation>Jazyk aplikace:</translation>
     </message>
