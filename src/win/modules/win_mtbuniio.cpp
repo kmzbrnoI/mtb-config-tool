@@ -60,6 +60,11 @@ void MtbUniIOWindow::createGuiOutputs() {
             rectState.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
 
+        {
+            QComboBox& cbState = this->m_guiOutputs[i].cbState;
+            cbState.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        }
+
         this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].name, i, 0);
         this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].rectState, i, 1);
         this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].cbState, i, 2);
