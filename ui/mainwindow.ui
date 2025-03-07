@@ -198,6 +198,9 @@
     <addaction name="a_module_diagnostics"/>
     <addaction name="a_module_change_addr"/>
     <addaction name="separator"/>
+    <addaction name="a_module_website"/>
+    <addaction name="a_module_fw_website"/>
+    <addaction name="separator"/>
     <addaction name="a_module_add"/>
    </widget>
    <widget class="QMenu" name="m_window">
@@ -445,6 +448,22 @@
   <action name="a_mtb_website">
    <property name="text">
     <string>Open MTB project website</string>
+   </property>
+  </action>
+  <action name="a_module_fw_website">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Open firmware download website</string>
+   </property>
+  </action>
+  <action name="a_module_website">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Open module website</string>
    </property>
   </action>
  </widget>

@@ -94,6 +94,8 @@ private:
         QAction* aDelete;
         QAction* aDiagnostics;
         QAction* aChangeAddr;
+        QAction* aModuleWebsite;
+        QAction* aFwWebsite;
     } twModulesActions;
 
     void connectedUpdate();
@@ -156,6 +158,8 @@ private slots:
     void ui_AModuleAdd();
     void ui_AModuleDelete();
     void ui_AModuleChangeAddr();
+    void ui_AModuleWebsite();
+    void ui_AModuleFwWebsite();
 
     void ui_AModulesSelectAll();
     void ui_AModulesUnselectAll();

@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QDesktopServices>
+#include <QMap>
 #include "win_main.h"
 #include "version.h"
 #include "qjsonsafe.h"
@@ -51,6 +52,8 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_module_add, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleAdd()));
     QObject::connect(ui.a_module_delete, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleDelete()));
     QObject::connect(ui.a_module_change_addr, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleChangeAddr()));
+    QObject::connect(ui.a_module_website, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleWebsite()));
+    QObject::connect(ui.a_module_fw_website, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleFwWebsite()));
     QObject::connect(ui.a_clear_error_sb, SIGNAL(triggered(bool)), this, SLOT(ui_AClearErrorSb()));
 
     QObject::connect(ui.a_modules_select_all, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesSelectAll()));
@@ -98,6 +101,16 @@ void MainWindow::ui_setupModulesContextMenu() {
     connect(this->twModulesActions.aChangeAddr, SIGNAL(triggered()), this, SLOT(ui_AModuleChangeAddr()));
     this->twModulesContextMenu.addAction(this->twModulesActions.aChangeAddr);
 
+    this->twModulesContextMenu.addSeparator();
+
+    this->twModulesActions.aModuleWebsite = new QAction(this);
+    connect(this->twModulesActions.aModuleWebsite, SIGNAL(triggered()), this, SLOT(ui_AModuleWebsite()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aModuleWebsite);
+
+    this->twModulesActions.aFwWebsite = new QAction(this);
+    connect(this->twModulesActions.aFwWebsite, SIGNAL(triggered()), this, SLOT(ui_AModuleFwWebsite()));
+    this->twModulesContextMenu.addAction(this->twModulesActions.aFwWebsite);
+
     this->ui_fillModulesContextMenu();
 
     this->ui.tw_modules->resizeColumnToContents(twChecked);
@@ -118,6 +131,8 @@ void MainWindow::ui_fillModulesContextMenu() {
     this->twModulesActions.aDelete->setText(tr("Delete"));
     this->twModulesActions.aDiagnostics->setText(tr("Diagnostics"));
     this->twModulesActions.aChangeAddr->setText(tr("Change address"));
+    this->twModulesActions.aModuleWebsite->setText(tr("Open module website"));
+    this->twModulesActions.aFwWebsite->setText(tr("Open firmware download website"));
 }
 
 void MainWindow::ui_AAboutTriggered() {
@@ -563,6 +578,8 @@ void MainWindow::ui_twModulesSelectionChanged() {
     this->ui.a_module_fw_upgrade->setEnabled(selected);
     this->ui.a_module_delete->setEnabled(selected);
     this->ui.a_module_diagnostics->setEnabled(selected);
+    this->ui.a_module_website->setEnabled(selected);
+    this->ui.a_module_fw_website->setEnabled(selected);
 }
 
 void MainWindow::ui_twItemDblClicked(QTreeWidgetItem* item, int column) {
@@ -1036,4 +1053,46 @@ QTreeWidgetItem* MainWindow::twModulesFirstChecked() const {
             return current;
     }
     return nullptr;
+}
+
+void MainWindow::ui_AModuleWebsite() {
+    const QMap<QString, QString> WEBSITES = {
+        {"MTB-UNI v2 IR", "https://mtb.kmz-brno.cz/cz/v4/mtb-2-avr"},
+        {"MTB-UNI v2", "https://mtb.kmz-brno.cz/cz/v4/mtb-2-avr"},
+        {"MTB-UNI v4", "https://mtb.kmz-brno.cz/cz/v4/uni"},
+        {"MTB-UNIS", "https://mtb.kmz-brno.cz/cz/v4/unis"},
+        {"MTB-RC", "https://mtb.kmz-brno.cz/cz/v4/rc"},
+    };
+
+    QTreeWidgetItem* selected = this->ui.tw_modules->currentItem();
+    if (selected == nullptr)
+        return;
+    const QString selectedType = selected->text(twType);
+
+    if (WEBSITES.contains(selectedType)) {
+        QDesktopServices::openUrl(QUrl(WEBSITES[selectedType]));
+    } else {
+        QMessageBox::warning(this, tr("Error"), tr("No webpage for module type ")+selectedType);
+    }
+}
+
+void MainWindow::ui_AModuleFwWebsite() {
+    const QMap<QString, QString> WEBSITES = {
+        {"MTB-UNI v2 IR", "https://github.com/kmzbrnoI/mtb-2-avr-fw/releases"},
+        {"MTB-UNI v2", "https://github.com/kmzbrnoI/mtb-2-avr-fw/releases"},
+        {"MTB-UNI v4", "https://github.com/kmzbrnoI/mtb-uni-4-fw/releases"},
+        {"MTB-UNIS", "https://github.com/petrilakm/mtb-unis-fw/releases"},
+        {"MTB-RC", "https://github.com/kmzbrnoI/mtb-rc/releases"},
+    };
+
+    QTreeWidgetItem* selected = this->ui.tw_modules->currentItem();
+    if (selected == nullptr)
+        return;
+    const QString selectedType = selected->text(twType);
+
+    if (WEBSITES.contains(selectedType)) {
+        QDesktopServices::openUrl(QUrl(WEBSITES[selectedType]));
+    } else {
+        QMessageBox::warning(this, tr("Error"), tr("No webpage for module type ")+selectedType);
+    }
 }
