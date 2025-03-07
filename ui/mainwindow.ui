@@ -73,6 +73,14 @@
       </attribute>
       <column>
        <property name="text">
+        <string notr="true">X</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Address DEC</string>
        </property>
        <property name="textAlignment">
@@ -193,9 +201,21 @@
     </property>
     <addaction name="a_clear_error_sb"/>
    </widget>
+   <widget class="QMenu" name="m_modules">
+    <property name="title">
+     <string>Modules</string>
+    </property>
+    <addaction name="a_modules_select_all"/>
+    <addaction name="a_modules_unselect_all"/>
+    <addaction name="a_modules_select_type"/>
+    <addaction name="separator"/>
+    <addaction name="a_modules_fw_upgrade"/>
+    <addaction name="a_modules_fw_upgrade_stop"/>
+   </widget>
    <addaction name="m_mtb_daemon"/>
    <addaction name="m_mtb_usb"/>
    <addaction name="m_module"/>
+   <addaction name="m_modules"/>
    <addaction name="m_settings"/>
    <addaction name="m_window"/>
    <addaction name="m_help"/>
@@ -387,6 +407,34 @@
    </property>
    <property name="shortcut">
     <string notr="true">Ctrl+I</string>
+   </property>
+  </action>
+  <action name="a_modules_fw_upgrade">
+   <property name="text">
+    <string>Update firmware of all selected modules</string>
+   </property>
+  </action>
+  <action name="a_modules_select_type">
+   <property name="text">
+    <string>Select all modules with selected type</string>
+   </property>
+  </action>
+  <action name="a_modules_unselect_all">
+   <property name="text">
+    <string>Unselect all</string>
+   </property>
+  </action>
+  <action name="a_modules_select_all">
+   <property name="text">
+    <string>Select all</string>
+   </property>
+  </action>
+  <action name="a_modules_fw_upgrade_stop">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Stop firmware upgrade</string>
    </property>
   </action>
  </widget>

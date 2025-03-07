@@ -51,6 +51,12 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.a_module_change_addr, SIGNAL(triggered(bool)), this, SLOT(ui_AModuleChangeAddr()));
     QObject::connect(ui.a_clear_error_sb, SIGNAL(triggered(bool)), this, SLOT(ui_AClearErrorSb()));
 
+    QObject::connect(ui.a_modules_select_all, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesSelectAll()));
+    QObject::connect(ui.a_modules_unselect_all, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesUnselectAll()));
+    QObject::connect(ui.a_modules_select_type, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesSelectType()));
+    QObject::connect(ui.a_modules_fw_upgrade, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesFwUpgrade()));
+    QObject::connect(ui.a_modules_fw_upgrade_stop, SIGNAL(triggered(bool)), this, SLOT(ui_AModulesFwUpgradeStop()));
+
     QObject::connect(&m_client, SIGNAL(jsonReceived(const QJsonObject&)), this, SLOT(clientJsonReceived(const QJsonObject&)));
     QObject::connect(&m_client, SIGNAL(onConnected()), this, SLOT(clientConnected()));
     QObject::connect(&m_client, SIGNAL(onDisconnected()), this, SLOT(clientDisconnected()));
@@ -92,6 +98,7 @@ void MainWindow::ui_setupModulesContextMenu() {
 
     this->ui_fillModulesContextMenu();
 
+    this->ui.tw_modules->resizeColumnToContents(twChecked);
     this->ui.tw_modules->resizeColumnToContents(twAddrHex);
     this->ui.tw_modules->resizeColumnToContents(twAddrDec);
     this->ui.tw_modules->setColumnWidth(twName, 150);
@@ -319,9 +326,17 @@ void MainWindow::connectedUpdate() {
     this->ui.a_module_add->setEnabled(this->m_client.connected());
     this->ui.a_module_change_addr->setEnabled(this->m_client.connected());
 
+    this->ui.a_modules_select_all->setEnabled(this->m_client.connected());
+    this->ui.a_modules_unselect_all->setEnabled(this->m_client.connected());
+    this->ui.a_modules_select_type->setEnabled(this->m_client.connected());
+    this->ui.a_modules_fw_upgrade->setEnabled(this->m_client.connected());
+    if ((!this->m_client.connected()) || (!this->m_bulkFwUpgrading))
+        this->ui.a_modules_fw_upgrade_stop->setEnabled(false);
+
     this->m_sb_connection.setText((this->m_client.connected()) ? tr("Connected to MTB Daemon ")+this->daemonHostPort(): tr("Disconnected from MTB Daemon"));
 
     if (!this->m_client.connected()) {
+        this->m_bulkFwUpgrading = false;
         this->m_sb_mtbusb.setText("---");
         this->ui.tw_modules->clear();
         this->ui.tw_modules->setEnabled(false);
@@ -362,6 +377,7 @@ void MainWindow::ui_updateModule(const QJsonObject& module) {
 
     if (m_tw_lines[address] == nullptr) {
         auto newItem = new QTreeWidgetItem();
+        newItem->setCheckState(0, Qt::CheckState::Unchecked);
         this->ui.tw_modules->insertTopLevelItem(this->ui_twModulesInsertIndex(address), newItem);
         m_tw_lines[address] = newItem;
     }
@@ -876,4 +892,142 @@ void MainWindow::ui_AModuleChangeAddr() {
     } else {
         this->m_changeAddressDialog.openGeneral();
     }
+}
+
+void MainWindow::ui_AModulesSelectAll() {
+    for (int i = 0; i < this->ui.tw_modules->topLevelItemCount(); i++)
+        this->ui.tw_modules->topLevelItem(i)->setCheckState(twChecked, Qt::CheckState::Checked);
+}
+
+void MainWindow::ui_AModulesUnselectAll() {
+    for (int i = 0; i < this->ui.tw_modules->topLevelItemCount(); i++)
+        this->ui.tw_modules->topLevelItem(i)->setCheckState(twChecked, Qt::CheckState::Unchecked);
+}
+
+void MainWindow::ui_AModulesSelectType() {
+    QTreeWidgetItem* selected = this->ui.tw_modules->currentItem();
+    if (selected == nullptr) {
+        QMessageBox::information(this, tr("Information"), tr("No module selected!"), QMessageBox::Ok);
+        return;
+    }
+    const QString selectedType = selected->text(twType);
+
+    for (int i = 0; i < this->ui.tw_modules->topLevelItemCount(); i++) {
+        QTreeWidgetItem* current = this->ui.tw_modules->topLevelItem(i);
+        Qt::CheckState checked = (current->text(twType) == selectedType) ? Qt::CheckState::Checked : Qt::CheckState::Unchecked;
+        current->setCheckState(twChecked, checked);
+    }
+}
+
+void MainWindow::ui_AModulesFwUpgrade() {
+    if (this->twModulesFirstChecked() == nullptr) {
+        QMessageBox::warning(this, tr("Warning"), tr("No module selected!"), QMessageBox::Ok);
+        return;
+    }
+
+    QString filename = QFileDialog::getOpenFileName(
+        this,
+        tr("Choose firmware hex file"),
+        s["paths"]["fw"].toString(),
+        tr("Hex file (*.hex)")
+    );
+
+    if (filename == "")
+        return;
+
+    QFileInfo fileInfo(filename);
+    s["paths"]["fw"] = fileInfo.dir().absolutePath();
+    s.save(CONFIG_FILENAME);
+
+    this->m_bulkFirmware = {};
+    try {
+        this->m_bulkFirmware = MainWindow::loadFwHex(filename);
+    } catch (const QStrException& e) {
+        QMessageBox::warning(this, tr("Error"), tr("Unable to load hex file")+"\n"+e.str());
+        return;
+    } catch (...) {
+        QMessageBox::warning(this, tr("Error"), tr("Unable to load hex file - general exception"));
+        return;
+    }
+
+    this->m_bulkFwUpgrading = true;
+    this->ui.a_modules_fw_upgrade->setEnabled(false);
+    this->ui.a_modules_fw_upgrade_stop->setEnabled(true);
+    this->fwUpgradeNextSelectedModule();
+}
+
+void MainWindow::ui_AModulesFwUpgradeStop() {
+    this->ui_AModulesUnselectAll();
+}
+
+void MainWindow::fwUpgradeNextSelectedModule() {
+    QTreeWidgetItem* toUpgrade = this->twModulesFirstChecked();
+    if (toUpgrade == nullptr) {
+        this->fwUpgradeBulkFinished();
+        QMessageBox::information(this, tr("Information"), tr("Bulk upgrading of firmwares finished!"), QMessageBox::Ok);
+        return;
+    }
+    if (!this->m_bulkFwUpgrading) {
+        this->fwUpgradeBulkFinished();
+        QMessageBox::warning(this, tr("Information"), tr("Bulk upgrading of firmwares interrupted!"), QMessageBox::Ok);
+        return;
+    }
+
+    toUpgrade->setCheckState(twChecked, Qt::CheckState::Unchecked);
+    const unsigned addr = toUpgrade->text(TwModulesColumns::twAddrDec).toInt();
+
+    this->m_modules[addr]["state"] = "fw_upgrading";
+    this->ui_updateModule(this->m_modules[addr]);
+
+    this->m_client.sendNoExc(
+        {{"command", "module_upgrade_fw"}, {"address", static_cast<int>(addr)}, {"firmware", this->m_bulkFirmware}},
+        [addr, this](const QJsonObject& content) {
+            this->fwUpgradedBulk(addr, content);
+        },
+        [this, addr](unsigned errorCode, QString errorMessage) {
+            this->fwUpgradeBulkStopError(addr, DaemonClient::standardErrrorMessage("module_upgrade_fw", errorCode, errorMessage));
+            this->m_client.sendNoExc( // refresh module state
+                {{"command", "module"}, {"address", static_cast<int>(addr)}},
+                [](const QJsonObject&) {},
+                [](unsigned, QString) {}
+            );
+        }
+    );
+}
+
+void MainWindow::fwUpgradedBulk(unsigned addr, const QJsonObject& json) {
+    // firmware upgraded -> ask new module state
+    (void)json;
+
+    this->m_client.sendNoExc(
+        {{"command", "module"}, {"address", static_cast<int>(addr)}},
+        [this](const QJsonObject& content) {
+            (void)content;
+            this->fwUpgradeNextSelectedModule();
+        },
+        [this, addr](unsigned errorCode, QString errorMessage) {
+            this->fwUpgradeBulkStopError(addr, DaemonClient::standardErrrorMessage("module", errorCode, errorMessage));
+        }
+    );
+}
+
+void MainWindow::fwUpgradeBulkFinished() {
+    this->m_bulkFwUpgrading = false;
+    this->m_bulkFirmware = {};
+    this->ui.a_modules_fw_upgrade->setEnabled(true);
+    this->ui.a_modules_fw_upgrade_stop->setEnabled(false);
+}
+
+void MainWindow::fwUpgradeBulkStopError(unsigned addr, const QString& error) {
+    this->fwUpgradeBulkFinished();
+    QMessageBox::warning(this, tr("Error"), tr("Firmware upgrade of module ") + QString::number(addr) + ":\n" + error);
+}
+
+QTreeWidgetItem* MainWindow::twModulesFirstChecked() const {
+    for (int i = 0; i < this->ui.tw_modules->topLevelItemCount(); i++) {
+        QTreeWidgetItem* current = this->ui.tw_modules->topLevelItem(i);
+        if (current->checkState(twChecked) == Qt::CheckState::Checked)
+            return current;
+    }
+    return nullptr;
 }

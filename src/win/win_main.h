@@ -28,6 +28,7 @@ QString daemonSupportedVersionsStr();
 #define TEXT_BEACON_ON QObject::tr("YES")
 
 enum TwModulesColumns {
+    twChecked,
     twAddrDec,
     twAddrHex,
     twAddrBin,
@@ -69,6 +70,9 @@ private:
     std::optional<DaemonVersion> m_daemonVersion;
     bool m_mtbUsbConnected = false;
     std::optional<MtbUsbStatus> m_mtbUsbStatus;
+
+    QJsonObject m_bulkFirmware;
+    bool m_bulkFwUpgrading = false;
 
     SettingsWindow m_settingsWindow;
     MtbUsbWindow m_mtbUsbWindow;
@@ -121,6 +125,11 @@ private:
     void fwUpgraded(const QJsonObject&);
 
     void checkModuleTypeChanged(const QJsonObject& module);
+    void fwUpgradeNextSelectedModule();
+    void fwUpgradedBulk(unsigned addr, const QJsonObject&);
+    void fwUpgradeBulkFinished();
+    void fwUpgradeBulkStopError(unsigned addr, const QString& error);
+    QTreeWidgetItem* twModulesFirstChecked() const;
 
 private slots:
     void ui_MAboutTriggered();
@@ -146,6 +155,12 @@ private slots:
     void ui_AModuleAdd();
     void ui_AModuleDelete();
     void ui_AModuleChangeAddr();
+
+    void ui_AModulesSelectAll();
+    void ui_AModulesUnselectAll();
+    void ui_AModulesSelectType();
+    void ui_AModulesFwUpgrade();
+    void ui_AModulesFwUpgradeStop();
 
     void clientJsonReceived(const QJsonObject&);
     void clientConnected();
