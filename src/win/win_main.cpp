@@ -692,8 +692,13 @@ void MainWindow::ui_AModuleFwUpgrade() {
         [this](const QJsonObject& content) {
             this->fwUpgraded(content);
         },
-        [this](unsigned errorCode, QString errorMessage) {
+        [this, addr](unsigned errorCode, QString errorMessage) {
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_upgrade_fw", errorCode, errorMessage));
+            this->m_client.sendNoExc( // refresh module state
+                {{"command", "module"}, {"address", static_cast<int>(addr)}},
+                [](const QJsonObject&) {},
+                [](unsigned, QString) {}
+            );
         }
     );
 }
