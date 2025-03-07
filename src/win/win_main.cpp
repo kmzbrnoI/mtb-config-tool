@@ -727,9 +727,8 @@ void MainWindow::fwUpgraded(const QJsonObject& json) {
     // firmware upgraded -> ask new module state
     this->m_client.sendNoExc(
         {{"command", "module"}, {"address", addr}},
-        [this, addr](const QJsonObject& content) {
+        [](const QJsonObject& content) {
             (void)content;
-            QMessageBox::information(this, tr("Finished"), tr("Firmware of module ")+QString::number(addr)+tr(" successfully upgraded."));
         },
         [this](unsigned errorCode, QString errorMessage) {
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module", errorCode, errorMessage));
