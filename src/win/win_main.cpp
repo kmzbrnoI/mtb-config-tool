@@ -2,6 +2,7 @@
 #include <QJsonArray>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QDesktopServices>
 #include "win_main.h"
 #include "version.h"
 #include "qjsonsafe.h"
@@ -29,7 +30,8 @@ MainWindow::MainWindow(Settings& s, QWidget *parent)
     QObject::connect(ui.tw_modules, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(ui_twCustomContextMenu(const QPoint&)));
     QObject::connect(ui.tw_modules, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(ui_twItemDblClicked(QTreeWidgetItem*, int)));
 
-    QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_MAboutTriggered()));
+    QObject::connect(ui.a_about, SIGNAL(triggered(bool)), this, SLOT(ui_AAboutTriggered()));
+    QObject::connect(ui.a_mtb_website, SIGNAL(triggered(bool)), this, SLOT(ui_AMTBWebsiteTriggered()));
     QObject::connect(ui.a_options, SIGNAL(triggered(bool)), this, SLOT(ui_AOptionsTriggered()));
     QObject::connect(ui.a_connect, SIGNAL(triggered(bool)), this, SLOT(ui_AConnectTriggered()));
     QObject::connect(ui.a_disconnect, SIGNAL(triggered(bool)), this, SLOT(ui_ADisconnectTriggered()));
@@ -118,15 +120,20 @@ void MainWindow::ui_fillModulesContextMenu() {
     this->twModulesActions.aChangeAddr->setText(tr("Change address"));
 }
 
-void MainWindow::ui_MAboutTriggered() {
+void MainWindow::ui_AAboutTriggered() {
     QMessageBox::information(
         this,
         tr("MTB Configuration Tool"),
         QString(tr("MTB Configuration Tool")+
                 "\nv%1\n"+
+                "https://mtb.kmz-brno.cz/\n"+
                 tr("Created by Jan Horáček 2024-2025")).arg(MTB_CONFIG_TOOL_VERSION),
         QMessageBox::Ok
     );
+}
+
+void MainWindow::ui_AMTBWebsiteTriggered() {
+    QDesktopServices::openUrl(QUrl("https://mtb.kmz-brno.cz"));
 }
 
 void MainWindow::ui_AOptionsTriggered() {

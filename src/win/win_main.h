@@ -132,7 +132,8 @@ private:
     QTreeWidgetItem* twModulesFirstChecked() const;
 
 private slots:
-    void ui_MAboutTriggered();
+    void ui_AAboutTriggered();
+    void ui_AMTBWebsiteTriggered();
     void ui_AOptionsTriggered();
     void ui_AConnectTriggered();
     void ui_ADisconnectTriggered();

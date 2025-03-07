@@ -177,6 +177,7 @@
      <string>Help</string>
     </property>
     <addaction name="a_about"/>
+    <addaction name="a_mtb_website"/>
    </widget>
    <widget class="QMenu" name="m_settings">
     <property name="title">
@@ -439,6 +440,11 @@
    </property>
    <property name="text">
     <string>Stop firmware upgrade</string>
+   </property>
+  </action>
+  <action name="a_mtb_website">
+   <property name="text">
+    <string>Open MTB project website</string>
    </property>
   </action>
  </widget>
