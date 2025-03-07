@@ -22,6 +22,10 @@
   <property name="windowTitle">
    <string notr="true">MTB Configuration Tool</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../resources/mtb-config-tool-icon-path.svg</normaloff>../resources/mtb-config-tool-icon-path.svg</iconset>
+  </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
   </property>
