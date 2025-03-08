@@ -1236,110 +1236,120 @@ Module </source>
     </message>
     <message>
         <location filename="src/win/modules/win_mtbunisconfig.cpp" line="61"/>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="193"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="210"/>
         <source>off</source>
         <translation>vyp</translation>
     </message>
     <message>
         <location filename="src/win/modules/win_mtbunisconfig.cpp" line="61"/>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="194"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="211"/>
         <source>on</source>
         <translation>zap</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="160"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="106"/>
+        <source>No sensors</source>
+        <translation>Žádné</translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="170"/>
         <source>Configuration of module </source>
         <translation>Konfigurace modulu </translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="180"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="197"/>
         <source>New module </source>
         <translation>Nový modul </translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="187"/>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="240"/>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="246"/>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="253"/>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="258"/>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="320"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="204"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="257"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="263"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="270"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="275"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="338"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="187"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="204"/>
         <source>JSON&#xa0;parse error:</source>
         <translation>Chyba parsování JSONu:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="240"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="257"/>
         <source>Fill in module name!</source>
         <translation>Vyplňte jméno modulu!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="246"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="263"/>
         <source>Fill in all input delays!</source>
         <translation>Vyberte všechna zpoždění vstupů!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="253"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="270"/>
         <source>Fill in all output types!</source>
         <translation>Vyberte všechny typy výstupů!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="258"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="275"/>
         <source>Fill in all output safe states!</source>
         <translation>Vyberte všechny bezpečné stavy výstupů!</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="315"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="333"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="315"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="333"/>
         <source>Module successfully created.</source>
         <translation>Modul úspěšně vytvořen.</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="315"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="333"/>
         <source>Configuration successfully set.</source>
         <translation>Konfigurace úspěšně odeslána.</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="327"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="345"/>
         <source>Delay:</source>
         <translation>Zpoždění:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="328"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="346"/>
         <source>Type:</source>
         <translation>Typ:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="329"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="347"/>
         <source>Default:</source>
         <translation>Základní stav:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="330"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="348"/>
         <source>Enabled:</source>
         <translation>Povoleno:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="331"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="349"/>
         <source>Pos. + [0-255]:</source>
         <translation>Poz. + [0-255]:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="332"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="350"/>
         <source>Pos. - [0-255]:</source>
         <translation>Poz. - [0-255]:</translation>
     </message>
     <message>
-        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="333"/>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="351"/>
         <source>Speed [0-255]:</source>
         <translation>Rychlost [0-255]:</translation>
+    </message>
+    <message>
+        <location filename="src/win/modules/win_mtbunisconfig.cpp" line="352"/>
+        <source>Sensors:</source>
+        <translation>Senzory:</translation>
     </message>
 </context>
 <context>

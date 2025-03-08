@@ -75,6 +75,7 @@ void MtbUnisConfigWindow::createGuiServos() {
     this->ui.gl_servos->addWidget(&this->lServoPlus, 0, 2);
     this->ui.gl_servos->addWidget(&this->lServoMinus, 0, 3);
     this->ui.gl_servos->addWidget(&this->lServoSpeed, 0, 4);
+    this->ui.gl_servos->addWidget(&this->lServoPosSensors, 0, 5);
 
     for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
         QLabel& name = this->m_guiServos[i].name;
@@ -100,11 +101,19 @@ void MtbUnisConfigWindow::createGuiServos() {
             speed.setMaximum(255);
         }
 
+        {
+            QComboBox& inputs = this->m_guiServos[i].posSensors;
+            inputs.addItem(tr("No sensors"));
+            for (size_t i = 0; i < UNI_INPUTS_COUNT; i += 2)
+                inputs.addItem(QString::number(i) + "+, " + QString::number(i+1) + "-");
+        }
+
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].name, i+1, 0);
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].enabled, i+1, 1);
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].posPlus, i+1, 2);
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].posMinus, i+1, 3);
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].speed, i+1, 4);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].posSensors, i+1, 5);
     }
 }
 
@@ -153,6 +162,7 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
             this->m_guiServos[i].posPlus.setValue(QJsonSafe::safeUInt(positions[2*i]));
             this->m_guiServos[i].posMinus.setValue(QJsonSafe::safeUInt(positions[2*i+1]));
             this->m_guiServos[i].speed.setValue(QJsonSafe::safeUInt(speeds[i]));
+            // this->m_guiServos[i].posSensors.setCurrentIndex(TODO);
         }
     }
 
@@ -174,6 +184,13 @@ void MtbUnisConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
         this->m_guiOutputs[i].type.setCurrentText(0);
         MtbUnisConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, 0, "plain");
+    }
+
+    for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
+        this->m_guiServos[i].posPlus.setValue(100);
+        this->m_guiServos[i].posMinus.setValue(200);
+        this->m_guiServos[i].posSensors.setCurrentIndex(i+1);
+        this->m_guiServos[i].speed.setValue(100);
     }
 
     this->ui.b_refresh->setEnabled(false);
@@ -288,6 +305,7 @@ void MtbUnisConfigWindow::apply() {
         servoPosition.append(this->m_guiServos[i].posPlus.value());
         servoPosition.append(this->m_guiServos[i].posMinus.value());
         servoSpeed.append(this->m_guiServos[i].speed.value());
+        // TODO this->m_guiServos[i].posSensors.currentIndex()
     }
 
     QJsonObject config{
@@ -331,4 +349,5 @@ void MtbUnisConfigWindow::retranslate() {
     this->lServoPlus.setText(tr("Pos. + [0-255]:"));
     this->lServoMinus.setText(tr("Pos. - [0-255]:"));
     this->lServoSpeed.setText(tr("Speed [0-255]:"));
+    this->lServoPosSensors.setText(tr("Sensors:"));
 }

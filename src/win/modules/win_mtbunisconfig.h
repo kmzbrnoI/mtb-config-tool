@@ -27,6 +27,7 @@ struct UnisConfigGuiServo {
     QSpinBox posPlus;
     QSpinBox posMinus;
     QSpinBox speed;
+    QComboBox posSensors;
 };
 
 class MtbUnisConfigWindow : public MtbModuleConfigDialog {
@@ -53,6 +54,7 @@ private:
     QLabel lServoPlus;
     QLabel lServoMinus;
     QLabel lServoSpeed;
+    QLabel lServoPosSensors;
 
     void createGuiInputs();
     void createGuiOutputs();
