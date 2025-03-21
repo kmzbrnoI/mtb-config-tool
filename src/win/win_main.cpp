@@ -980,7 +980,7 @@ void MainWindow::ui_AModulesFwUpgrade() {
 }
 
 void MainWindow::ui_AModulesFwUpgradeStop() {
-    this->ui_AModulesUnselectAll();
+    this->m_bulkFwUpgrading = false;
 }
 
 void MainWindow::fwUpgradeNextSelectedModule() {
