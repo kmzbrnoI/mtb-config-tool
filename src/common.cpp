@@ -5,6 +5,7 @@ void MtbUsbStatus::update(const QJsonObject& json) {
     this->type = json["type"].toInt();
     this->speed = json["speed"].toInt();
     this->firmware_version = json["firmware_version"].toString();
+    this->firmware_deprecated = json["firmware_deprecated"].toBool();
     this->protocol_version = json["protocol_version"].toString();
 
     this->activeModules.clear();

@@ -23,6 +23,7 @@ struct MtbUsbStatus {
     unsigned type;
     unsigned speed;
     QString firmware_version;
+    bool firmware_deprecated;
     QString protocol_version;
     QList<unsigned> activeModules;
 

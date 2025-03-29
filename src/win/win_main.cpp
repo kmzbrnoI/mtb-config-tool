@@ -453,10 +453,11 @@ void MainWindow::clientReceivedMtbUsb(const QJsonObject& json) {
 
     if (this->m_mtbUsbStatus) {
         const MtbUsbStatus& status = this->m_mtbUsbStatus.value();
+        const QString deprecatedStr = (status.firmware_deprecated ? tr(" (deprecated)") : "");
         this->m_sb_mtbusb.setText(
             tr("MTB-USB connected: type: ")+QString::number(status.type)+", "+
             tr("MtbBus speed: ")+QString::number(status.speed)+" bdps, "+
-            tr("FW: v")+status.firmware_version+", "+
+            tr("FW: v")+status.firmware_version+deprecatedStr+", "+
             tr("protocol: v")+status.protocol_version
         );
     } else {
