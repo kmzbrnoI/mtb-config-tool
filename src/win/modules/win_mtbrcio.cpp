@@ -47,6 +47,7 @@ void MtbRCIOWindow::openModule(const QJsonObject& module) {
 }
 
 void MtbRCIOWindow::moduleChanged(const QJsonObject& module) {
+    MtbModuleIODialog::moduleChanged(module);
     this->update(module);
     this->ui.b_refresh->setEnabled(true);
 }

@@ -75,6 +75,7 @@ void MtbUniIOWindow::createGuiOutputs() {
 }
 
 void MtbUniIOWindow::openModule(const QJsonObject& module) {
+    MtbModuleIODialog::moduleChanged(module);
     this->address = QJsonSafe::safeUInt(module["address"]);
     this->disableAll();
     this->setWindowTitle(tr("IO of module ")+QString::number(this->address)+" – "+module["type"].toString());

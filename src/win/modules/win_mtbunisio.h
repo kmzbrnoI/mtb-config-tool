@@ -27,9 +27,6 @@ struct UnisIOGuiServo {
     QLabel name;
     QPushButton bPlus;
     QPushButton bMinus;
-    QLabel lManual;
-    QSpinBox sbManual;
-    QPushButton bManual;
 };
 
 enum class ServoPos {
@@ -39,6 +36,11 @@ enum class ServoPos {
 
 class MtbUnisIOWindow : public MtbModuleIODialog {
     Q_OBJECT
+
+    static constexpr int SERVO_MANUAL_PLUS_VALUE = 2;
+    static constexpr int SERVO_MANUAL_PLUSPLUS_VALUE = 10;
+    static constexpr int SERVO_MANUAL_MINUS_VALUE = -2;
+    static constexpr int SERVO_MANUAL_MINUSMINUS_VALUE = -10;
 
 public:
     MtbUnisIOWindow(QWidget *parent = nullptr);
@@ -71,7 +73,11 @@ private:
     void setOutput(unsigned output);
     void servoMove(unsigned servo, ServoPos);
     void servoOutputActivated(unsigned servo, ServoPos);
-    void servoManual(uint8_t servo, uint8_t position);
+    void servoManualSendPos();
+    void servoManualUpdateGUI(bool enabled, bool manual);
+    bool isManualPositioningActive() const;
+    uint8_t currentManualServo() const;
+    uint8_t servoPos(unsigned servo, ServoPos pos) const;
 
     static int outputCbToValue(const QString& type, unsigned index);
 
@@ -79,8 +85,12 @@ private slots:
     void ui_cbOutputStateCurrentIndexChanged(int);
     void ui_wOutputClicked();
     void ui_bServoPosClicked();
-    void ui_bServoManualClicked();
-    void ui_bServoEndManualClicked();
+    void ui_bServoManualStartClicked();
+    void ui_bServoManualEndClicked();
+    void ui_bServoManualPMClicked();
+    void ui_bServoManualSetClicked();
+    void ui_bServoManualSavePlusClicked();
+    void ui_bServoManualSaveMinusClicked();
 
 };
 

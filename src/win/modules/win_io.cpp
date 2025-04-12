@@ -2,6 +2,13 @@
 #include <QMessageBox>
 #include "win_io.h"
 #include "client.h"
+#include "qjsonsafe.h"
+
+void MtbModuleIODialog::moduleChanged(const QJsonObject& module) {
+    const QString& typeStr = QJsonSafe::safeString(module["type"]);
+    const QJsonObject& moduleObj = QJsonSafe::safeObject(module[typeStr]);
+    this->m_config = QJsonSafe::safeObject(moduleObj["config"]);
+}
 
 void MtbModuleIODialog::sendModuleRequest(ResponseOkEvent&& onOk) {
     DaemonClient::instance->sendNoExc(
