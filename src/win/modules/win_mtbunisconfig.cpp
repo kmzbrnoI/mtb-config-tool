@@ -104,7 +104,7 @@ void MtbUnisConfigWindow::createGuiServos() {
         {
             QComboBox& inputs = this->m_guiServos[i].posSensors;
             inputs.addItem(tr("No sensors"));
-            for (size_t i = 0; i < UNI_INPUTS_COUNT; i += 2)
+            for (size_t i = 0; i < UNI_INPUTS_COUNT; i++)
                 inputs.addItem(QString::number(i) + "+, " + QString::number(i+1) + "-");
         }
 
@@ -157,12 +157,16 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
         unsigned enabledMask = QJsonSafe::safeUInt(config["servoEnabledMask"]);
         const QJsonArray& positions = QJsonSafe::safeArray(config["servoPosition"], 2*UNIS_SERVOS_COUNT);
         const QJsonArray& speeds = QJsonSafe::safeArray(config["servoSpeed"], UNIS_SERVOS_COUNT);
+        const QJsonArray& sensors = config["servoInputMap"].toArray(); // allow servoInputMap to be missing (for older MTB Daemon)
+
         for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
             this->m_guiServos[i].enabled.setChecked(static_cast<bool>(enabledMask & (1<<i)));
             this->m_guiServos[i].posPlus.setValue(QJsonSafe::safeUInt(positions[2*i]));
             this->m_guiServos[i].posMinus.setValue(QJsonSafe::safeUInt(positions[2*i+1]));
             this->m_guiServos[i].speed.setValue(QJsonSafe::safeUInt(speeds[i]));
-            // this->m_guiServos[i].posSensors.setCurrentIndex(TODO);
+
+            this->m_guiServos[i].posSensors.setEnabled(i < sensors.size());
+            this->m_guiServos[i].posSensors.setCurrentIndex(i < sensors.size() ? QJsonSafe::safeUInt(sensors[i]) : (2*i)+1); // (2*i)+1 is default in MTB Daemon <v1.8
         }
     }
 
@@ -189,7 +193,7 @@ void MtbUnisConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
         this->m_guiServos[i].posPlus.setValue(100);
         this->m_guiServos[i].posMinus.setValue(200);
-        this->m_guiServos[i].posSensors.setCurrentIndex(i+1);
+        this->m_guiServos[i].posSensors.setCurrentIndex((2*i)+1);
         this->m_guiServos[i].speed.setValue(100);
     }
 
@@ -299,13 +303,14 @@ void MtbUnisConfigWindow::apply() {
     unsigned servoEnabledMask = 0;
     QJsonArray servoPosition;
     QJsonArray servoSpeed;
+    QJsonArray servoInputMap;
     for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
         if (this->m_guiServos[i].enabled.isChecked())
             servoEnabledMask |= (1 << i);
         servoPosition.append(this->m_guiServos[i].posPlus.value());
         servoPosition.append(this->m_guiServos[i].posMinus.value());
         servoSpeed.append(this->m_guiServos[i].speed.value());
-        // TODO this->m_guiServos[i].posSensors.currentIndex()
+        servoInputMap.append(this->m_guiServos[i].posSensors.currentIndex());
     }
 
     QJsonObject config{
@@ -314,6 +319,7 @@ void MtbUnisConfigWindow::apply() {
         {"servoEnabledMask", static_cast<int>(servoEnabledMask)},
         {"servoPosition", servoPosition},
         {"servoSpeed", servoSpeed},
+        {"servoInputMap", servoInputMap},
     };
 
     QJsonObject newModule{
