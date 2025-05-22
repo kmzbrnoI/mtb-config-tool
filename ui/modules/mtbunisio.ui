@@ -142,32 +142,32 @@
     </property>
     <item>
      <property name="text">
-      <string>1</string>
+      <string notr="true">1</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>2</string>
+      <string notr="true">2</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>3</string>
+      <string notr="true">3</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>4</string>
+      <string notr="true">4</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>5</string>
+      <string notr="true">5</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>6</string>
+      <string notr="true">6</string>
      </property>
     </item>
    </widget>
@@ -249,7 +249,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>+</string>
+     <string notr="true">+</string>
+    </property>
+    <property name="shortcut">
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="b_manual_minus">
@@ -262,7 +265,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>-</string>
+     <string notr="true">-</string>
+    </property>
+    <property name="shortcut">
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="b_manual_plusplus">
@@ -275,7 +281,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>++</string>
+     <string notr="true">++</string>
+    </property>
+    <property name="shortcut">
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="b_manual_minusminus">
@@ -288,7 +297,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>--</string>
+     <string notr="true">--</string>
+    </property>
+    <property name="shortcut">
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="b_manual_save_plus">
