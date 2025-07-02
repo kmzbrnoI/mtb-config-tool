@@ -25,13 +25,13 @@ struct UnisIOGuiOutput {
 
 struct UnisIOGuiServo {
     QLabel name;
-    QPushButton bPlus;
-    QPushButton bMinus;
+    QPushButton bPosA;
+    QPushButton bPosB;
 };
 
 enum class ServoPos {
-    sPlus = 0,
-    sMinus = 1,
+    A = 0,
+    B = 1,
 };
 
 class MtbUnisIOWindow : public MtbModuleIODialog {
@@ -89,8 +89,8 @@ private slots:
     void ui_bServoManualEndClicked();
     void ui_bServoManualPMClicked();
     void ui_bServoManualSetClicked();
-    void ui_bServoManualSavePlusClicked();
-    void ui_bServoManualSaveMinusClicked();
+    void ui_bServoManualSavePosAClicked();
+    void ui_bServoManualSavePosBClicked();
 
 };
 

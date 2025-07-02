@@ -72,8 +72,8 @@ void MtbUnisConfigWindow::createGuiOutputs() {
 
 void MtbUnisConfigWindow::createGuiServos() {
     this->ui.gl_servos->addWidget(&this->lServoEnabled, 0, 1);
-    this->ui.gl_servos->addWidget(&this->lServoPlus, 0, 2);
-    this->ui.gl_servos->addWidget(&this->lServoMinus, 0, 3);
+    this->ui.gl_servos->addWidget(&this->lServoPosA, 0, 2);
+    this->ui.gl_servos->addWidget(&this->lServoPosB, 0, 3);
     this->ui.gl_servos->addWidget(&this->lServoSpeed, 0, 4);
     this->ui.gl_servos->addWidget(&this->lServoPosSensors, 0, 5);
 
@@ -84,15 +84,15 @@ void MtbUnisConfigWindow::createGuiServos() {
         name.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
 
         {
-            QSpinBox& posPlus = this->m_guiServos[i].posPlus;
-            posPlus.setMinimum(0);
-            posPlus.setMaximum(255);
+            QSpinBox& posA = this->m_guiServos[i].posA;
+            posA.setMinimum(0);
+            posA.setMaximum(255);
         }
 
         {
-            QSpinBox& posMinus = this->m_guiServos[i].posMinus;
-            posMinus.setMinimum(0);
-            posMinus.setMaximum(255);
+            QSpinBox& posB = this->m_guiServos[i].posB;
+            posB.setMinimum(0);
+            posB.setMaximum(255);
         }
 
         {
@@ -110,8 +110,8 @@ void MtbUnisConfigWindow::createGuiServos() {
 
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].name, i+1, 0);
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].enabled, i+1, 1);
-        this->ui.gl_servos->addWidget(&this->m_guiServos[i].posPlus, i+1, 2);
-        this->ui.gl_servos->addWidget(&this->m_guiServos[i].posMinus, i+1, 3);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].posA, i+1, 2);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].posB, i+1, 3);
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].speed, i+1, 4);
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].posSensors, i+1, 5);
     }
@@ -161,8 +161,8 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
 
         for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
             this->m_guiServos[i].enabled.setChecked(static_cast<bool>(enabledMask & (1<<i)));
-            this->m_guiServos[i].posPlus.setValue(QJsonSafe::safeUInt(positions[2*i]));
-            this->m_guiServos[i].posMinus.setValue(QJsonSafe::safeUInt(positions[2*i+1]));
+            this->m_guiServos[i].posA.setValue(QJsonSafe::safeUInt(positions[2*i]));
+            this->m_guiServos[i].posB.setValue(QJsonSafe::safeUInt(positions[2*i+1]));
             this->m_guiServos[i].speed.setValue(QJsonSafe::safeUInt(speeds[i]));
 
             this->m_guiServos[i].posSensors.setEnabled(i < sensors.size());
@@ -191,8 +191,8 @@ void MtbUnisConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     }
 
     for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
-        this->m_guiServos[i].posPlus.setValue(100);
-        this->m_guiServos[i].posMinus.setValue(200);
+        this->m_guiServos[i].posA.setValue(100);
+        this->m_guiServos[i].posB.setValue(200);
         this->m_guiServos[i].posSensors.setCurrentIndex((2*i)+1);
         this->m_guiServos[i].speed.setValue(100);
     }
@@ -307,8 +307,8 @@ void MtbUnisConfigWindow::apply() {
     for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
         if (this->m_guiServos[i].enabled.isChecked())
             servoEnabledMask |= (1 << i);
-        servoPosition.append(this->m_guiServos[i].posPlus.value());
-        servoPosition.append(this->m_guiServos[i].posMinus.value());
+        servoPosition.append(this->m_guiServos[i].posA.value());
+        servoPosition.append(this->m_guiServos[i].posB.value());
         servoSpeed.append(this->m_guiServos[i].speed.value());
         servoInputMap.append(this->m_guiServos[i].posSensors.currentIndex());
     }
@@ -352,8 +352,8 @@ void MtbUnisConfigWindow::retranslate() {
     this->lOutType.setText(tr("Type:"));
     this->lOutSafeState.setText(tr("Default:"));
     this->lServoEnabled.setText(tr("Enabled:"));
-    this->lServoPlus.setText(tr("Pos. + [0-255]:"));
-    this->lServoMinus.setText(tr("Pos. - [0-255]:"));
+    this->lServoPosA.setText(tr("Pos. A [0-255]:"));
+    this->lServoPosB.setText(tr("Pos. B [0-255]:"));
     this->lServoSpeed.setText(tr("Speed [0-255]:"));
     this->lServoPosSensors.setText(tr("Sensors:"));
 }

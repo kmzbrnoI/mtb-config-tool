@@ -1334,13 +1334,15 @@ Module </source>
     </message>
     <message>
         <location filename="src/win/modules/win_mtbunisconfig.cpp" line="355"/>
-        <source>Pos. + [0-255]:</source>
-        <translation>Poz. + [0-255]:</translation>
+        <source>Pos. A [0-255]:</source>
+        <oldsource>Pos. + [0-255]:</oldsource>
+        <translation>Poz. A [0-255]:</translation>
     </message>
     <message>
         <location filename="src/win/modules/win_mtbunisconfig.cpp" line="356"/>
-        <source>Pos. - [0-255]:</source>
-        <translation>Poz. - [0-255]:</translation>
+        <source>Pos. B [0-255]:</source>
+        <oldsource>Pos. - [0-255]:</oldsource>
+        <translation>Poz. B [0-255]:</translation>
     </message>
     <message>
         <location filename="src/win/modules/win_mtbunisconfig.cpp" line="357"/>
@@ -1412,14 +1414,16 @@ Module </source>
     <message>
         <location filename="ui/modules/mtbunisio.ui" line="319"/>
         <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="198"/>
-        <source>Save to pos. +</source>
-        <translation>Uložit jako pozici +</translation>
+        <source>Save to pos. A</source>
+        <oldsource>Save to pos. +</oldsource>
+        <translation>Uložit jako pozici A</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisio.ui" line="335"/>
         <location filename="build/mtb-config-tool_autogen/include/ui_mtbunisio.h" line="199"/>
-        <source>Save to pos. -</source>
-        <translation>Uložit jako pozici -</translation>
+        <source>Save to pos. B</source>
+        <oldsource>Save to pos. -</oldsource>
+        <translation>Uložit jako pozici B</translation>
     </message>
     <message>
         <location filename="ui/modules/mtbunisio.ui" line="348"/>

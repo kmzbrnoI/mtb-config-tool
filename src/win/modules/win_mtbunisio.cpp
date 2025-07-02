@@ -23,8 +23,8 @@ MtbUnisIOWindow::MtbUnisIOWindow(QWidget *parent) :
     QObject::connect(ui.b_manual_plusplus, SIGNAL(released()), this, SLOT(ui_bServoManualPMClicked()));
     QObject::connect(ui.b_manual_minus, SIGNAL(released()), this, SLOT(ui_bServoManualPMClicked()));
     QObject::connect(ui.b_manual_minusminus, SIGNAL(released()), this, SLOT(ui_bServoManualPMClicked()));
-    QObject::connect(ui.b_manual_save_plus, SIGNAL(released()), this, SLOT(ui_bServoManualSavePlusClicked()));
-    QObject::connect(ui.b_manual_save_minus, SIGNAL(released()), this, SLOT(ui_bServoManualSaveMinusClicked()));
+    QObject::connect(ui.b_manual_save_a, SIGNAL(released()), this, SLOT(ui_bServoManualSavePosAClicked()));
+    QObject::connect(ui.b_manual_save_b, SIGNAL(released()), this, SLOT(ui_bServoManualSavePosBClicked()));
 }
 
 void MtbUnisIOWindow::createGuiInputs() {
@@ -95,25 +95,25 @@ void MtbUnisIOWindow::createGuiServos() {
         }
 
         {
-            QPushButton& bPlus = this->m_guiServos[i].bPlus;
-            bPlus.setText("+");
-            bPlus.setFixedWidth(RECT_WIDTH);
-            bPlus.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+            QPushButton& bPosA = this->m_guiServos[i].bPosA;
+            bPosA.setText("A");
+            bPosA.setFixedWidth(RECT_WIDTH);
+            bPosA.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
 
         {
-            QPushButton& bMinus = this->m_guiServos[i].bMinus;
-            bMinus.setText("-");
-            bMinus.setFixedWidth(RECT_WIDTH);
-            bMinus.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+            QPushButton& bPosB = this->m_guiServos[i].bPosB;
+            bPosB.setText("B");
+            bPosB.setFixedWidth(RECT_WIDTH);
+            bPosB.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
 
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].name, i, 0);
-        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bPlus, i, 1);
-        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bMinus, i, 2);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bPosA, i, 1);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bPosB, i, 2);
 
-        QObject::connect(&this->m_guiServos[i].bPlus, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
-        QObject::connect(&this->m_guiServos[i].bMinus, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
+        QObject::connect(&this->m_guiServos[i].bPosA, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
+        QObject::connect(&this->m_guiServos[i].bPosB, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
     }
 }
 
@@ -178,8 +178,8 @@ void MtbUnisIOWindow::updateOutputs(const QJsonObject& outputs) {
     }
     for (unsigned i = 0; i < UNIS_SERVOS_COUNT; i++) {
         if (outputs.contains(QString::number(i))) {
-            this->m_guiServos[i].bPlus.setEnabled(true);
-            this->m_guiServos[i].bMinus.setEnabled(true);
+            this->m_guiServos[i].bPosA.setEnabled(true);
+            this->m_guiServos[i].bPosB.setEnabled(true);
         }
     }
 }
@@ -248,8 +248,8 @@ void MtbUnisIOWindow::disableAll() {
         guiOutput.rectState.setStyleSheet("background-color:gray");
     }
     for (UnisIOGuiServo& guiServo : this->m_guiServos) {
-        guiServo.bPlus.setEnabled(false);
-        guiServo.bMinus.setEnabled(false);
+        guiServo.bPosA.setEnabled(false);
+        guiServo.bPosB.setEnabled(false);
     }
     this->servoManualUpdateGUI(false, false);
 }
@@ -340,13 +340,13 @@ void MtbUnisIOWindow::ui_bServoPosClicked() {
     int servo = -1;
     ServoPos pos;
     for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
-        if (sender() == &this->m_guiServos[i].bPlus) {
+        if (sender() == &this->m_guiServos[i].bPosA) {
             servo = i;
-            pos = ServoPos::sPlus;
+            pos = ServoPos::A;
         }
-        if (sender() == &this->m_guiServos[i].bMinus) {
+        if (sender() == &this->m_guiServos[i].bPosB) {
             servo = i;
-            pos = ServoPos::sMinus;
+            pos = ServoPos::B;
         }
     }
     if (servo != -1) {
@@ -359,10 +359,10 @@ void MtbUnisIOWindow::ui_bServoPosClicked() {
 }
 
 void MtbUnisIOWindow::servoMove(unsigned servo, ServoPos pos) {
-    const unsigned output = UNIS_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::sMinus ? 1 : 0);
+    const unsigned output = UNIS_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::B ? 1 : 0);
 
-    this->m_guiServos[servo].bPlus.setEnabled(false);
-    this->m_guiServos[servo].bMinus.setEnabled(false);
+    this->m_guiServos[servo].bPosA.setEnabled(false);
+    this->m_guiServos[servo].bPosB.setEnabled(false);
 
     QJsonObject outputJson{
         {"type", "plain"},
@@ -378,8 +378,8 @@ void MtbUnisIOWindow::servoMove(unsigned servo, ServoPos pos) {
             QTimer::singleShot(100, [this, servo, pos]() { this->servoOutputActivated(servo, pos); });
         },
         [this, servo](unsigned errorCode, QString errorMessage) {
-            this->m_guiServos[servo].bPlus.setEnabled(true);
-            this->m_guiServos[servo].bMinus.setEnabled(true);
+            this->m_guiServos[servo].bPosA.setEnabled(true);
+            this->m_guiServos[servo].bPosB.setEnabled(true);
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("setOutput", errorCode, errorMessage));
         }
     );
@@ -387,7 +387,7 @@ void MtbUnisIOWindow::servoMove(unsigned servo, ServoPos pos) {
 
 void MtbUnisIOWindow::servoOutputActivated(unsigned servo, ServoPos pos) {
     // Output activated -> deactivate
-    const unsigned output = UNIS_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::sMinus ? 1 : 0);
+    const unsigned output = UNIS_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::B ? 1 : 0);
 
     QJsonObject outputJson{
         {"type", "plain"},
@@ -400,12 +400,12 @@ void MtbUnisIOWindow::servoOutputActivated(unsigned servo, ServoPos pos) {
             {"outputs", QJsonObject({{QString::number(output), outputJson}})},
         },
         [this, servo](const QJsonObject&) {
-            this->m_guiServos[servo].bPlus.setEnabled(true);
-            this->m_guiServos[servo].bMinus.setEnabled(true);
+            this->m_guiServos[servo].bPosA.setEnabled(true);
+            this->m_guiServos[servo].bPosB.setEnabled(true);
         },
         [this, servo](unsigned errorCode, QString errorMessage) {
-            this->m_guiServos[servo].bPlus.setEnabled(true);
-            this->m_guiServos[servo].bMinus.setEnabled(true);
+            this->m_guiServos[servo].bPosA.setEnabled(true);
+            this->m_guiServos[servo].bPosB.setEnabled(true);
             QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("setOutput", errorCode, errorMessage));
         }
     );
@@ -464,11 +464,11 @@ void MtbUnisIOWindow::ui_bServoManualPMClicked() {
     this->servoManualSendPos();
 }
 
-void MtbUnisIOWindow::ui_bServoManualSavePlusClicked() {
+void MtbUnisIOWindow::ui_bServoManualSavePosAClicked() {
     // TODO
 }
 
-void MtbUnisIOWindow::ui_bServoManualSaveMinusClicked() {
+void MtbUnisIOWindow::ui_bServoManualSavePosBClicked() {
     // TODO
 }
 
@@ -503,8 +503,8 @@ void MtbUnisIOWindow::servoManualUpdateGUI(bool enabled, bool manual) {
     this->ui.b_manual_plusplus->setEnabled(enabled && manual);
     this->ui.b_manual_minus->setEnabled(enabled && manual);
     this->ui.b_manual_minusminus->setEnabled(enabled && manual);
-    this->ui.b_manual_save_plus->setEnabled(/*enabled && manual*/ false);
-    this->ui.b_manual_save_minus->setEnabled(/*enabled && manual*/ false);
+    this->ui.b_manual_save_a->setEnabled(/*enabled && manual*/ false);
+    this->ui.b_manual_save_b->setEnabled(/*enabled && manual*/ false);
 
     if ((!enabled) || (!manual)) {
         this->ui.sb_manual_pos->setValue(0);

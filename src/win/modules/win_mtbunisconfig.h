@@ -24,8 +24,8 @@ struct UnisConfigGuiOutput {
 struct UnisConfigGuiServo {
     QLabel name;
     QCheckBox enabled;
-    QSpinBox posPlus;
-    QSpinBox posMinus;
+    QSpinBox posA;
+    QSpinBox posB;
     QSpinBox speed;
     QComboBox posSensors;
 };
@@ -51,8 +51,8 @@ private:
     QLabel lOutType;
     QLabel lOutSafeState;
     QLabel lServoEnabled;
-    QLabel lServoPlus;
-    QLabel lServoMinus;
+    QLabel lServoPosA;
+    QLabel lServoPosB;
     QLabel lServoSpeed;
     QLabel lServoPosSensors;
 
