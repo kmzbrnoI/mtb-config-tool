@@ -482,10 +482,21 @@ void MainWindow::clientReceivedModules(const QJsonObject& modules) {
         this->moduleReceived(QJsonSafe::safeObject(modules[addrStr]));
 }
 
-void MainWindow::moduleReceived(const QJsonObject& module) {
+void MainWindow::moduleReceived(QJsonObject module) {
     unsigned address = QJsonSafe::safeUInt(module["address"]);
     if (address == 0)
         return;
+
+    // Keep old ["config"] when no ["config"] received (e.g. module general state change event)
+    // This is really ugly as QJson does not support changing of nested items ...
+    const QString& moduleType = QJsonSafe::safeString(module["type"]);
+    const QJsonObject& oldConfig = this->m_modules[address][moduleType].toObject()["config"].toObject();
+    const QJsonObject& newConfig = module[moduleType].toObject()["config"].toObject();
+    if ((!oldConfig.empty()) && (newConfig.empty())) {
+        QJsonObject specificModuleObj(module[moduleType].toObject());
+        specificModuleObj.insert("config", oldConfig);
+        module.insert(moduleType, specificModuleObj);
+    }
 
     this->m_modules[address] = module;
     this->ui_updateModule(module);

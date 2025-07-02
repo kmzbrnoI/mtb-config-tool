@@ -114,7 +114,7 @@ private:
 
     void moduleDeleted(uint8_t addr);
 
-    void moduleReceived(const QJsonObject&);
+    void moduleReceived(QJsonObject);
     void ui_updateModule(const QJsonObject&);
     void ui_updateAllModulesFromMModules();
     unsigned ui_twModulesInsertIndex(unsigned addr);
