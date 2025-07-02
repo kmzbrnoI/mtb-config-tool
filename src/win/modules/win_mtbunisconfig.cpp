@@ -129,8 +129,8 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
     this->type = static_cast<MtbModuleType>(QJsonSafe::safeUInt(module["type_code"]));
 
     const QString& typeStr = QJsonSafe::safeString(module["type"]);
-    const QJsonObject& uni = QJsonSafe::safeObject(module[typeStr]);
-    const QJsonObject& config = QJsonSafe::safeObject(uni["config"]);
+    const QJsonObject& unis = QJsonSafe::safeObject(module[typeStr]);
+    const QJsonObject& config = QJsonSafe::safeObject(unis["config"]);
 
     // Inputs
     const QJsonArray& inputsDelay = QJsonSafe::safeArray(config["inputsDelay"], UNIS_INPUTS_COUNT);

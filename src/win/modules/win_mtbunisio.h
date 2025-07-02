@@ -78,6 +78,8 @@ private:
     bool isManualPositioningActive() const;
     uint8_t currentManualServo() const;
     uint8_t servoPos(unsigned servo, ServoPos pos) const;
+    void savePosToConfig(uint8_t posi, uint8_t position);
+    void savePosToConfigRetrieved(QJsonObject config, uint8_t posi, uint8_t position);
 
     static int outputCbToValue(const QString& type, unsigned index);
 

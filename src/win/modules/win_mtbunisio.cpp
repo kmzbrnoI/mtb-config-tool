@@ -5,6 +5,7 @@
 #include "client.h"
 #include "qjsonsafe.h"
 #include "countingguard.h"
+#include <QJsonDocument>
 
 MtbUnisIOWindow::MtbUnisIOWindow(QWidget *parent) :
     MtbModuleIODialog(parent) {
@@ -464,14 +465,6 @@ void MtbUnisIOWindow::ui_bServoManualPMClicked() {
     this->servoManualSendPos();
 }
 
-void MtbUnisIOWindow::ui_bServoManualSavePosAClicked() {
-    // TODO
-}
-
-void MtbUnisIOWindow::ui_bServoManualSavePosBClicked() {
-    // TODO
-}
-
 void MtbUnisIOWindow::servoManualSendPos() {
     const uint8_t position = this->ui.sb_manual_pos->value();
     QJsonArray data{3, (this->currentManualServo()+1) << 1, position};
@@ -503,8 +496,8 @@ void MtbUnisIOWindow::servoManualUpdateGUI(bool enabled, bool manual) {
     this->ui.b_manual_plusplus->setEnabled(enabled && manual);
     this->ui.b_manual_minus->setEnabled(enabled && manual);
     this->ui.b_manual_minusminus->setEnabled(enabled && manual);
-    this->ui.b_manual_save_a->setEnabled(/*enabled && manual*/ false);
-    this->ui.b_manual_save_b->setEnabled(/*enabled && manual*/ false);
+    this->ui.b_manual_save_a->setEnabled(enabled && manual);
+    this->ui.b_manual_save_b->setEnabled(enabled && manual);
 
     if ((!enabled) || (!manual)) {
         this->ui.sb_manual_pos->setValue(0);
@@ -520,5 +513,58 @@ uint8_t MtbUnisIOWindow::servoPos(unsigned servo, ServoPos pos) const {
         return QJsonSafe::safeUInt(positions[2*servo + static_cast<int>(pos)]);
     } catch (QJsonSafe::JsonParseError& e) {
         return 0;
+    }
+}
+
+void MtbUnisIOWindow::ui_bServoManualSavePosAClicked() {
+    this->savePosToConfig(2*this->currentManualServo(), this->ui.sb_manual_pos->value());
+}
+
+void MtbUnisIOWindow::ui_bServoManualSavePosBClicked() {
+    this->savePosToConfig(2*this->currentManualServo()+1, this->ui.sb_manual_pos->value());
+}
+
+void MtbUnisIOWindow::savePosToConfig(uint8_t posi, uint8_t position) {
+    // First retrieve module config
+    DaemonClient::instance->sendNoExc(
+        {{"command", "module"}, {"address", this->address}},
+        [this, posi, position](const QJsonObject& content) {
+            try {
+                const QJsonObject& module = QJsonSafe::safeObject(content["module"]);
+                const QJsonObject& moduleSpec = QJsonSafe::safeObject(module[QJsonSafe::safeString(module["type"])]);
+                this->savePosToConfigRetrieved(QJsonSafe::safeObject(moduleSpec["config"]), posi, position);
+            } catch (const QStrException& e) {
+                QMessageBox::critical(this, "Error", "Module receive config failed: "+e.str());
+            }
+        },
+        [this](unsigned errorCode, QString errorMessage) {
+            QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module", errorCode, errorMessage));
+        }
+    );
+}
+
+void MtbUnisIOWindow::savePosToConfigRetrieved(QJsonObject config, uint8_t posi, uint8_t position)
+{
+    try {
+        QJsonArray positions = QJsonSafe::safeArray(config["servoPosition"], 2*UNIS_SERVOS_COUNT);
+        positions[posi] = position;
+        config["servoPosition"] = positions;
+
+        DaemonClient::instance->sendNoExc(
+            {
+                {"command", "module_set_config"},
+                {"address", this->address},
+                {"config", config}
+            },
+            [this](const QJsonObject& content) {
+                (void)content;
+                QMessageBox::information(this, tr("Ok"), tr("Configuration successfully sent to module."));
+            },
+            [this](unsigned errorCode, QString errorMessage) {
+                QMessageBox::warning(this, tr("Error"), DaemonClient::standardErrrorMessage("module_set_config", errorCode, errorMessage));
+            }
+        );
+    } catch (const QStrException& e) {
+        QMessageBox::critical(this, "Error", "savePosToConfigRetrieved failed: "+e.str());
     }
 }
