@@ -148,12 +148,15 @@ void MtbUnisIOWindow::outputsChanged(const QJsonObject& module_outputs_changed) 
 void MtbUnisIOWindow::update(const QJsonObject& module) {
     const QString& typeStr = QJsonSafe::safeString(module["type"]);
     const QString& stateStr = QJsonSafe::safeString(module["state"]);
-    const QJsonObject& uni = QJsonSafe::safeObject(module[typeStr]);
-    if (uni.contains("state")) {
-        const QJsonObject& state = QJsonSafe::safeObject(uni["state"]);
-        this->updateInputs(QJsonSafe::safeObject(state["inputs"]));
-        this->updateOutputs(QJsonSafe::safeObject(state["outputs"]));
-        this->servoManualUpdateGUI((stateStr == "active"), this->isManualPositioningActive());
+    const QJsonObject& unis = QJsonSafe::safeObject(module[typeStr]);
+
+    if (stateStr == "active") {
+        if (unis.contains("state")) {
+            const QJsonObject& state = QJsonSafe::safeObject(unis["state"]);
+            this->updateInputs(QJsonSafe::safeObject(state["inputs"]));
+            this->updateOutputs(QJsonSafe::safeObject(state["outputs"]));
+            this->servoManualUpdateGUI((stateStr == "active"), this->isManualPositioningActive());
+        } // else in case of module update, but state not present (e.g. config update etc.)
     } else {
         this->disableAll();
     }

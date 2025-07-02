@@ -61,10 +61,14 @@ void MtbRCIOWindow::outputsChanged(const QJsonObject&) {
 
 void MtbRCIOWindow::update(const QJsonObject& module) {
     const QString& typeStr = QJsonSafe::safeString(module["type"]);
+    const QString& stateStr = QJsonSafe::safeString(module["state"]);
     const QJsonObject& rc = QJsonSafe::safeObject(module[typeStr]);
-    if (rc.contains("state")) {
-        const QJsonObject& state = QJsonSafe::safeObject(rc["state"]);
-        this->updateInputs(QJsonSafe::safeObject(state["inputs"]));
+
+    if (stateStr == "active") {
+        if (rc.contains("state")) {
+            const QJsonObject& state = QJsonSafe::safeObject(rc["state"]);
+            this->updateInputs(QJsonSafe::safeObject(state["inputs"]));
+        } // else in case of module update, but state not present (e.g. config update etc.)
     } else {
         this->disableAll();
     }
