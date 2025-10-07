@@ -26,6 +26,15 @@ QJsonArray safeArray(const QJsonValue &json, qsizetype size) {
     return array;
 }
 
+QJsonArray safeArrayAtLeastSize(const QJsonValue &json, qsizetype size) {
+    if (!json.isArray())
+        throw JsonParseError("Array expected!");
+    const QJsonArray array = json.toArray();
+    if (array.size() < size)
+        throw JsonParseError("size != "+QString::number(size));
+    return array;
+}
+
 QJsonArray safeArray(const QJsonObject &parent, const QString &key) {
     if (!parent.contains(key))
         throw JsonParseError(key + " not found in parent object!");

@@ -21,6 +21,7 @@ QJsonObject safeObject(const QJsonValue&);
 QJsonObject safeObject(const QJsonObject &parent, const QString &key);
 
 QJsonArray safeArray(const QJsonValue&, qsizetype size);
+QJsonArray safeArrayAtLeastSize(const QJsonValue&, qsizetype size);
 QJsonArray safeArray(const QJsonObject &parent, const QString &key);
 QJsonArray safeArray(const QJsonObject &parent, const QString &key, qsizetype size);
 

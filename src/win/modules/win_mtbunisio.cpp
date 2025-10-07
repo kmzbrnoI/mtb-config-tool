@@ -163,7 +163,7 @@ void MtbUnisIOWindow::update(const QJsonObject& module) {
 }
 
 void MtbUnisIOWindow::updateInputs(const QJsonObject& inputs) {
-    const QJsonArray& inputsFull = QJsonSafe::safeArray(inputs["full"], UNIS_INPUTS_COUNT);
+    const QJsonArray& inputsFull = QJsonSafe::safeArrayAtLeastSize(inputs["full"], UNIS_INPUTS_COUNT);
 
     for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
         bool state = static_cast<int>(QJsonSafe::safeBool(inputsFull[i].toBool()));
