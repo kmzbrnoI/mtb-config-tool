@@ -7,7 +7,6 @@
 MtbUniConfigWindow::MtbUniConfigWindow(QWidget *parent) :
     MtbModuleConfigDialog(parent) {
     this->ui.setupUi(this);
-    this->setFixedSize(this->width(), this->height());
     this->createGuiInputs();
     this->createGuiOutputs();
     this->retranslate();

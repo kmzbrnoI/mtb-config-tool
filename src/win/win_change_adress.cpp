@@ -7,7 +7,6 @@ ChangeAddressDialog::ChangeAddressDialog(QWidget *parent) :
     QDialog(parent)
 {
     this->ui.setupUi(this);
-    this->setFixedSize(this->width(), this->height());
 
     QObject::connect(this->ui.rb_readdress_mode, SIGNAL(toggled(bool)), this, SLOT(ui_rbToggled()));
     QObject::connect(this->ui.rb_specific, SIGNAL(toggled(bool)), this, SLOT(ui_rbToggled()));

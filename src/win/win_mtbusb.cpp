@@ -6,7 +6,6 @@ MtbUsbWindow::MtbUsbWindow(const std::optional<MtbUsbStatus> &mtbusb, QWidget *p
     : QDialog{parent}, mtbUsbStatus(mtbusb)
 {
     ui.setupUi(this);
-    this->setFixedSize(this->width(), this->height());
 
     QObject::connect(ui.b_update, SIGNAL(released()), this, SLOT(ui_bUpdateHandle()));
     QObject::connect(ui.bb_main, SIGNAL(clicked(QAbstractButton*)), this, SLOT(ui_bClicked(QAbstractButton*)));

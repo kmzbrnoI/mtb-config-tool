@@ -10,7 +10,6 @@
 MtbUnisIOWindow::MtbUnisIOWindow(QWidget *parent) :
     MtbModuleIODialog(parent) {
     this->ui.setupUi(this);
-    this->setFixedSize(this->width(), this->height());
     this->createGuiInputs();
     this->createGuiOutputs();
     this->createGuiServos();

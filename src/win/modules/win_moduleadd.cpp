@@ -8,7 +8,6 @@ ModuleAddDialog::ModuleAddDialog(QWidget *parent) :
     QDialog(parent)
 {
     this->ui.setupUi(this);
-    this->setFixedSize(this->width(), this->height());
 
     m_types.emplace_back(*this->ui.rb_univ2, MtbModuleType::Univ2noIr);
     m_types.emplace_back(*this->ui.rb_univ2ir, MtbModuleType::Univ2ir);

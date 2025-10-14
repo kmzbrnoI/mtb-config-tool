@@ -5,7 +5,6 @@
 SettingsWindow::SettingsWindow(Settings& s, QWidget *parent)
     : QDialog{parent}, s(s) {
     ui.setupUi(this);
-    this->setFixedSize(this->width(), this->height());
 }
 
 void SettingsWindow::open() {

@@ -6,7 +6,6 @@
 MtbRCIOWindow::MtbRCIOWindow(QWidget *parent) :
     MtbModuleIODialog(parent) {
     this->ui.setupUi(this);
-    this->setFixedSize(this->width(), this->height());
     this->createGuiInputs();
     this->retranslate();
 

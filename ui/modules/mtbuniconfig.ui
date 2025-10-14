@@ -6,122 +6,79 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>471</width>
+    <width>601</width>
     <height>618</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true">Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="bb_main">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>580</y>
-     <width>201</width>
-     <height>32</height>
-    </rect>
+  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0" columnstretch="0,0,1,0,0,6,0">
+   <property name="leftMargin">
+    <number>6</number>
    </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>101</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Module name:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="le_name">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>10</y>
-     <width>351</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="maxLength">
-    <number>64</number>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="gb_inputs">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>40</y>
-     <width>171</width>
-     <height>531</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="title">
-    <string>Inputs</string>
-   </property>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>151</width>
-      <height>491</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gl_inputs"/>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="gb_outputs">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>40</y>
-     <width>271</width>
-     <height>531</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Outputs</string>
-   </property>
-   <widget class="QWidget" name="gridLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>251</width>
-      <height>491</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gl_outputs"/>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="b_refresh">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>580</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Refresh</string>
-   </property>
-  </widget>
+   <item row="2" column="0" colspan="5">
+    <widget class="QGroupBox" name="gb_inputs">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Inputs</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gl_inputs"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="5">
+    <widget class="QGroupBox" name="gb_outputs">
+     <property name="title">
+      <string>Outputs</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="1">
+       <layout class="QGridLayout" name="gl_outputs"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Module name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="b_refresh">
+     <property name="text">
+      <string>Refresh</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="5" colspan="2">
+    <widget class="QLineEdit" name="le_name">
+     <property name="maxLength">
+      <number>64</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="5">
+    <widget class="QDialogButtonBox" name="bb_main">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Apply|QDialogButtonBox::StandardButton::Cancel</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections>

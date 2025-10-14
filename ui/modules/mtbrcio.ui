@@ -13,33 +13,21 @@
   <property name="windowTitle">
    <string notr="true">Dialog</string>
   </property>
-  <widget class="QPushButton" name="b_refresh">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>330</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Refresh</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+R</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="gridLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>401</width>
-     <height>311</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gl_inputs"/>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gl_inputs"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="b_refresh">
+     <property name="text">
+      <string>Refresh</string>
+     </property>
+     <property name="shortcut">
+      <string notr="true">Ctrl+R</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

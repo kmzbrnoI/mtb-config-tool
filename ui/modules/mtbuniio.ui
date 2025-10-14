@@ -13,76 +13,54 @@
   <property name="windowTitle">
    <string notr="true">Dialog</string>
   </property>
-  <widget class="QGroupBox" name="gb_inputs">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>111</width>
-     <height>531</height>
-    </rect>
+  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="1,3">
+   <property name="verticalSpacing">
+    <number>6</number>
    </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="title">
-    <string>Inputs</string>
-   </property>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>91</width>
-      <height>491</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gl_inputs"/>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="gb_outputs">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>10</y>
-     <width>331</width>
-     <height>531</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Outputs</string>
-   </property>
-   <widget class="QWidget" name="gridLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>311</width>
-      <height>491</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gl_outputs"/>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="b_refresh">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>550</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Refresh</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+R</string>
-   </property>
-  </widget>
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="gb_outputs">
+     <property name="title">
+      <string>Outputs</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3" rowstretch="0" columnstretch="0">
+      <property name="sizeConstraint">
+       <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+      </property>
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gl_outputs"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="b_refresh">
+     <property name="text">
+      <string>Refresh</string>
+     </property>
+     <property name="shortcut">
+      <string notr="true">Ctrl+R</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="gb_inputs">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Inputs</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2" rowstretch="0" columnstretch="0">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gl_inputs"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>
