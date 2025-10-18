@@ -142,7 +142,7 @@ void MainWindow::ui_AAboutTriggered() {
         QString(tr("MTB Configuration Tool")+
                 "\nv%1\n"+
                 "https://mtb.kmz-brno.cz/\n"+
-                tr("Created by Jan Horáček 2024-2025")).arg(MTB_CONFIG_TOOL_VERSION),
+                tr("Created by Jan Malina 2024-2025")).arg(MTB_CONFIG_TOOL_VERSION),
         QMessageBox::Ok
     );
 }

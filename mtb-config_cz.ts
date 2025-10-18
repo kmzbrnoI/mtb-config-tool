@@ -544,8 +544,8 @@
     </message>
     <message>
         <location filename="src/win/win_main.cpp" line="145"/>
-        <source>Created by Jan Horáček 2024-2025</source>
-        <translation>Vytvořil Jan Horáček 2024-2025</translation>
+        <source>Created by Jan Malina 2024-2025</source>
+        <translation>Vytvořil Jan Malina 2024-2025</translation>
     </message>
     <message>
         <location filename="src/win/win_main.cpp" line="218"/>
