@@ -62,7 +62,7 @@ private:
     Ui::MtbUnisIOWindow ui;
     std::array<bool, UNIS_ALL_INPUTS_COUNT> m_inputsState;
     std::array<UnisIOGuiInput, UNIS_HW_INPUTS_COUNT> m_guiInputs;
-    std::array<UnisIOGuiOutput, UNIS_OUTPUTS_COUNT> m_guiOutputs;
+    std::array<UnisIOGuiOutput, UNIS_HW_OUTPUTS_COUNT> m_guiOutputs;
     std::array<UnisIOGuiServo, UNIS_SERVOS_COUNT> m_guiServos;
 
     void update(const QJsonObject& module);

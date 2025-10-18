@@ -56,7 +56,7 @@ void MtbUnisIOWindow::createGuiInputs() {
 }
 
 void MtbUnisIOWindow::createGuiOutputs() {
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++) {
         {
             QLabel& name = this->m_guiOutputs[i].name;
             name.setText(QString::number(i));
@@ -215,7 +215,7 @@ void MtbUnisIOWindow::updateInputs(const QJsonObject& inputs) {
 }
 
 void MtbUnisIOWindow::updateOutputs(const QJsonObject& outputs) {
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++) {
         const QJsonObject& output = QJsonSafe::safeObject(outputs[QString::number(i)]);
         this->updateOutput(i, output);
     }
@@ -304,7 +304,7 @@ void MtbUnisIOWindow::ui_cbOutputStateCurrentIndexChanged(int) {
         return;
 
     int output = -1;
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++)
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++)
         if (sender() == &this->m_guiOutputs[i].cbState)
             output = i;
     if (output == -1)
@@ -318,7 +318,7 @@ void MtbUnisIOWindow::ui_wOutputClicked() {
         return;
 
     int output = -1;
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++)
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++)
         if (sender() == &this->m_guiOutputs[i].rectState)
             output = i;
     if (output == -1)
@@ -384,7 +384,7 @@ void MtbUnisIOWindow::retranslate() {
 void MtbUnisIOWindow::ui_bServoPosClicked() {
     int servo = -1;
     ServoPos pos;
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++) {
         if (sender() == &this->m_guiServos[i].bPosA) {
             servo = i;
             pos = ServoPos::A;
@@ -404,7 +404,7 @@ void MtbUnisIOWindow::ui_bServoPosClicked() {
 }
 
 void MtbUnisIOWindow::servoMove(unsigned servo, ServoPos pos) {
-    const unsigned output = UNIS_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::B ? 1 : 0);
+    const unsigned output = UNIS_HW_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::B ? 1 : 0);
 
     this->m_guiServos[servo].bPosA.setEnabled(false);
     this->m_guiServos[servo].bPosB.setEnabled(false);
@@ -432,7 +432,7 @@ void MtbUnisIOWindow::servoMove(unsigned servo, ServoPos pos) {
 
 void MtbUnisIOWindow::servoOutputActivated(unsigned servo, ServoPos pos) {
     // Output activated -> deactivate
-    const unsigned output = UNIS_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::B ? 1 : 0);
+    const unsigned output = UNIS_HW_OUTPUTS_COUNT + (2*servo) + (pos == ServoPos::B ? 1 : 0);
 
     QJsonObject outputJson{
         {"type", "plain"},

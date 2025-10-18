@@ -56,7 +56,7 @@ constexpr unsigned UNI_OUTPUTS_COUNT = 16;
 constexpr unsigned UNIS_SERVOS_COUNT = 6;
 constexpr unsigned UNIS_HW_INPUTS_COUNT = 16; // hardware (physical) inputs count
 constexpr unsigned UNIS_ALL_INPUTS_COUNT = UNIS_HW_INPUTS_COUNT+(2*UNIS_SERVOS_COUNT);
-constexpr unsigned UNIS_OUTPUTS_COUNT = 16;
+constexpr unsigned UNIS_HW_OUTPUTS_COUNT = 16;
 
 constexpr unsigned RC_INPUTS_COUNT = 8;
 

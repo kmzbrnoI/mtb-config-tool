@@ -44,7 +44,7 @@ void MtbUnisConfigWindow::createGuiOutputs() {
     this->ui.gl_outputs->addWidget(&this->lOutType, 0, 1);
     this->ui.gl_outputs->addWidget(&this->lOutSafeState, 0, 2);
 
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++) {
         QLabel& name = this->m_guiOutputs[i].name;
         name.setText(QString::number(i));
         name.setStyleSheet("font-weight: bold");
@@ -139,8 +139,8 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
     }
 
     // Outputs
-    const QJsonArray& outputs = QJsonSafe::safeArray(config["outputsSafe"], UNIS_OUTPUTS_COUNT+(2*UNIS_SERVOS_COUNT));
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) { // TODO: what to do with outputsSafe[16-27]?
+    const QJsonArray& outputs = QJsonSafe::safeArray(config["outputsSafe"], UNIS_HW_OUTPUTS_COUNT+(2*UNIS_SERVOS_COUNT));
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++) { // TODO: what to do with outputsSafe[16-27]?
         const QJsonObject& output = QJsonSafe::safeObject(outputs[i]);
         const QString& type = QJsonSafe::safeString(output["type"]);
         const unsigned value = QJsonSafe::safeUInt(output["value"]);
@@ -184,7 +184,7 @@ void MtbUnisConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     for (unsigned i = 0; i < this->m_guiInputs.size(); i++)
         this->m_guiInputs[i].delay.setCurrentIndex(0);
 
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++) {
         this->m_guiOutputs[i].type.setCurrentText(0);
         MtbUnisConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, 0, "plain");
     }
@@ -242,7 +242,7 @@ int MtbUnisConfigWindow::outputCbToValue(const QString& type, unsigned index) {
 void MtbUnisConfigWindow::ui_cbOutputTypeCurrentIndexChanged(int) {
     if (updateInProgress)
         return;
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++) {
         if (sender() == &this->m_guiOutputs[i].type) {
             MtbUnisConfigWindow::fillOutputSafeState(this->m_guiOutputs[i].safeState, 0, this->m_guiOutputs[i].type.currentText());
         }
@@ -268,7 +268,7 @@ void MtbUnisConfigWindow::apply() {
         }
     }
 
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++) {
         if (this->m_guiOutputs[i].type.currentIndex() < 0) {
             QMessageBox::warning(this, tr("Error"), tr("Fill in all output types!"));
             return;
@@ -286,7 +286,7 @@ void MtbUnisConfigWindow::apply() {
         inputsDelay.append(static_cast<double>(this->m_guiInputs[i].delay.currentIndex())/10);
 
     QJsonArray outputsSafe;
-    for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_HW_OUTPUTS_COUNT; i++) {
         QJsonObject output;
         const QString& outputType = this->m_guiOutputs[i].type.currentText();
         output["type"] = outputType;
