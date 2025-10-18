@@ -43,7 +43,7 @@ public:
 
 private:
     Ui::MtbUnisConfigWindow ui;
-    std::array<UnisConfigGuiInput, UNIS_INPUTS_COUNT> m_guiInputs;
+    std::array<UnisConfigGuiInput, UNIS_HW_INPUTS_COUNT> m_guiInputs;
     std::array<UnisConfigGuiOutput, UNIS_OUTPUTS_COUNT> m_guiOutputs;
     std::array<UnisConfigGuiServo, UNIS_SERVOS_COUNT> m_guiServos;
     bool updateInProgress = false;

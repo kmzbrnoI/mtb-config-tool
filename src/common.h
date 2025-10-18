@@ -51,10 +51,13 @@ bool is(const Source &x) {
 }
 
 constexpr unsigned UNI_INPUTS_COUNT = 16;
-constexpr unsigned UNIS_INPUTS_COUNT = 16;
 constexpr unsigned UNI_OUTPUTS_COUNT = 16;
-constexpr unsigned UNIS_OUTPUTS_COUNT = 16;
+
 constexpr unsigned UNIS_SERVOS_COUNT = 6;
+constexpr unsigned UNIS_HW_INPUTS_COUNT = 16; // hardware (physical) inputs count
+constexpr unsigned UNIS_ALL_INPUTS_COUNT = UNIS_HW_INPUTS_COUNT+(2*UNIS_SERVOS_COUNT);
+constexpr unsigned UNIS_OUTPUTS_COUNT = 16;
+
 constexpr unsigned RC_INPUTS_COUNT = 8;
 
 const std::array<QString, 17> SComSignalCodes {

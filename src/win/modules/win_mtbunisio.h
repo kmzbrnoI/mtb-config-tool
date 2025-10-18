@@ -27,6 +27,8 @@ struct UnisIOGuiServo {
     QLabel name;
     QPushButton bPosA;
     QPushButton bPosB;
+    QClickableWidget rectInA;
+    QClickableWidget rectInB;
 };
 
 enum class ServoPos {
@@ -53,11 +55,13 @@ public:
 
 private:
     static constexpr unsigned RECT_WIDTH = 50;
+    static constexpr unsigned SERVO_RECT_WIDTH = 30;
+    static constexpr unsigned SERVO_BTN_WIDTH = 30;
     unsigned updateInProgress = 0;
 
     Ui::MtbUnisIOWindow ui;
-    std::array<bool, UNIS_INPUTS_COUNT> m_inputsState;
-    std::array<UnisIOGuiInput, UNIS_INPUTS_COUNT> m_guiInputs;
+    std::array<bool, UNIS_ALL_INPUTS_COUNT> m_inputsState;
+    std::array<UnisIOGuiInput, UNIS_HW_INPUTS_COUNT> m_guiInputs;
     std::array<UnisIOGuiOutput, UNIS_OUTPUTS_COUNT> m_guiOutputs;
     std::array<UnisIOGuiServo, UNIS_SERVOS_COUNT> m_guiServos;
 

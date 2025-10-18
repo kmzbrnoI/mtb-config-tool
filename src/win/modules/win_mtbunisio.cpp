@@ -28,7 +28,7 @@ MtbUnisIOWindow::MtbUnisIOWindow(QWidget *parent) :
 }
 
 void MtbUnisIOWindow::createGuiInputs() {
-    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < this->m_guiInputs.size(); i++) {
         {
             QLabel& name = this->m_guiInputs[i].name;
             name.setText(QString::number(i));
@@ -95,22 +95,38 @@ void MtbUnisIOWindow::createGuiServos() {
         }
 
         {
+            QClickableWidget& rectInA = this->m_guiServos[i].rectInA;
+            rectInA.setFixedWidth(SERVO_RECT_WIDTH);
+            rectInA.setStyleSheet("background-color:gray;");
+            rectInA.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        }
+
+        {
+            QClickableWidget& rectInB = this->m_guiServos[i].rectInB;
+            rectInB.setFixedWidth(SERVO_RECT_WIDTH);
+            rectInB.setStyleSheet("background-color:gray;");
+            rectInB.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        }
+
+        {
             QPushButton& bPosA = this->m_guiServos[i].bPosA;
             bPosA.setText("A");
-            bPosA.setFixedWidth(RECT_WIDTH);
+            bPosA.setFixedWidth(SERVO_BTN_WIDTH);
             bPosA.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
 
         {
             QPushButton& bPosB = this->m_guiServos[i].bPosB;
             bPosB.setText("B");
-            bPosB.setFixedWidth(RECT_WIDTH);
+            bPosB.setFixedWidth(SERVO_BTN_WIDTH);
             bPosB.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
         }
 
         this->ui.gl_servos->addWidget(&this->m_guiServos[i].name, i, 0);
-        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bPosA, i, 1);
-        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bPosB, i, 2);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].rectInA, i, 1);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].rectInB, i, 2);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bPosA, i, 3);
+        this->ui.gl_servos->addWidget(&this->m_guiServos[i].bPosB, i, 4);
 
         QObject::connect(&this->m_guiServos[i].bPosA, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
         QObject::connect(&this->m_guiServos[i].bPosB, SIGNAL(released()), this, SLOT(ui_bServoPosClicked()));
@@ -133,11 +149,17 @@ void MtbUnisIOWindow::moduleChanged(const QJsonObject& module) {
 }
 
 void MtbUnisIOWindow::inputsChanged(const QJsonObject& module_inputs_changed) {
-    std::array<bool, UNIS_INPUTS_COUNT> inputsLastState = this->m_inputsState;
+    std::array<bool, UNIS_ALL_INPUTS_COUNT> inputsLastState = this->m_inputsState;
     this->updateInputs(QJsonSafe::safeObject(module_inputs_changed["inputs"]));
-    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++)
+    for (unsigned i = 0; i < UNIS_HW_INPUTS_COUNT; i++)
         if (this->m_inputsState[i] != inputsLastState[i])
             this->m_guiInputs[i].textState.setStyleSheet("background-color:yellow;");
+    for (unsigned servo = 0; servo < UNIS_SERVOS_COUNT; servo++) {
+        const unsigned inA = UNIS_HW_INPUTS_COUNT+(2*servo);
+        const unsigned inB = UNIS_HW_INPUTS_COUNT+(2*servo)+1;
+        if ((this->m_inputsState.at(inA) != inputsLastState.at(inA)) || (this->m_inputsState.at(inB) != inputsLastState.at(inB)))
+            this->m_guiServos[servo].name.setStyleSheet("background-color:yellow;");
+    }
 }
 
 void MtbUnisIOWindow::outputsChanged(const QJsonObject& module_outputs_changed) {
@@ -162,15 +184,33 @@ void MtbUnisIOWindow::update(const QJsonObject& module) {
 }
 
 void MtbUnisIOWindow::updateInputs(const QJsonObject& inputs) {
-    const QJsonArray& inputsFull = QJsonSafe::safeArrayAtLeastSize(inputs["full"], UNIS_INPUTS_COUNT);
+    const QJsonArray& inputsFull = QJsonSafe::safeArrayAtLeastSize(inputs["full"], UNIS_HW_INPUTS_COUNT);
 
-    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < UNIS_HW_INPUTS_COUNT; i++) {
         bool state = static_cast<int>(QJsonSafe::safeBool(inputsFull[i].toBool()));
         this->m_inputsState[i] = state;
         this->m_guiInputs[i].textState.setText(QString::number(state));
-        QString color = state ? "green" : "red";
+        const QString color = state ? "green" : "red";
         this->m_guiInputs[i].rectState.setStyleSheet("background-color:"+color);
         this->m_guiInputs[i].textState.setStyleSheet("");
+    }
+
+    if (inputsFull.size() >= UNIS_ALL_INPUTS_COUNT) { // backward compatibility with older MTB Daemons
+        for (unsigned servo = 0; servo < UNIS_SERVOS_COUNT; servo++) {
+            const unsigned inA = UNIS_HW_INPUTS_COUNT+(2*servo);
+            const unsigned inB = UNIS_HW_INPUTS_COUNT+(2*servo)+1;
+            Q_ASSERT(inA < this->m_inputsState.size());
+            Q_ASSERT(inB < this->m_inputsState.size());
+
+            const bool stateA = static_cast<int>(QJsonSafe::safeBool(inputsFull[inA].toBool()));
+            const bool stateB = static_cast<int>(QJsonSafe::safeBool(inputsFull[inB].toBool()));
+            this->m_inputsState[inA] = stateA;
+            this->m_inputsState[inB] = stateB;
+
+            this->m_guiServos[servo].rectInA.setStyleSheet("background-color:"+QString(stateA ? "green" : "red"));
+            this->m_guiServos[servo].rectInB.setStyleSheet("background-color:"+QString(stateB ? "green" : "red"));
+            this->m_guiServos[servo].name.setStyleSheet("");
+        }
     }
 }
 
@@ -251,6 +291,8 @@ void MtbUnisIOWindow::disableAll() {
         guiOutput.rectState.setStyleSheet("background-color:gray");
     }
     for (UnisIOGuiServo& guiServo : this->m_guiServos) {
+        guiServo.rectInA.setStyleSheet("background-color:gray");
+        guiServo.rectInB.setStyleSheet("background-color:gray");
         guiServo.bPosA.setEnabled(false);
         guiServo.bPosB.setEnabled(false);
     }

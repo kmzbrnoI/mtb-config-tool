@@ -23,7 +23,7 @@ MtbUnisConfigWindow::MtbUnisConfigWindow(QWidget *parent) :
 void MtbUnisConfigWindow::createGuiInputs() {
     this->ui.gl_inputs->addWidget(&this->lInDelay, 0, 1);
 
-    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < this->m_guiInputs.size(); i++) {
         QLabel& name = this->m_guiInputs[i].name;
         name.setText(QString::number(i));
         name.setStyleSheet("font-weight: bold");
@@ -132,8 +132,8 @@ void MtbUnisConfigWindow::update(const QJsonObject& module) {
     const QJsonObject& config = QJsonSafe::safeObject(unis["config"]);
 
     // Inputs
-    const QJsonArray& inputsDelay = QJsonSafe::safeArray(config["inputsDelay"], UNIS_INPUTS_COUNT);
-    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
+    const QJsonArray& inputsDelay = QJsonSafe::safeArray(config["inputsDelay"], this->m_guiInputs.size());
+    for (unsigned i = 0; i < this->m_guiInputs.size(); i++) {
         unsigned delay = static_cast<int>(QJsonSafe::safeDouble(inputsDelay[i].toDouble()) * 10);
         this->m_guiInputs[i].delay.setCurrentIndex(delay);
     }
@@ -181,7 +181,7 @@ void MtbUnisConfigWindow::newModule(unsigned addr, MtbModuleType type) {
     this->address = addr;
 
     this->ui.le_name->setText("");
-    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++)
+    for (unsigned i = 0; i < this->m_guiInputs.size(); i++)
         this->m_guiInputs[i].delay.setCurrentIndex(0);
 
     for (unsigned i = 0; i < UNIS_OUTPUTS_COUNT; i++) {
@@ -261,7 +261,7 @@ void MtbUnisConfigWindow::apply() {
         return;
     }
 
-    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++) {
+    for (unsigned i = 0; i < this->m_guiInputs.size(); i++) {
         if (this->m_guiInputs[i].delay.currentIndex() < 0) {
             QMessageBox::warning(this, tr("Error"), tr("Fill in all input delays!"));
             return;
@@ -282,7 +282,7 @@ void MtbUnisConfigWindow::apply() {
 
 
     QJsonArray inputsDelay;
-    for (unsigned i = 0; i < UNIS_INPUTS_COUNT; i++)
+    for (unsigned i = 0; i < this->m_guiInputs.size(); i++)
         inputsDelay.append(static_cast<double>(this->m_guiInputs[i].delay.currentIndex())/10);
 
     QJsonArray outputsSafe;
