@@ -103,7 +103,7 @@ void MtbUnisConfigWindow::createGuiServos() {
         {
             QComboBox& inputs = this->m_guiServos[i].posSensors;
             inputs.addItem(tr("No sensors"));
-            for (size_t i = 0; i < UNI_INPUTS_COUNT; i++)
+            for (size_t i = 0; i < UNI_INPUTS_COUNT-1; i++)
                 inputs.addItem(QString::number(i) + "+, " + QString::number(i+1) + "-");
         }
 
