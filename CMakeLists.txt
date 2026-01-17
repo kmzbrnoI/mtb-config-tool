@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(mtb-config-tool VERSION 0.3 LANGUAGES CXX)
+project(mtb-config-tool VERSION 0.4 LANGUAGES CXX)
 configure_file(src/version.h.in version.h)
 
 set(CMAKE_AUTOUIC ON)
