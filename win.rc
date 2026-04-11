@@ -11,14 +11,14 @@ IDI_ICON1               ICON    DISCARDABLE     "resources/mtb-config-tool.ico"
     {
         BLOCK "000004B0"
         {
-            VALUE "CompanyName",        "Jan Horacek"
+            VALUE "CompanyName",        "Jan Malina"
             VALUE "FileDescription",    "MTB Config Tool"
             VALUE "FileVersion",        MTB_CONFIG_TOOL_VERSION
             VALUE "OriginalFilename",   "mtb-config-tool.exe"
             VALUE "ProductName",        "MTB Config Tool"
             VALUE "ProductVersion",     MTB_CONFIG_TOOL_VERSION
             VALUE "InternalName",       "mtb-config-tool"
-            VALUE "LegalCopyright",     "Jan Horacek"
+            VALUE "LegalCopyright",     "Jan Malina"
         }
     }
     BLOCK "VarFileInfo"
