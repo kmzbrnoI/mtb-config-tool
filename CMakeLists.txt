@@ -37,6 +37,7 @@ set(PROJECT_SOURCES
     src/win/modules/win_config.h src/win/modules/win_config.cpp
     src/win/modules/win_mtbuniconfig.h src/win/modules/win_mtbuniconfig.cpp
     src/win/modules/win_mtbunisconfig.h src/win/modules/win_mtbunisconfig.cpp
+    src/win/modules/win_mtbledconfig.cpp src/win/modules/win_mtbledconfig.h
     src/win/win_diag.h src/win/win_diag.cpp
     src/win/modules/win_io.h src/win/modules/win_io.cpp
     src/win/modules/win_mtbuniio.h src/win/modules/win_mtbuniio.cpp
@@ -51,6 +52,7 @@ set(PROJECT_SOURCES
     ui/modules/moduleadd.ui
     ui/modules/mtbuniconfig.ui
     ui/modules/mtbunisconfig.ui
+    ui/modules/mtbledconfig.ui
     ui/modules/mtbuniio.ui
     ui/modules/mtbunisio.ui
     ui/modules/mtbrcio.ui

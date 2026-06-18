@@ -9,6 +9,7 @@
 #include "qjsonsafe.h"
 #include "win_mtbuniconfig.h"
 #include "win_mtbunisconfig.h"
+#include "win_mtbledconfig.h"
 #include "win_mtbuniio.h"
 #include "win_mtbunisio.h"
 #include "win_mtbrcio.h"
@@ -621,11 +622,8 @@ void MainWindow::ui_AModuleConfigure() {
             QMessageBox::warning(this, tr("No config"), tr("This module has no configuration."));
             return;
         } else if (type == MtbModuleType::Led) {
-            QMessageBox::warning(this, tr("No config"), tr("This module has no configuration."));
-            return;
-//            if (!this->m_configWindows[addr])
-//                this->m_configWindows[addr] = std::make_unique<MtbLedConfigWindow>();
-//            TODO
+            if (!this->m_configWindows[addr])
+                this->m_configWindows[addr] = std::make_unique<MtbLedConfigWindow>();
         } else {
             QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code: ")+QString::number(typeCode)+tr(", no configuration window available!"));
             return;
