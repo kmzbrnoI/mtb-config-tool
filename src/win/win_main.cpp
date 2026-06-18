@@ -12,6 +12,7 @@
 #include "win_mtbuniio.h"
 #include "win_mtbunisio.h"
 #include "win_mtbrcio.h"
+#include "win_mtbledio.h"
 
 MainWindow* MainWindow::instance = nullptr;
 
@@ -619,6 +620,12 @@ void MainWindow::ui_AModuleConfigure() {
         } else if (type == MtbModuleType::Rc) {
             QMessageBox::warning(this, tr("No config"), tr("This module has no configuration."));
             return;
+        } else if (type == MtbModuleType::Led) {
+            QMessageBox::warning(this, tr("No config"), tr("This module has no configuration."));
+            return;
+//            if (!this->m_configWindows[addr])
+//                this->m_configWindows[addr] = std::make_unique<MtbLedConfigWindow>();
+//            TODO
         } else {
             QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code: ")+QString::number(typeCode)+tr(", no configuration window available!"));
             return;
@@ -649,6 +656,9 @@ void MainWindow::ui_AModuleIO() {
         } else if (type == MtbModuleType::Rc) {
             if (!this->m_ioWindows[addr])
                 this->m_ioWindows[addr] = std::make_unique<MtbRCIOWindow>();
+        } else if (type == MtbModuleType::Led) {
+            if (!this->m_ioWindows[addr])
+                this->m_ioWindows[addr] = std::make_unique<MtbLedIOWindow>();
         } else {
             QMessageBox::warning(this, tr("Unknown module type"), tr("Unknown module type code: ")+QString::number(typeCode)+tr(", no IO window available!"));
             return;
@@ -1074,6 +1084,7 @@ void MainWindow::ui_AModuleWebsite() {
         {"MTB-UNI v4", "https://mtb.kmz-brno.cz/cz/v4/uni"},
         {"MTB-UNIS", "https://mtb.kmz-brno.cz/cz/v4/unis"},
         {"MTB-RC", "https://mtb.kmz-brno.cz/cz/v4/rc"},
+        {"MTB-LED", "https://mtb.kmz-brno.cz/cz/v4/led"},
     };
 
     QTreeWidgetItem* selected = this->ui.tw_modules->currentItem();
@@ -1095,6 +1106,7 @@ void MainWindow::ui_AModuleFwWebsite() {
         {"MTB-UNI v4", "https://github.com/kmzbrnoI/mtb-uni-4-fw/releases"},
         {"MTB-UNIS", "https://github.com/petrilakm/mtb-unis-fw/releases"},
         {"MTB-RC", "https://github.com/kmzbrnoI/mtb-rc/releases"},
+        {"MTB-LED", "https://github.com/kmzbrnoI/mtb-led-fw/releases"},
     };
 
     QTreeWidgetItem* selected = this->ui.tw_modules->currentItem();

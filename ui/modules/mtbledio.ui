@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MtbLedIOWindow</class>
+ <widget class="QDialog" name="MtbLedIOWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>304</width>
+    <height>776</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="1,1">
+   <property name="verticalSpacing">
+    <number>6</number>
+   </property>
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="gb_outputs">
+     <property name="title">
+      <string>Outputs</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3" rowstretch="0" columnstretch="0">
+      <property name="sizeConstraint">
+       <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+      </property>
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gl_outputs"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="b_refresh">
+     <property name="text">
+      <string>Refresh</string>
+     </property>
+     <property name="shortcut">
+      <string notr="true">Ctrl+R</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="gb_inputs">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Inputs</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2" rowstretch="0" columnstretch="0">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gl_inputs"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

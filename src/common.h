@@ -37,8 +37,9 @@ enum class MtbModuleType {
     Univ2noIr = 0x11,
     Univ40 = 0x15,
     Univ42 = 0x16,
-    Unis10 = 0x50,
     Rc = 0x30,
+    Led = 0x40,
+    Unis10 = 0x50,
 };
 
 QString moduleTypeToStr(MtbModuleType type);
@@ -52,6 +53,7 @@ bool is(const Source &x) {
 
 constexpr unsigned UNI_INPUTS_COUNT = 16;
 constexpr unsigned UNI_OUTPUTS_COUNT = 16;
+constexpr unsigned LED_IO_COUNT = 32;
 
 constexpr unsigned UNIS_SERVOS_COUNT = 6;
 constexpr unsigned UNIS_HW_INPUTS_COUNT = 16; // hardware (physical) inputs count
