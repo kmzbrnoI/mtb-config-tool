@@ -30,8 +30,8 @@ public:
 private:
     Ui::MtbLedConfigWindow ui;
     std::array<LedConfigGuiOutput, LED_IO_COUNT> m_guiOutputs;
-    QLabel lOutSafeState;
-    QLabel lOutBrightness;
+    QLabel lOutSafeState[2];
+    QLabel lOutBrightness[2];
 
     void createGuiOutputs();
     void apply();

@@ -19,8 +19,10 @@ MtbLedConfigWindow::MtbLedConfigWindow(QWidget *parent) :
 }
 
 void MtbLedConfigWindow::createGuiOutputs() {
-    this->ui.gl_outputs->addWidget(&this->lOutSafeState, 0, 1);
-    this->ui.gl_outputs->addWidget(&this->lOutBrightness, 0, 2);
+    this->ui.gl_outputs->addWidget(&this->lOutSafeState[0], 0, 1);
+    this->ui.gl_outputs->addWidget(&this->lOutBrightness[0], 0, 2);
+    this->ui.gl_outputs->addWidget(&this->lOutSafeState[1], 0, 4);
+    this->ui.gl_outputs->addWidget(&this->lOutBrightness[1], 0, 5);
 
     for (unsigned i = 0; i < LED_IO_COUNT; i++) {
         QLabel& name = this->m_guiOutputs[i].name;
@@ -41,10 +43,12 @@ void MtbLedConfigWindow::createGuiOutputs() {
             brightness.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         }
 
+        const int row = i % (LED_IO_COUNT/2) + 1;
+        const int column = i / (LED_IO_COUNT/2);
 
-        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].name, i+1, 0);
-        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].safeState, i+1, 1);
-        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].brightness, i+1, 2);
+        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].name, row, (3*column));
+        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].safeState, row, (3*column)+1);
+        this->ui.gl_outputs->addWidget(&this->m_guiOutputs[i].brightness, row, (3*column)+2);
     }
 }
 
@@ -152,6 +156,8 @@ void MtbLedConfigWindow::apply() {
 
 void MtbLedConfigWindow::retranslate() {
     this->ui.retranslateUi(this);
-    this->lOutSafeState.setText(tr("Default:"));
-    this->lOutBrightness.setText(tr("Brightness [0-255]:"));
+    this->lOutSafeState[0].setText(tr("Default:"));
+    this->lOutSafeState[1].setText(tr("Default:"));
+    this->lOutBrightness[0].setText(tr("Brightness [0-255]:"));
+    this->lOutBrightness[1].setText(tr("Brightness [0-255]:"));
 }
