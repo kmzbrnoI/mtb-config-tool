@@ -9,12 +9,15 @@ const QVector<DVDef> DVS_COMMON {
     {2, "uptime", DVs::reprTime},
     {10, "errors", DVs::reprId},
     {11, "warnings", DVs::reprId},
-    {12, "mcu voltage", DVs::reprMcuVoltage},
-    {13, "mcu temperature", DVs::reprId},
     {16, "mtbbus received messages", DVs::reprSingleValue},
     {17, "mtbbus received messages with invalid crc", DVs::reprSingleValue},
     {18, "mtbbus sent messages", DVs::reprSingleValue},
     {19, "mtbbus unsent messages", DVs::reprSingleValue},
+};
+
+const QVector<DVDef> DVS_UNI {
+    {12, "mcu voltage", DVs::reprMcuVoltage},
+    {13, "mcu temperature", DVs::reprId},
 };
 
 const QVector<DVDef> DVS_RC_COMMON {
@@ -86,6 +89,7 @@ DVs::DVs() {
     this->instance = this;
     this->dvsCommon = DVS_COMMON;
 
+    this->dvsUNI = DVS_COMMON + DVS_UNI;
     this->dvsRC = DVS_COMMON;
     this->dvsRC += DVS_RC_COMMON;
     for (unsigned i = 0; i < RC_INPUTS_COUNT; i++) {
@@ -101,6 +105,12 @@ const QVector<DVDef>& DVs::dvs(MtbModuleType moduleType) const {
     switch (moduleType) {
     case MtbModuleType::Rc:
         return this->dvsRC;
+    case MtbModuleType::Univ2ir:
+    case MtbModuleType::Univ2noIr:
+    case MtbModuleType::Univ40:
+    case MtbModuleType::Univ42:
+    case MtbModuleType::Unis10:
+        return dvsUNI;
     default:
         return this->dvsCommon;
     }
