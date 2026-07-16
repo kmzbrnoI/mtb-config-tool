@@ -18,7 +18,6 @@ struct DVDef {
 class DVs {
 private:
     QVector<DVDef> dvsCommon;
-    QVector<DVDef> dvsUNI;
     QVector<DVDef> dvsRC;
 
 public:
