@@ -61,6 +61,9 @@ QString DVs::reprSingleValue(const QJsonObject &json) {
 }
 
 QString DVs::reprMcuVoltage(const QJsonObject &json) {
+    if (json.empty())
+        return "-";
+
     double value = json["mcu_voltage"].toDouble();
     double min = json["mcu_voltage_min"].toDouble();
     double max = json["mcu_voltage_max"].toDouble();
